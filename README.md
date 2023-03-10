@@ -11,7 +11,7 @@ Creates and manages invoices for www.42.nl
 
 ## How to contribute to this project
 1. Open Git Bash and redirect to the folder you wish to export the project to locally.
-2. Use the `git clone https://github.com/joren-dev/SheepsOfferte-Project-SE.git` and wait till it finishes.
+2. Use the `git clone https://github.com/joren-dev/ScheepsOfferte-Project-SE.git` and wait till it finishes.
 	- Test connection with remote repo with: `git status`.
 3. Open the project folder inside IntelliJ, and try to run the code.
 
