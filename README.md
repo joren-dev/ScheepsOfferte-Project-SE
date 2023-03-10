@@ -31,6 +31,10 @@ Down here youll find a detailed guide on how to get started with writing code fo
 4. Commit the changes: `git commit -m "tag: useful short commit info"`, find more about tags [here](link_wiki_here).
 5. Push the changes to remote branch: `git push`
 
+#### 4. How to merge branch
+1. Go to the branch you wish to be merged with another one: `git checkout branch_to_be_merged_into_name`
+2. 
+
 
 ## Common dev-commands explained
 ...
