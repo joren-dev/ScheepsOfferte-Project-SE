@@ -32,8 +32,8 @@ Down here youll find a detailed guide on how to get started with writing code fo
 5. Push the changes to remote branch: `git push`
 
 #### 4. How to merge branch
-1. Go to the branch you wish to be merged with another one: `git checkout branch_to_be_merged_into_name`
-2. 
+1. Go to the branch you wish to be merged with another one: `git checkout branch_merged_into_current`
+2. Use command: `git merge branch_merged_into_current -m "merge: useful merge message"`
 
 
 ## Common dev-commands explained
