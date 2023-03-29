@@ -83,7 +83,7 @@ public class Klant {
         this.telefoon = telefoon;
     }
 
-    public void setKorting() {
+    public void setKlantKorting() {
         if (type.typenaam.equalsIgnoreCase("bedrijf")) {
             korting = 0.1;
         } else if (type.typenaam.equalsIgnoreCase("overheid")) {
@@ -92,7 +92,7 @@ public class Klant {
             korting = 0;
         }
     }
-    
+
     public double getKlantKorting() {
         return korting;
     }
