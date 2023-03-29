@@ -5,6 +5,7 @@ public class Klant {
     private String email;
     private String telefoon;
     private KlantType type;
+    public double korting;
 
     /**
      *
@@ -80,6 +81,20 @@ public class Klant {
 
     public void setTelefoon(String telefoon) {
         this.telefoon = telefoon;
+    }
+
+    public void setKorting() {
+        if (type.typenaam.equalsIgnoreCase("bedrijf")) {
+            korting = 0.1;
+        } else if (type.typenaam.equalsIgnoreCase("overheid")) {
+            korting = 0.2;
+        } else {
+            korting = 0;
+        }
+    }
+    
+    public double getKlantKorting() {
+        return korting;
     }
 }
 

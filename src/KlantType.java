@@ -1,4 +1,5 @@
 public class KlantType {
-    public String type;
+    public String typenaam;
     public double korting;
+
 }
