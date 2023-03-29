@@ -8,7 +8,6 @@ public class Klant {
     public double korting;
 
     /**
-     *
      * @param naam
      * @param bedrijf
      * @param adres
@@ -27,7 +26,6 @@ public class Klant {
     }
 
     /**
-     *
      * @param naam
      * @param adres
      * @param email
@@ -43,9 +41,7 @@ public class Klant {
 
     }
 
-    public String getNaam() {
-        return naam;
-    }
+    public String getNaam() { return naam; }
 
     public void setNaam(String naam) {
         this.naam = naam;
@@ -83,19 +79,13 @@ public class Klant {
         this.telefoon = telefoon;
     }
 
-    public void setKlantKorting() {
-        if (type.typenaam.equalsIgnoreCase("bedrijf")) {
-            korting = 0.1;
-        } else if (type.typenaam.equalsIgnoreCase("overheid")) {
-            korting = 0.2;
-        } else {
-            korting = 0;
-        }
+    public void setKlantType(KlantType type) {
+        this.type = type;
     }
 
-    public double getKlantKorting() {
-        return korting;
-    }
+    public KlantType getKlantType() { return type; }
+
+    public double getKlantKorting() { return type.getKorting(); }
 }
 
 
