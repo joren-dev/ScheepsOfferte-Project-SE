@@ -35,7 +35,7 @@ public class Main {
                     System.out.print("Voer in: ");
                     String naam3 = scanner.nextLine();
                     System.out.println("Nieuwe klanttype korting: ");
-                    double korting2 = scanner.nextDouble();
+                    double korting2 = scanner.nextDouble() / 100.0;
                     scanner.nextLine();
                     if (Objects.requireNonNull(klantType1).isPresent()) {
                         KlantType klant = Objects.requireNonNull(klantType1).get();
