@@ -63,7 +63,7 @@
 											"top": 199,
 											"width": 555.29931640625,
 											"height": 13,
-											"text": "Klant"
+											"text": "klant.Klant"
 										},
 										{
 											"_type": "LabelView",
@@ -220,7 +220,7 @@
 											"top": 297,
 											"width": 555.29931640625,
 											"height": 13,
-											"text": "-type: KlantType",
+											"text": "-type: klant.KlantType",
 											"horizontalAlignment": 0
 										},
 										{
@@ -271,7 +271,7 @@
 											"top": 335,
 											"width": 555.29931640625,
 											"height": 13,
-											"text": "+Klant(naam: String, bedrijf: String, adres: String, email: String, telefoon: String, type: KlantType)",
+											"text": "+klant.Klant(naam: String, bedrijf: String, adres: String, email: String, telefoon: String, type: klant.KlantType)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -288,7 +288,7 @@
 											"top": 350,
 											"width": 555.29931640625,
 											"height": 13,
-											"text": "+Klant(naam: String, adres: String, email: String, telefoon: String, type: KlantType)",
+											"text": "+klant.Klant(naam: String, adres: String, email: String, telefoon: String, type: klant.KlantType)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -475,7 +475,7 @@
 											"top": 515,
 											"width": 555.29931640625,
 											"height": 13,
-											"text": "+setKlantType(type: KlantType): KlantType",
+											"text": "+setKlantType(type: klant.KlantType): klant.KlantType",
 											"horizontalAlignment": 0
 										},
 										{
@@ -492,7 +492,7 @@
 											"top": 530,
 											"width": 555.29931640625,
 											"height": 13,
-											"text": "+getKlantType(): KlantType",
+											"text": "+getKlantType(): klant.KlantType",
 											"horizontalAlignment": 0
 										},
 										{
@@ -617,7 +617,7 @@
 											"top": 287,
 											"width": 264.84326171875,
 											"height": 13,
-											"text": "KlantType"
+											"text": "klant.KlantType"
 										},
 										{
 											"_type": "LabelView",
@@ -723,7 +723,7 @@
 											"top": 340,
 											"width": 264.84326171875,
 											"height": 13,
-											"text": "+klantTypen: ArrayList<KlantType>",
+											"text": "+klantTypen: ArrayList<klant.KlantType>",
 											"horizontalAlignment": 0
 										}
 									],
@@ -757,7 +757,7 @@
 											"top": 363,
 											"width": 264.84326171875,
 											"height": 13,
-											"text": "+KlantType(typenaam: String, korting: double)",
+											"text": "+klant.KlantType(typenaam: String, korting: double)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1202,7 +1202,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Klant",
+					"name": "klant.Klant",
 					"attributes": [
 						{
 							"_type": "UMLAttribute",
@@ -1262,7 +1262,7 @@
 							},
 							"name": "type",
 							"visibility": "private",
-							"type": "KlantType"
+							"type": "klant.KlantType"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -1281,7 +1281,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGHMr1S/9yCZUg="
 							},
-							"name": "Klant",
+							"name": "klant.Klant",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -1335,7 +1335,7 @@
 										"$ref": "AAAAAAGHMr6Yn9zdgPw="
 									},
 									"name": "type",
-									"type": "KlantType"
+									"type": "klant.KlantType"
 								}
 							]
 						},
@@ -1345,7 +1345,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGHMr1S/9yCZUg="
 							},
-							"name": "Klant",
+							"name": "klant.Klant",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -1390,7 +1390,7 @@
 										"$ref": "AAAAAAGHMr9fyNzyCjo="
 									},
 									"name": "type",
-									"type": "KlantType"
+									"type": "klant.KlantType"
 								}
 							]
 						},
@@ -1643,7 +1643,7 @@
 										"$ref": "AAAAAAGHMsKbwt1rWB4="
 									},
 									"name": "type",
-									"type": "KlantType"
+									"type": "klant.KlantType"
 								},
 								{
 									"_type": "UMLParameter",
@@ -1651,7 +1651,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGHMsKbwt1rWB4="
 									},
-									"type": "KlantType",
+									"type": "klant.KlantType",
 									"direction": "return"
 								}
 							]
@@ -1670,7 +1670,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGHMsL6ZN12a2w="
 									},
-									"type": "KlantType",
+									"type": "klant.KlantType",
 									"direction": "return"
 								}
 							]
@@ -1702,7 +1702,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "KlantType",
+					"name": "klant.KlantType",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -1760,7 +1760,7 @@
 								"$ref": "AAAAAAGHMsQlBd2OFCc="
 							},
 							"name": "klantTypen",
-							"type": "ArrayList<KlantType>"
+							"type": "ArrayList<klant.KlantType>"
 						}
 					],
 					"operations": [
@@ -1770,7 +1770,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGHMsQlBd2OFCc="
 							},
-							"name": "KlantType",
+							"name": "klant.KlantType",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
