@@ -1,11 +1,13 @@
+package klant;
+
 public class Klant {
+    public double korting;
     private String naam;
     private String bedrijf;
     private String adres;
     private String email;
     private String telefoon;
     private KlantType type;
-    public double korting;
 
     /**
      * @param naam
@@ -41,7 +43,9 @@ public class Klant {
 
     }
 
-    public String getNaam() { return naam; }
+    public String getNaam() {
+        return naam;
+    }
 
     public void setNaam(String naam) {
         this.naam = naam;
@@ -79,13 +83,17 @@ public class Klant {
         this.telefoon = telefoon;
     }
 
+    public KlantType getKlantType() {
+        return type;
+    }
+
     public void setKlantType(KlantType type) {
         this.type = type;
     }
 
-    public KlantType getKlantType() { return type; }
-
-    public double getKlantKorting() { return type.getKorting(); }
+    public double getKlantKorting() {
+        return type.getKorting();
+    }
 }
 
 
