@@ -1,4 +1,4 @@
-package entities.klant.offerte;
+package entities.offerte;
 
 public abstract class OfferteBase {
 
