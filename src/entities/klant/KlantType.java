@@ -26,7 +26,7 @@ public class KlantType {
     }
 
     public String toString() {
-        return String.format("entities.klant.KlantType naam=%s korting=%.2f", this.type_naam, this.korting);
+        return String.format("Huidige waardes: naam=%s korting=%.2f", this.type_naam, this.korting);
     }
 
     private String type_naam;

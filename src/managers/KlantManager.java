@@ -11,6 +11,12 @@ public class KlantManager {
     // Class members
     public static ArrayList<KlantType> klantTypen = new ArrayList<>();
 
+    public KlantManager(){
+        // Standaard klant types
+        addKlantType("Zakelijke klant", 10);
+        addKlantType("Particuliere klant", 0);
+    }
+
     public static void addKlantType(String type_naam, double korting) {
         for (KlantType each : klantTypen) {
             if (each.getTypeNaam().equals(type_naam)) {
@@ -32,8 +38,8 @@ public class KlantManager {
     public static void wijzigKlantType(String klant_type_naam) {
         Scanner scanner = new Scanner(System.in);
 
-        Optional<KlantType> optioneel_klant_type = KlantManager.klantTypen.stream().filter((klant_type) -> klant_type.getTypeNaam().equals(klant_type_naam)).findFirst();
-        System.out.println(optioneel_klant_type);
+        Optional<KlantType> optioneel_klant_type = KlantManager.klantTypen.stream().filter((klant_type) -> klant_type.getTypeNaam().equals(klant_type_naam.toLowerCase())).findFirst();
+        System.out.println(optioneel_klant_type.get().toString());
 
         System.out.print("Nieuwe klanttype naam: ");
         String nieuwe_klant_type_naam = scanner.nextLine();

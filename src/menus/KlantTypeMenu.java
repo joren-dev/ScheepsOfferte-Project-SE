@@ -55,7 +55,11 @@ public class KlantTypeMenu extends MenuBase {
 
     private void editKlantType() {
         System.out.println("Welk klanttype wilt u bewerken?");
-        System.out.println(Arrays.toString(KlantManager.klantTypen.stream().map(KlantType::getTypeNaam).toArray()));
+        System.out.println(
+                Arrays.toString(
+                        KlantManager.klantTypen.stream().map(KlantType::getTypeNaam).toArray()
+                )
+        );
 
         System.out.print("Maak uw keuze: ");
         String klant_type_naam = scanner.nextLine();

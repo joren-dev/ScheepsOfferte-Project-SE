@@ -2,7 +2,6 @@ import managers.MenuManager;
 import menus.KlantTypeMenu;
 import menus.ExampleMenu;
 import menus.ViewOfferteMenu;
-import klant.Klant;
 
 public class Main {
     public static void main(String[] args) {

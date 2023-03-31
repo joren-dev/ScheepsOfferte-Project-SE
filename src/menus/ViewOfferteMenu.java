@@ -1,6 +1,6 @@
 package menus;
 
-import klant.Klant;
+import entities.klant.Klant;
 import menus.MenuBase;
 
 import java.util.Scanner;
@@ -73,8 +73,8 @@ public class ViewOfferteMenu extends MenuBase {
         System.out.println(target.getEmail());
         System.out.println();
         System.out.printf("Geachte heer/mevrouw %s,%n%n", target.getNaam());
-        System.out.printf("Hartelijk dank voor uw interesse in onze diensten/producten. Wij zijn verheugd om u een offerte aan te bieden voor %s zoals besproken op %s.%n%n", productDescription, dateOfService);
-        System.out.println("Hieronder vindt u de details van onze offerte:");
+        System.out.printf("Hartelijk dank voor uw interesse in onze diensten/producten. Wij zijn verheugd om u een entities.klant.offerte aan te bieden voor %s zoals besproken op %s.%n%n", productDescription, dateOfService);
+        System.out.println("Hieronder vindt u de details van onze entities.klant.offerte:");
 
         double subtotaal = 0.0;
         // for all products in quotation {
