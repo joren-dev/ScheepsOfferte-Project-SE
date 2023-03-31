@@ -1,11 +1,9 @@
 package menus;
 
 import java.util.Arrays;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.Scanner;
 
-import klant.KlantType;
+import entities.klant.KlantType;
 import managers.KlantManager;
 
 public class KlantTypeMenu extends MenuBase {

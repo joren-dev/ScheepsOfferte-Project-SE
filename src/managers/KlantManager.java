@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
 
-import klant.KlantType;
+import entities.klant.KlantType;
 
 public class KlantManager {
 
@@ -14,7 +14,7 @@ public class KlantManager {
     public static void addKlantType(String type_naam, double korting) {
         for (KlantType each : klantTypen) {
             if (each.getTypeNaam().equals(type_naam)) {
-                System.out.println("Dat klant type bestaat al.");
+                System.out.println("Dat entities.klant type bestaat al.");
                 return;
             }
         }
@@ -23,7 +23,7 @@ public class KlantManager {
     }
 
     public static void deleteKlantType(String typenaam) {
-        // Verwijderd de klant type als het bestaat.
+        // Verwijderd de entities.klant type als het bestaat.
         KlantManager.klantTypen.removeIf((x)
                 -> x.getTypeNaam().equals(typenaam.toLowerCase()));
 
