@@ -1,6 +1,7 @@
 import managers.MenuManager;
 import menus.KlantTypeMenu;
 import menus.ExampleMenu;
+import klant.Klant;
 
 public class Main {
     public static void main(String[] args) {
