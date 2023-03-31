@@ -82,9 +82,9 @@ public class ViewOfferteMenu extends MenuBase {
         System.out.printf("Product/dienst: %s%n", productDescription);
         System.out.printf("Hoeveelheid: %d%n", count);
         System.out.printf("Eenheidsprijs: € %.2f%n", priceForEach);
-        System.out.printf("Korting: %.1f%%%n", target.getKlantKorting() * 100.0);
-        System.out.printf("Totaalbedrag: € %.2f%n", count * priceForEach * (1.0 - target.getKlantKorting()));
-        subtotaal += count * priceForEach * (1.0 - target.getKlantKorting());
+        System.out.printf("Korting: %d%%%n", target.getKlantKorting());
+        System.out.printf("Totaalbedrag: € %.2f%n", count * priceForEach * ((100.0 - target.getKlantKorting()) / 100.0));
+        subtotaal += count * priceForEach * ((100.0 - target.getKlantKorting()) / 100.0);
         // }
         double btwBedrag = subtotaal * 0.21;    // Assuming 21 % BTW
         System.out.printf("Subtotaal: € %.2f%n", subtotaal);

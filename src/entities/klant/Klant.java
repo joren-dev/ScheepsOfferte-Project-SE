@@ -1,7 +1,7 @@
 package entities.klant;
 
 public class Klant {
-    public double korting;
+    public int korting;
     private String naam;
     private String bedrijf;
     private String adres;
@@ -91,7 +91,7 @@ public class Klant {
         this.type = type;
     }
 
-    public double getKlantKorting() {
+    public int getKlantKorting() {
         return type.getKorting();
     }
 }

@@ -45,9 +45,8 @@ public class KlantTypeMenu extends MenuBase {
         String naam = scanner.nextLine();
 
         System.out.print("Hoeveel korting krijgt dit klanttype: ");
-        double korting = scanner.nextDouble();
+        int korting = scanner.nextInt();
         scanner.nextLine();
-        korting /= 100.0;
 
         KlantManager.addKlantType(naam, korting);
     }
