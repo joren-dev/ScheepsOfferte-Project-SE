@@ -37,4 +37,8 @@ Down here youll find a detailed guide on how to get started with writing code fo
 
 
 ## Common dev-commands explained
-...
+### 1. Make text strong
+1. Put this in front of your string: \033[1m
+2. Put this after your string: \033[0m
+
+Example: System.out.println("\033[1mtekst\033[0m");
