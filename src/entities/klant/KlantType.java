@@ -1,4 +1,4 @@
-package klant;
+package entities.klant;
 
 public class KlantType {
 
@@ -26,7 +26,7 @@ public class KlantType {
     }
 
     public String toString() {
-        return String.format("klant.KlantType naam=%s korting=%.2f", this.type_naam, this.korting);
+        return String.format("entities.klant.KlantType naam=%s korting=%.2f", this.type_naam, this.korting);
     }
 
     private String type_naam;

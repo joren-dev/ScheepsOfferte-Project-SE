@@ -1,4 +1,4 @@
-package klant;
+package entities.klant;
 
 public class Klant {
     public double korting;
