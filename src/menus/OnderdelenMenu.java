@@ -1,5 +1,7 @@
 package menus;
 
+import e.onderdelen.Onderdelen;
+
 import java.util.Scanner;
 
 public class OnderdelenMenu extends MenuBase {
@@ -35,7 +37,8 @@ public class OnderdelenMenu extends MenuBase {
     }
 
     private void addOnderdelen() {
-
+        Onderdelen.essentialsList();
+        Onderdelen.optionalList();
     }
 
     private void editOnderdelen() {
