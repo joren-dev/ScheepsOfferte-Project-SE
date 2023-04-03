@@ -1,7 +1,7 @@
 import managers.MenuManager;
 import menus.KlantTypeMenu;
 import menus.ExampleMenu;
-import menus.ViewOfferteMenu;
+import menus.OfferteMenu;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,7 +11,7 @@ public class Main {
 
         // Add menu items here...
         manager.addMenu("Klant Type", new KlantTypeMenu());
-        manager.addMenu("View Offerte", new ViewOfferteMenu());
+        manager.addMenu("View Offerte", new OfferteMenu());
         manager.addMenu("Example optie", new ExampleMenu());
 
         // Starts the menu manager
