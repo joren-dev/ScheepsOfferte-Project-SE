@@ -22,17 +22,19 @@ public class KlantTypeMenu extends MenuBase {
             int choice = scanner.nextInt();
             scanner.nextLine();
 
+            final int kVoegKlantType = 1, kWijzigKlantType = 2, kVerwijderKlantType = 3, kNavigeerHoofdmenu = 4;
+
             switch (choice) {
-                case 1:
+                case kVoegKlantType:
                     addKlantType();
                     break;
-                case 2:
+                case kWijzigKlantType:
                     editKlantType();
                     break;
-                case 3:
+                case kVerwijderKlantType:
                     deleteKlantType();
                     break;
-                case 4:
+                case kNavigeerHoofdmenu:
                     return;
                 default:
                     break;
