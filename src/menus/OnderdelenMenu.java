@@ -14,12 +14,12 @@ public class OnderdelenMenu extends MenuBase {
         while (true) {
             System.out.println("\033[1m== Onderdelen ==\033[0m");
             System.out.println("Wat wilt u doen?");
-            System.out.println("1. Onderdelen toevoegen\n2. Onderdelen wijzigen\n3. Terug naar hoofdmenu");
+            System.out.println("1. Onderdelen toevoegen\n2. Onderdelen wijzigen\n3. Onderdelen bekijken\n4. Terug naar hoofdmenu");
             System.out.print("Voer in: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
 
-            final int kOnderdelenToevoegen = 1, kOnderdelenWijzigen = 2, kTerugHoofdmenu = 3;
+            final int kOnderdelenToevoegen = 1, kOnderdelenWijzigen = 2, kOnderdelenBekijken = 3, kTerugHoofdmenu = 4;
 
             switch (choice) {
                 case kOnderdelenToevoegen:
@@ -28,12 +28,19 @@ public class OnderdelenMenu extends MenuBase {
                 case kOnderdelenWijzigen:
                     editOnderdelen();
                     break;
+                case kOnderdelenBekijken:
+                    viewOnderdelen();
+                    break;
                 case kTerugHoofdmenu:
                     return;
                 default:
                     break;
             }
         }
+    }
+
+    private void viewOnderdelen() {
+        System.out.printf("%n\033[1mGekozen onderdelen:\033[0m%n%s%n%n", Onderdelen.gekozenOpties);
     }
 
     private void addOnderdelen() {

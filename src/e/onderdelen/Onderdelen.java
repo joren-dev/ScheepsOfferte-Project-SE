@@ -7,14 +7,14 @@ public class Onderdelen {
         put("Motor", List.of("Standaard motor", "Opgevoerde motor", "Dubbele motor", "Duurzame motor"));
         put("Veiligheid", List.of("Standaard veiligheidspakket", "Extra veiligheidspakket"));
         put("Behuizing", List.of("Metaal", "Goud", "Hout"));
-        put("Extras", List.of("Airco"));
-        put("Uiterlijk", List.of("Biologische verf", "LED verlichting"));
+        put("Extras", List.of("Airco", "Ingebouwde koelkast", "GPS-Systeem", "Dieptemeter", "Radar"));
+        put("Uiterlijk", List.of("Biologische verf", "Standaard verf", "LED verlichting"));
     }};
 
-    public static final String[] ESSENTIAL_CATEGORIES = {"Motor", "Veiligheid"};
-    public static final String[] OPTIONAL_CATEGORIES = {"Behuizing", "Uiterlijk", "Extras"};
+    public static final String[] ESSENTIAL_CATEGORIES = {"Motor", "Veiligheid", "Behuizing"};
+    public static final String[] OPTIONAL_CATEGORIES = {"Uiterlijk", "Extras"};
 
-    private static List<String> gekozenOpties = new ArrayList<>();
+    public static List<String> gekozenOpties = new ArrayList<>();
 
     public static void essentialsList() {
         Scanner scanner = new Scanner(System.in);
@@ -44,11 +44,18 @@ public class Onderdelen {
                 System.out.printf("%d. %s%n", i, optie);
                 i++;
             }
-            int input = scanner.nextInt();
-            String optie = OPTIES_PER_CATEGORIE.get(categorie).get(input-1);
-            gekozenOpties.add(optie);
-
+            System.out.print("Wil je een optie toevoegen? (j/n): ");
+            String antwoord = scanner.next();
+            while (antwoord.equalsIgnoreCase("j")) {
+                System.out.print("Welke optie wil je toevoegen? (1-" + (i - 1) + "): ");
+                int input = scanner.nextInt();
+                String optie = OPTIES_PER_CATEGORIE.get(categorie).get(input - 1);
+                gekozenOpties.add(optie);
+                System.out.print("Wil je nog een optie toevoegen? (j/n): ");
+                antwoord = scanner.next();
+            }
             System.out.println();
         }
     }
+
 }
