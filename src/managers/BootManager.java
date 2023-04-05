@@ -91,11 +91,14 @@ public class BootManager {
     {
         Scanner scanner = new Scanner(System.in);
 
+        // Copy the loaded-configuarations
+        Map<String, List<String>> copy = new HashMap<>(loadedConfigurations);
+
         // List all current boot configs
         printLoadedConfigurations(false);
 
         // Make them chose a boat based on boatname (key value in loadedConfigurations map).
-        System.out.println("Welke boot wilt u wijzigen??????");
+        System.out.print("Welke boot wilt u wijzigen? ");
         String name = scanner.nextLine();
 
         // List all options they can modify or add
@@ -103,9 +106,51 @@ public class BootManager {
             System.out.println(option);
         }
 
-        // Geen dubbel, kan dingen toevoegen.
+        System.out.print("Welke optie wilt u aanpassen? ");
+        String option = scanner.nextLine();
+
+        kOptiesPerCategorie.forEach((name_, values) -> {
+            if (values.contains(option)) {
+                System.out.print("Wilt u deze optie hebben (j/n)? ");
+                boolean wants = scanner.nextLine().equals("j");
+                if (!wants) {
+                    loadedConfigurations.get(name).removeIf((item) -> item.equals(option));
+                }
+            }
+        });
+
+        for (String cat : kEssentialCategories) {
+            boolean fine = false;
+            for (String optie : kOptiesPerCategorie.get(cat)) {
+                if (loadedConfigurations.get(name).contains(optie)) {
+                    fine = true;
+                    break;
+                }
+            }
+            if (!fine) {
+                System.out.println("Deze optie is verplicht, kies een waarde als vervanging:");
+                for (String optie: kOptiesPerCategorie.get(cat)) {
+                    System.out.println(optie);
+                }
+                String gekozen = "";
+
+                while (!kOptiesPerCategorie.get(cat).contains(gekozen)) {
+                    System.out.print("Welke optie wilt u toevoegen? ");
+                    gekozen = scanner.nextLine();
+                }
+
+                loadedConfigurations.get(name).add(gekozen);
+            }
+        }
 
         // Confirm if new config is correct
+        System.out.println(loadedConfigurations.get(name));
+        System.out.println("Is deze configuratie correct (j/n)? ");
+        boolean correct = scanner.nextLine().equals("j");
+        if (!correct) {
+            loadedConfigurations = copy;
+            System.out.println("Ongedaan gemaakt :)");
+        }
     }
 
     public static void removeBootConfiguration()
