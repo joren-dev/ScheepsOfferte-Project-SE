@@ -1,7 +1,8 @@
 import managers.MenuManager;
 import managers.KlantManager;
 import menus.KlantTypeMenu;
-import menus.ViewOfferteMenu;
+import menus.OfferteMenu;
+import menus.BootConfiguratieMenu;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,8 +12,9 @@ public class Main {
         KlantManager klant_manager = new KlantManager();
 
         // Add menu items here...
-        manager.addMenu("Klant Type", new KlantTypeMenu());
-        manager.addMenu("View Offerte", new ViewOfferteMenu());
+        manager.addMenu("Beheer Klanttype(s)", new KlantTypeMenu());
+        manager.addMenu("Beheer Offerte(s)", new OfferteMenu());
+        manager.addMenu("Beheer Boot Configuraties", new BootConfiguratieMenu());
 
         // Starts the menu manager
         manager.start();

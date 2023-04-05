@@ -1,15 +1,14 @@
 package menus;
 
 import entities.klant.Klant;
-import menus.MenuBase;
 
 import java.util.Scanner;
 
-public class ViewOfferteMenu extends MenuBase {
+public class OfferteMenu extends MenuBase {
 
     private Scanner scanner;
 
-    public ViewOfferteMenu() {
+    public OfferteMenu() {
         scanner = new Scanner(System.in);
     }
 
@@ -46,6 +45,7 @@ public class ViewOfferteMenu extends MenuBase {
         }
     }
 
+
     public void addQuotation() {
 
     }
@@ -59,6 +59,7 @@ public class ViewOfferteMenu extends MenuBase {
     }
 
     public void deleteQuotation() {
+
 
     }
 
