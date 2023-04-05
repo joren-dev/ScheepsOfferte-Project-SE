@@ -67,6 +67,7 @@ public class BootManager {
 
             int i = 1;
             List<String> opties = kOptiesPerCategorie.get(categorie);
+            
             for (String optie : opties) {
                 System.out.printf("%d. %s%n", i++, optie);
             }
@@ -113,6 +114,7 @@ public class BootManager {
             if (values.contains(option)) {
                 System.out.print("Wilt u deze optie hebben (j/n)? ");
                 boolean wants = scanner.nextLine().equals("j");
+
                 if (!wants) {
                     loadedConfigurations.get(name).removeIf((item) -> item.equals(option));
                 }
@@ -121,17 +123,21 @@ public class BootManager {
 
         for (String cat : kEssentialCategories) {
             boolean fine = false;
+
             for (String optie : kOptiesPerCategorie.get(cat)) {
                 if (loadedConfigurations.get(name).contains(optie)) {
                     fine = true;
                     break;
                 }
             }
+
             if (!fine) {
                 System.out.println("Deze optie is verplicht, kies een waarde als vervanging:");
+
                 for (String optie: kOptiesPerCategorie.get(cat)) {
                     System.out.println(optie);
                 }
+
                 String gekozen = "";
 
                 while (!kOptiesPerCategorie.get(cat).contains(gekozen)) {
@@ -147,6 +153,7 @@ public class BootManager {
         System.out.println(loadedConfigurations.get(name));
         System.out.println("Is deze configuratie correct (j/n)? ");
         boolean correct = scanner.nextLine().equals("j");
+
         if (!correct) {
             loadedConfigurations = copy;
             System.out.println("Ongedaan gemaakt :)");
@@ -170,6 +177,7 @@ public class BootManager {
 
         if (sure)
             loadedConfigurations.remove(name);
+
         System.out.println(sure ? "Succesvol verwijderd!" : "Bewerking geannuleerd door de gebruiker.");
     }
 }
