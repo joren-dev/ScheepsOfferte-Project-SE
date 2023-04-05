@@ -33,7 +33,7 @@ public class BootManager {
             }
         });
 
-        // TODO: Add anter between each config when listed
+        // TODO: Add anter between each config when listed (deze doen we)
     }
 
     public static void addBootConfiguratie() {
@@ -42,7 +42,9 @@ public class BootManager {
         System.out.println("\033[1m== Boot Configuratie toevoegen ==\033[0m");
 
         System.out.print("Vul in de naam van uw configuratie: ");
-        // TODO: Add check to see if name is duplicate
+        // TODO: Add check to see if name is duplicate (doet Joren)
+        // TODO: Add ability to not choose any option (doet Joren)
+        // TODO: Add boottype (doet Joren ook, actieve gast)
         String configuratie_naam = scanner.nextLine();
 
         Map<String, List<String>> gekozenOpties = new HashMap<>();
@@ -87,11 +89,20 @@ public class BootManager {
 
     public static void changeBootConfiguration()
     {
+        Scanner scanner = new Scanner(System.in);
+
         // List all current boot configs
+        printLoadedConfigurations(false);
 
         // Make them chose a boat based on boatname (key value in loadedConfigurations map).
+        System.out.println("Welke boot wilt u wijzigen??????");
+        String name = scanner.nextLine();
 
         // List all options they can modify or add
+        for (String option : loadedConfigurations.get(name)) {
+            System.out.println(option);
+        }
+
         // Geen dubbel, kan dingen toevoegen.
 
         // Confirm if new config is correct
