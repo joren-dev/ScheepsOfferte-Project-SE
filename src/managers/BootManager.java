@@ -24,13 +24,16 @@ public class BootManager {
     public static void printLoadedConfigurations(final boolean print_options) {
         System.out.println("\nLoaded Configurations:");
         loadedConfigurations.forEach((configName, configOptions) -> {
-            System.out.printf("%s:%n", configName);
-
-            if(print_options)
+            if(print_options) {
+                System.out.printf("%s: %n", configName);
                 configOptions.forEach(option -> System.out.printf("- %s%n", option));
-
-            System.out.println();
+            } else
+            {
+                System.out.println("- " + configName);
+            }
         });
+
+        // TODO: Add anter between each config when listed
     }
 
     public static void addBootConfiguratie() {
@@ -39,6 +42,7 @@ public class BootManager {
         System.out.println("\033[1m== Boot Configuratie toevoegen ==\033[0m");
 
         System.out.print("Vul in de naam van uw configuratie: ");
+        // TODO: Add check to see if name is duplicate
         String configuratie_naam = scanner.nextLine();
 
         Map<String, List<String>> gekozenOpties = new HashMap<>();

@@ -35,7 +35,7 @@ public class BootConfiguratieMenu extends MenuBase {
                     break;
 
                 case kBootConfiguratieBekijken:
-                    BootManager.printLoadedConfigurations(false);
+                    BootManager.printLoadedConfigurations(true);
                     break;
 
                 case kBootConfiguratieVerwijderen:
