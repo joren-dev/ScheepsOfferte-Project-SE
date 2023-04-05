@@ -30,19 +30,22 @@ public class MenuManager {
 
     public void showMenuOptions() {
         System.out.println("Beschikbare menus:");
-        for (String name : menus.keySet()) {
+
+        for (String name : menus.keySet())
             System.out.println("- " + name);
-        }
     }
 
     public void start() {
         while (true) {
+
             System.out.println("Type in de gewenste menu optie:");
             int optionNumber = 1;
+
             for (String name : menus.keySet()) {
                 System.out.println(optionNumber + ". " + name);
                 optionNumber++;
             }
+
             System.out.print("Jouw keuze: ");
             int choice = scanner.nextInt();
             scanner.nextLine();

@@ -21,11 +21,14 @@ public class BootManager {
 
     public static Map<String, List<String>> loadedConfigurations = new HashMap<>();
 
-    public static void printLoadedConfigurations() {
+    public static void printLoadedConfigurations(final boolean print_options) {
         System.out.println("\nLoaded Configurations:");
         loadedConfigurations.forEach((configName, configOptions) -> {
             System.out.printf("%s:%n", configName);
-            configOptions.forEach(option -> System.out.printf("- %s%n", option));
+
+            if(print_options)
+                configOptions.forEach(option -> System.out.printf("- %s%n", option));
+
             System.out.println();
         });
     }
