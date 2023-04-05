@@ -23,17 +23,17 @@ public class BootManager {
 
     public static void printLoadedConfigurations(final boolean print_options) {
         System.out.println("\nLoaded Configurations:");
+
         loadedConfigurations.forEach((configName, configOptions) -> {
-            if(print_options) {
+            if (print_options) {
                 System.out.printf("%s: %n", configName);
                 configOptions.forEach(option -> System.out.printf("- %s%n", option));
-            } else
-            {
+
+                System.out.println("---------------");
+            } else {
                 System.out.println("- " + configName);
             }
         });
-
-        // TODO: Add anter between each config when listed (deze doen we)
     }
 
     public static void addBootConfiguratie() {
@@ -59,104 +59,128 @@ public class BootManager {
         System.out.printf("%s: %s%n", configuratie_naam, loadedConfigurations.get(configuratie_naam));
     }
 
-    private static void requestListOptions(List<String> categories, String categoryName,
-                                           Map<String, List<String>> configuration, Scanner scanner) {
+    private static void requestListOptions(final List<String> categories, final String category_name,
+                                           final Map<String, List<String>> configuration, final Scanner scanner) {
 
-        for (String categorie : categories) {
-            System.out.printf("%s%n===============%n", categorie);
+        for (final String category : categories) {
+            System.out.printf("%s%n===============%n", category);
 
             int i = 1;
-            List<String> opties = kOptiesPerCategorie.get(categorie);
-            
-            for (String optie : opties) {
+            final List<String> opties = kOptiesPerCategorie.get(category);
+
+            for (final String optie : opties) {
                 System.out.printf("%d. %s%n", i++, optie);
             }
 
-            List<String> selectedOpties = new ArrayList<>();
+            final List<String> selected_options = new ArrayList<>();
             String antwoord;
             do {
-                System.out.printf("Welke %s wil je toevoegen? (1-%d): ", categoryName, i - 1);
-                int input = scanner.nextInt();
-                selectedOpties.add(opties.get(input - 1));
+                System.out.printf("Welke %s wil je toevoegen? (1-%d): ", category_name, i - 1);
+                final int input = scanner.nextInt();
+                selected_options.add(opties.get(input - 1));
 
                 System.out.print("Wil je nog een optie toevoegen? (j/n): ");
                 antwoord = scanner.next();
             } while (antwoord.equalsIgnoreCase("j"));
 
-            configuration.put(categorie, selectedOpties);
+            configuration.put(category, selected_options);
             System.out.println();
         }
     }
 
     public static void changeBootConfiguration()
     {
-        Scanner scanner = new Scanner(System.in);
+        final Scanner scanner = new Scanner(System.in);
 
-        // Copy the loaded-configuarations
-        Map<String, List<String>> copy = new HashMap<>(loadedConfigurations);
+        // Copy the loaded-configurations
+        final Map<String, List<String>> original_contents = new HashMap<>(loadedConfigurations);
 
         // List all current boot configs
         printLoadedConfigurations(false);
 
-        // Make them chose a boat based on boatname (key value in loadedConfigurations map).
-        System.out.print("Welke boot wilt u wijzigen? ");
-        String name = scanner.nextLine();
+        // Prompt the user to choose a boat based on boat name (key value in loadedConfigurations map).
+        System.out.print("Welke boot wilt u wijzigen: ");
+        final String boat_name = scanner.nextLine();
 
-        // List all options they can modify or add
-        for (String option : loadedConfigurations.get(name)) {
-            System.out.println(option);
-        }
+        boolean has_more_changes = true;
+        while (has_more_changes) {
+            System.out.printf("%n%s onderdelen%n===============%n", boat_name);
 
-        System.out.print("Welke optie wilt u aanpassen? ");
-        String option = scanner.nextLine();
-
-        kOptiesPerCategorie.forEach((name_, values) -> {
-            if (values.contains(option)) {
-                System.out.print("Wilt u deze optie hebben (j/n)? ");
-                boolean wants = scanner.nextLine().equals("j");
-
-                if (!wants) {
-                    loadedConfigurations.get(name).removeIf((item) -> item.equals(option));
-                }
-            }
-        });
-
-        for (String cat : kEssentialCategories) {
-            boolean fine = false;
-
-            for (String optie : kOptiesPerCategorie.get(cat)) {
-                if (loadedConfigurations.get(name).contains(optie)) {
-                    fine = true;
-                    break;
-                }
+            // List all options they can modify or add with an index
+            int index = 1;
+            for (final String option : loadedConfigurations.get(boat_name)) {
+                System.out.printf("%d. %s%n", index++, option);
             }
 
-            if (!fine) {
-                System.out.println("Deze optie is verplicht, kies een waarde als vervanging:");
+            final int max_option = index - 1;
+            System.out.printf("Welke optie wilt u aanpassen? (1-%d) (0 om te stoppen): ", max_option);
 
-                for (String optie: kOptiesPerCategorie.get(cat)) {
-                    System.out.println(optie);
+            int choice;
+            do {
+                choice = scanner.nextInt();
+
+                if (choice < 0 || choice > max_option)
+                    System.out.printf("Ongeldige keuze. Kies een optie tussen 0 en %d: ", max_option);
+
+            } while (choice < 0 || choice > max_option);
+            scanner.nextLine(); // consume the newline character
+
+            if (choice == 0) {
+                has_more_changes = false;
+                continue;
+            }
+
+            final String option = loadedConfigurations.get(boat_name).get(choice - 1);
+
+            kOptiesPerCategorie.forEach((categoryName, values) -> {
+                if (!values.contains(option))
+                    return; // Skip to the next iteration
+
+                System.out.print("Wilt u deze optie hebben? (j/n): ");
+                final boolean wants = scanner.nextLine().equals("j");
+                if (!wants)
+                    loadedConfigurations.get(boat_name).removeIf((item) -> item.equals(option));
+            });
+
+
+            for (final String category : kEssentialCategories) {
+                boolean is_fine = false;
+
+                for (final String category_option : kOptiesPerCategorie.get(category)) {
+                    if (loadedConfigurations.get(boat_name).contains(category_option)) {
+                        is_fine = true;
+                        break;
+                    }
                 }
 
-                String gekozen = "";
+                if (!is_fine) {
+                    System.out.print("Deze optie is verplicht, kies een waarde als vervanging: ");
 
-                while (!kOptiesPerCategorie.get(cat).contains(gekozen)) {
-                    System.out.print("Welke optie wilt u toevoegen? ");
-                    gekozen = scanner.nextLine();
+                    for (final String category_option : kOptiesPerCategorie.get(category)) {
+                        System.out.println(category_option);
+                    }
+
+                    String gekozen_optie = "";
+
+                    while (!kOptiesPerCategorie.get(category).contains(gekozen_optie)) {
+                        System.out.print("Welke optie wilt u toevoegen? (onderdeel naam): ");
+                        gekozen_optie = scanner.nextLine();
+                    }
+
+                    loadedConfigurations.get(boat_name).add(gekozen_optie);
                 }
-
-                loadedConfigurations.get(name).add(gekozen);
             }
         }
 
         // Confirm if new config is correct
-        System.out.println(loadedConfigurations.get(name));
-        System.out.println("Is deze configuratie correct (j/n)? ");
-        boolean correct = scanner.nextLine().equals("j");
+        System.out.println(loadedConfigurations.get(boat_name));
+        System.out.print("Is deze configuratie correct? (j/n): ");
+        final boolean correct = scanner.nextLine().equals("j");
 
         if (!correct) {
-            loadedConfigurations = copy;
-            System.out.println("Ongedaan gemaakt :)");
+            // Set back original configuration in case canceled.
+            loadedConfigurations = original_contents;
+            System.out.println("De wijziging is gecanceld, er is niks veranderd");
         }
     }
 
