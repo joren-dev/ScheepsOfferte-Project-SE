@@ -21,6 +21,15 @@ public class BootManager {
 
     public static Map<String, List<String>> loadedConfigurations = new HashMap<>();
 
+    public static void printLoadedConfigurations() {
+        System.out.println("\nLoaded Configurations:");
+        loadedConfigurations.forEach((configName, configOptions) -> {
+            System.out.printf("%s:%n", configName);
+            configOptions.forEach(option -> System.out.printf("- %s%n", option));
+            System.out.println();
+        });
+    }
+
     public static void addBootConfiguratie() {
         Scanner scanner = new Scanner(System.in);
 
@@ -39,15 +48,6 @@ public class BootManager {
                 .collect(Collectors.toList()));
 
         System.out.printf("%s: %s%n", configuratie_naam, loadedConfigurations.get(configuratie_naam));
-    }
-
-    public static void printLoadedConfigurations() {
-        System.out.println("\nLoaded Configurations:");
-        loadedConfigurations.forEach((configName, configOptions) -> {
-            System.out.printf("%s:%n", configName);
-            configOptions.forEach(option -> System.out.printf("- %s%n", option));
-            System.out.println();
-        });
     }
 
     private static void requestListOptions(List<String> categories, String categoryName,
@@ -76,5 +76,24 @@ public class BootManager {
             configuration.put(categorie, selectedOpties);
             System.out.println();
         }
+    }
+
+    public static void changeBootConfiguration()
+    {
+        // List all current boot configs
+
+        // Make them chose a boat based on boatname (key value in loadedConfigurations map).
+
+        // List all options they can modify or add
+        // Geen dubbel, kan dingen toevoegen.
+
+        // Confirm if new config is correct
+    }
+
+    public static void removeBootConfiguration()
+    {
+        // List boot configs
+        // Remove based on boat name
+        // Confirmation for deletion
     }
 }
