@@ -12,7 +12,7 @@ public class Main {
         // Add menu items here...
         manager.addMenu("Beheer Klanttype(s)", new KlantTypeMenu());
         manager.addMenu("Beheer Offerte(s)", new OfferteMenu());
-        manager.addMenu("Beheer Boten", new BootConfiguratieMenu());
+        manager.addMenu("Beheer Boot Configuraties", new BootConfiguratieMenu());
 
         // Starts the menu manager
         manager.start();

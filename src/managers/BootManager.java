@@ -51,12 +51,13 @@ public class BootManager {
     }
 
     private static void requestListOptions(List<String> categories, String categoryName,
-                                           Map<String, List<String>> gekozenOpties, Scanner scanner) {
+                                           Map<String, List<String>> configuration, Scanner scanner) {
 
         for (String categorie : categories) {
             System.out.printf("%s%n===============%n", categorie);
-            List<String> opties = kOptiesPerCategorie.get(categorie);
+
             int i = 1;
+            List<String> opties = kOptiesPerCategorie.get(categorie);
             for (String optie : opties) {
                 System.out.printf("%d. %s%n", i++, optie);
             }
@@ -72,7 +73,7 @@ public class BootManager {
                 antwoord = scanner.next();
             } while (antwoord.equalsIgnoreCase("j"));
 
-            gekozenOpties.put(categorie, selectedOpties);
+            configuration.put(categorie, selectedOpties);
             System.out.println();
         }
     }

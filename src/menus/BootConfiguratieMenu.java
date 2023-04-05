@@ -14,7 +14,7 @@ public class BootConfiguratieMenu extends MenuBase {
     @Override
     public void showMenu() {
         while (true) {
-            System.out.println("\033[1m== Onderdelen ==\033[0m");
+            System.out.println("\033[1m== Boot Configuratie Beheer ==\033[0m");
             System.out.println("Wat wilt u doen?");
             System.out.println("1. Boot Configuratie toevoegen\n2. Boot Configuratie wijzigen\n3. Boot Configuratie bekijken\n4. Terug naar hoofdmenu");
             System.out.print("Voer in: ");
