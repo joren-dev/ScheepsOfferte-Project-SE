@@ -155,8 +155,21 @@ public class BootManager {
 
     public static void removeBootConfiguration()
     {
+        Scanner scanner = new Scanner(System.in);
+
         // List boot configs
+        printLoadedConfigurations(false);
+
         // Remove based on boat name
+        System.out.println("Welke configuratie wilt u verwijderen?");
+        String name = scanner.nextLine();
+
         // Confirmation for deletion
+        System.out.println("Weet u het zeker (j/n)?");
+        boolean sure = scanner.nextLine().equals("j");
+
+        if (sure)
+            loadedConfigurations.remove(name);
+        System.out.println(sure ? "Succesvol verwijderd!" : "Bewerking geannuleerd door de gebruiker.");
     }
 }
