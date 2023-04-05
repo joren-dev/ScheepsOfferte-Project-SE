@@ -1,6 +1,7 @@
 package menus;
 
 import entities.klant.Klant;
+import managers.OfferteManager;
 
 import java.util.Scanner;
 
@@ -26,16 +27,16 @@ public class OfferteMenu extends MenuBase {
 
             switch (choice) {
                 case kVoegOfferteToe:
-                    addQuotation();
+                    OfferteManager.addOfferte();
                     break;
                 case kWijzigOfferte:
-                    editQuotation();
+                    // TODO
                     break;
                 case kToonOfferteLijst:
-                    showQuotationList();
+                    // TODO
                     break;
                 case kVerwijderOfferte:
-                    deleteQuotation();
+                    // TODO
                     break;
                 case kNavigeerHoofdmenu:
                     return;
@@ -45,23 +46,6 @@ public class OfferteMenu extends MenuBase {
         }
     }
 
-
-    public void addQuotation() {
-
-    }
-
-    public void editQuotation() {
-
-    }
-
-    public void showQuotationList() {
-
-    }
-
-    public void deleteQuotation() {
-
-
-    }
 
     public void generateQuotation(
             String companyAddress,
