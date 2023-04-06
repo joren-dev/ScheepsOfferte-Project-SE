@@ -1,6 +1,6 @@
-package entities.bootconfig;
+package entities.bootconfig.onderdelen;
 
-public class MotorOnderdeel extends BootConfigBase
+public class MotorOnderdeel extends OnderdeelBase
 {
     @Override
     public String get_price()

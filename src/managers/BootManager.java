@@ -19,6 +19,7 @@ public class BootManager {
         put("Uiterlijk", List.of("Biologische verf", "Standaard verf", "LED verlichting"));
     }};
 
+    // <String, BootConfig>
     public static Map<String, List<String>> loadedConfigurations = new HashMap<>();
 
     public static void printLoadedConfigurations(final boolean print_options) {
@@ -44,8 +45,7 @@ public class BootManager {
         System.out.print("Vul in de naam van uw configuratie: ");
         String configuratie_naam = scanner.nextLine();
 
-        // TODO: Store boot type in some way (joren)
-        // TODO: Link prices to items (joren)
+        // TODO: Store boot type in some way
 
         // Check if name is duplicate
         while (loadedConfigurations.containsKey(configuratie_naam)) {

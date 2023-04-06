@@ -1,6 +1,6 @@
-package entities.bootconfig;
+package entities.bootconfig.onderdelen;
 
-public class UiterlijkOnderdeel extends BootConfigBase
+public class UiterlijkOnderdeel extends OnderdeelBase
 {
     @Override
     public String get_price()
