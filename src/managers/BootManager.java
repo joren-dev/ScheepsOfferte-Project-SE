@@ -152,6 +152,8 @@ public class BootManager {
 
             final String option = loadedConfigurations.get(boat_name).get(choice - 1);
 
+            // Needed as a lambda expression requires local variables referenced in a lambda to be final.
+            final String final_boat_name = boat_name;
             kOptiesPerCategorie.forEach((categoryName, values) -> {
                 if (!values.contains(option))
                     return; // Skip to the next iteration
@@ -159,7 +161,7 @@ public class BootManager {
                 System.out.print("Wilt u deze verwijderen? (j/n): ");
                 final boolean wants = scanner.nextLine().equals("j");
                 if (!wants)
-                    loadedConfigurations.get(boat_name).removeIf((item) -> item.equals(option));
+                    loadedConfigurations.get(final_boat_name).removeIf((item) -> item.equals(option));
             });
 
 
