@@ -42,42 +42,60 @@ public class BootManager {
         System.out.println("\033[1m== Boot Configuratie toevoegen ==\033[0m");
 
         System.out.print("Vul in de naam van uw configuratie: ");
-        // TODO: Add check to see if name is duplicate (doet Joren)
-        // TODO: Add ability to not choose any option (doet Joren)
-        // TODO: Add boottype (doet Joren ook, actieve gast)
         String configuratie_naam = scanner.nextLine();
 
-        Map<String, List<String>> gekozenOpties = new HashMap<>();
+        // TODO: Store boot type in some way (deze doen we)
 
-        requestListOptions(List.of(kEssentialCategories), "Essentials", gekozenOpties, scanner);
-        requestListOptions(List.of(kOptionalCategories), "Optionals", gekozenOpties, scanner);
+        // Check if name is duplicate
+        while (loadedConfigurations.containsKey(configuratie_naam)) {
+            System.out.println("Deze naam bestaat al. Kies een andere naam: ");
+            configuratie_naam = scanner.nextLine();
+        }
 
-        loadedConfigurations.put(configuratie_naam, gekozenOpties.entrySet().stream()
+        Map<String, List<String>> chosen_options = new HashMap<>();
+
+        // For the essential components its a requirement you pick at least one. Hence the allow_skip = false.
+        request_list_options(List.of(kEssentialCategories), "Essentials", chosen_options, scanner, false);
+        request_list_options(List.of(kOptionalCategories), "Optionals", chosen_options, scanner,  true);
+
+        loadedConfigurations.put(configuratie_naam, chosen_options.entrySet().stream()
                 .flatMap(entry -> entry.getValue().stream())
                 .collect(Collectors.toList()));
 
-        System.out.printf("%s: %s%n", configuratie_naam, loadedConfigurations.get(configuratie_naam));
+        if (loadedConfigurations.get(configuratie_naam).isEmpty())
+            System.out.println("Let op: deze configuratie bevat geen opties.");
+
+        System.out.printf("Boot configuratie '%s' is toegevoegd met de volgende opties: %s%n%n",
+                configuratie_naam, loadedConfigurations.get(configuratie_naam));
     }
 
-    private static void requestListOptions(final List<String> categories, final String category_name,
-                                           final Map<String, List<String>> configuration, final Scanner scanner) {
+    private static void request_list_options(final List<String> categories, final String category_name,
+                                             final Map<String, List<String>> configuration, final Scanner scanner,
+                                             final boolean allow_skip) {
 
         for (final String category : categories) {
             System.out.printf("%s%n===============%n", category);
 
             int i = 1;
-            final List<String> opties = kOptiesPerCategorie.get(category);
+            final List<String> options = kOptiesPerCategorie.get(category);
 
-            for (final String optie : opties) {
-                System.out.printf("%d. %s%n", i++, optie);
-            }
+            if (allow_skip)
+                System.out.printf("%d. (Skip)%n", i++);
+
+            for (final String option : options)
+                System.out.printf("%d. %s%n", i++, option);
 
             final List<String> selected_options = new ArrayList<>();
             String antwoord;
             do {
-                System.out.printf("Welke %s wil je toevoegen? (1-%d): ", category_name, i - 1);
+                final int max_index = allow_skip ? i - 1 : i -1;
+                System.out.printf("Welke %s onderdeel wil je toevoegen? (1-%s): ", category, max_index);
+
                 final int input = scanner.nextInt();
-                selected_options.add(opties.get(input - 1));
+                if (allow_skip && input == 1)
+                    break;
+
+                selected_options.add(options.get(input - (allow_skip ? 2 : 1)));
 
                 System.out.print("Wil je nog een optie toevoegen? (j/n): ");
                 antwoord = scanner.next();
@@ -136,7 +154,7 @@ public class BootManager {
                 if (!values.contains(option))
                     return; // Skip to the next iteration
 
-                System.out.print("Wilt u deze optie hebben? (j/n): ");
+                System.out.print("Wilt u deze verwijderen? (j/n): ");
                 final boolean wants = scanner.nextLine().equals("j");
                 if (!wants)
                     loadedConfigurations.get(boat_name).removeIf((item) -> item.equals(option));
