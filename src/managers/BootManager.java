@@ -65,8 +65,9 @@ public class BootManager {
         if (loadedConfigurations.get(configuratie_naam).isEmpty())
             System.out.println("Let op: deze configuratie bevat geen opties.");
 
-        System.out.printf("Boot configuratie '%s' is toegevoegd met de volgende opties: %s%n%n",
+        System.out.printf("Boot configuratie \033[1m'%s'\033[0m is toegevoegd met de volgende opties: %s%n%n",
                 configuratie_naam, loadedConfigurations.get(configuratie_naam));
+
     }
 
     private static void request_list_options(final List<String> categories, final String category_name,
