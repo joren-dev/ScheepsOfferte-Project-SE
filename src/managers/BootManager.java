@@ -44,7 +44,8 @@ public class BootManager {
         System.out.print("Vul in de naam van uw configuratie: ");
         String configuratie_naam = scanner.nextLine();
 
-        // TODO: Store boot type in some way (deze doen we)
+        // TODO: Store boot type in some way (joren)
+        // TODO: Link prices to items (joren)
 
         // Check if name is duplicate
         while (loadedConfigurations.containsKey(configuratie_naam)) {
@@ -89,8 +90,7 @@ public class BootManager {
             final List<String> selected_options = new ArrayList<>();
             String antwoord;
             do {
-                final int max_index = allow_skip ? i - 1 : i -1;
-                System.out.printf("Welke %s onderdeel wil je toevoegen? (1-%s): ", category, max_index);
+                System.out.printf("Welke %s onderdeel wil je toevoegen? (1-%s): ", category, i - 1);
 
                 final int input = scanner.nextInt();
                 if (allow_skip && input == 1)
@@ -175,9 +175,8 @@ public class BootManager {
                 if (!is_fine) {
                     System.out.print("Deze optie is verplicht, kies een waarde als vervanging: ");
 
-                    for (final String category_option : kOptiesPerCategorie.get(category)) {
+                    for (final String category_option : kOptiesPerCategorie.get(category))
                         System.out.println(category_option);
-                    }
 
                     String gekozen_optie = "";
 
@@ -194,9 +193,8 @@ public class BootManager {
         // Confirm if new config is correct
         System.out.println(loadedConfigurations.get(boat_name));
         System.out.print("Is deze configuratie correct? (j/n): ");
-        final boolean correct = scanner.nextLine().equals("j");
 
-        if (!correct) {
+        if (!scanner.nextLine().equals("j")) {
             // Set back original configuration in case canceled.
             loadedConfigurations = original_contents;
             System.out.println("De wijziging is gecanceld, er is niks veranderd");
@@ -212,7 +210,7 @@ public class BootManager {
 
         // Remove based on boat name
         System.out.println("Welke configuratie wilt u verwijderen?");
-        String name = scanner.nextLine();
+        final String name = scanner.nextLine();
 
         // Confirmation for deletion
         System.out.println("Weet u het zeker (j/n)?");
