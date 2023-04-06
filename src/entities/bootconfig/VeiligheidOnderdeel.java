@@ -3,29 +3,22 @@ package entities.bootconfig;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MotorOnderdeel extends BootConfigBase
-{
+public class VeiligheidOnderdeel extends BootConfigBase {
     double price;
 
-    public MotorOnderdeel(List<String> options, double price) {
-        if (options == null) {
-            throw new RuntimeException("OOPS");
-        }
-        this.waardes = options;
+    public VeiligheidOnderdeel(List<String> veiligheid, double price) {
+        this.waardes = veiligheid;
         this.price = price;
     }
 
     @Override
-    public String get_price()
-    {
+    public String get_price() {
         return String.valueOf(this.price);
     }
 
     @Override
     public void printOptions() {
-        for (String option : this.waardes) {
-            System.out.println(option);
-        }
+        System.out.println(this.waardes);
     }
 
     @Override
@@ -45,7 +38,7 @@ public class MotorOnderdeel extends BootConfigBase
 
     @Override
     public boolean contains(String categoryOption) {
-        return categoryOption.equalsIgnoreCase("motor");
+        return this.waardes.contains(categoryOption);
     }
 
     @Override
@@ -60,8 +53,6 @@ public class MotorOnderdeel extends BootConfigBase
 
     @Override
     public String toString() {
-        return String.format("Motor: %s %.2f", this.waardes, this.price);
+        return String.format("Veiligheid: %s %.2f", this.waardes, this.price);
     }
-
-    // set_dubbele_motor(boolean)
 }

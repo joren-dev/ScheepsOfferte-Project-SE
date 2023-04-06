@@ -1,5 +1,7 @@
 package managers;
 
+import entities.bootconfig.*;
+
 import java.util.Scanner;
 import java.util.Map;
 import java.util.List;
@@ -19,7 +21,7 @@ public class BootManager {
         put("Uiterlijk", List.of("Biologische verf", "Standaard verf", "LED verlichting"));
     }};
 
-    public static Map<String, List<String>> loadedConfigurations = new HashMap<>();
+    public static Map<String, List<BootConfigBase>> loadedConfigurations = new HashMap<>();
 
     public static void printLoadedConfigurations(final boolean print_options) {
         System.out.println("\nLoaded Configurations:");
@@ -27,6 +29,7 @@ public class BootManager {
         loadedConfigurations.forEach((configName, configOptions) -> {
             if (print_options) {
                 System.out.printf("%s: %n", configName);
+//                configOptions.printOptions();
                 configOptions.forEach(option -> System.out.printf("- %s%n", option));
 
                 System.out.println("---------------");
@@ -55,13 +58,18 @@ public class BootManager {
 
         Map<String, List<String>> chosen_options = new HashMap<>();
 
-        // For the essential components its a requirement you pick at least one. Hence the allow_skip = false.
+        // For the essential components it's a requirement you pick at least one. Hence, the allow_skip = false.
         request_list_options(List.of(kEssentialCategories), "Essentials", chosen_options, scanner, false);
         request_list_options(List.of(kOptionalCategories), "Optionals", chosen_options, scanner,  true);
+        loadedConfigurations.put(configuratie_naam,
+                List.of(
+                    new MotorOnderdeel(chosen_options.get("Motor"), 0.0),
+                    new VeiligheidOnderdeel(chosen_options.get("Veiligheid"), 0.0),
+                    new BehuizingOnderdeel(chosen_options.get("Behuizing"), 0.0),
+                    new UiterlijkOnderdeel(chosen_options.get("Uiterlijk"), 0.0)
+                )
+        );
 
-        loadedConfigurations.put(configuratie_naam, chosen_options.entrySet().stream()
-                .flatMap(entry -> entry.getValue().stream())
-                .collect(Collectors.toList()));
 
         if (loadedConfigurations.get(configuratie_naam).isEmpty())
             System.out.println("Let op: deze configuratie bevat geen opties.");
@@ -112,7 +120,7 @@ public class BootManager {
         final Scanner scanner = new Scanner(System.in);
 
         // Copy the loaded-configurations
-        final Map<String, List<String>> original_contents = new HashMap<>(loadedConfigurations);
+        final Map<String, List<BootConfigBase>> original_contents = new HashMap<>(loadedConfigurations);
 
         // List all current boot configs
         printLoadedConfigurations(false);
@@ -128,11 +136,12 @@ public class BootManager {
             System.out.printf("%n%s onderdelen%n===============%n", boat_name);
 
             // List all options they can modify or add with an index
-            int index = 1;
-            for (final String option : loadedConfigurations.get(boat_name))
-                System.out.printf("%d. %s%n", index++, option);
+            int i = 1;
+            for (BootConfigBase option : loadedConfigurations.get(boat_name)) {
+                System.out.printf("%d. %s%n", i++, option);
+            }
 
-            final int max_option = index - 1;
+            final int max_option = loadedConfigurations.get(boat_name).size();
             System.out.printf("Welke optie wilt u aanpassen? (1-%d) (0 om te stoppen): ", max_option);
 
             int choice;
@@ -150,18 +159,25 @@ public class BootManager {
                 continue;
             }
 
-            final String option = loadedConfigurations.get(boat_name).get(choice - 1);
+            String option;
+
+            try {
+                option = loadedConfigurations.get(boat_name).get(0).toString();
+            } catch (IndexOutOfBoundsException e) {
+                option = "";
+            }
 
             // Needed as a lambda expression requires local variables referenced in a lambda to be final.
             final String final_boat_name = boat_name;
+            String finalOption = option;
             kOptiesPerCategorie.forEach((categoryName, values) -> {
-                if (!values.contains(option))
+                if (!values.contains(finalOption))
                     return; // Skip to the next iteration
 
                 System.out.print("Wilt u deze verwijderen? (j/n): ");
                 final boolean wants = scanner.nextLine().equals("j");
                 if (!wants)
-                    loadedConfigurations.get(final_boat_name).removeIf((item) -> item.equals(option));
+                    loadedConfigurations.get(final_boat_name).removeIf((x) -> x.waardes.removeIf((y) -> y.equals(finalOption)));
             });
 
 
@@ -188,7 +204,25 @@ public class BootManager {
                         gekozen_optie = scanner.nextLine();
                     }
 
-                    loadedConfigurations.get(boat_name).add(gekozen_optie);
+                    switch (category) {
+                        case "Motor":
+                            loadedConfigurations.get(boat_name).add(new MotorOnderdeel(List.of(gekozen_optie), 0.0));
+                            break;
+                        case "Veiligheid":
+                            loadedConfigurations.get(boat_name).add(new VeiligheidOnderdeel(List.of(gekozen_optie), 0.0));
+                            break;
+                        case "Behuizing":
+                            loadedConfigurations.get(boat_name).add(new BehuizingOnderdeel(List.of(gekozen_optie), 0.0));
+                            break;
+                        case "Uiterlijk":
+                            loadedConfigurations.get(boat_name).add(new UiterlijkOnderdeel(List.of(gekozen_optie), 0.0));
+                            break;
+                        case "Extras":
+                            loadedConfigurations.get(boat_name).add(new ExtrasOnderdeel(List.of(gekozen_optie), 0.0));
+                            break;
+                        default:
+                            throw new RuntimeException("Oops");
+                    }
                 }
             }
         }
