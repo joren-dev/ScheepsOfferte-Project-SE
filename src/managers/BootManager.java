@@ -129,9 +129,8 @@ public class BootManager {
 
             // List all options they can modify or add with an index
             int index = 1;
-            for (final String option : loadedConfigurations.get(boat_name)) {
+            for (final String option : loadedConfigurations.get(boat_name))
                 System.out.printf("%d. %s%n", index++, option);
-            }
 
             final int max_option = index - 1;
             System.out.printf("Welke optie wilt u aanpassen? (1-%d) (0 om te stoppen): ", max_option);
