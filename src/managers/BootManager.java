@@ -118,9 +118,11 @@ public class BootManager {
         printLoadedConfigurations(false);
 
         // Prompt the user to choose a boat based on boat name (key value in loadedConfigurations map).
-        System.out.print("Welke boot wilt u wijzigen: ");
-        final String boat_name = scanner.nextLine();
-
+        String boat_name = "";
+        do {
+            System.out.print("Welke boot wilt u wijzigen: ");
+            boat_name = scanner.nextLine();
+        } while (!loadedConfigurations.containsKey(boat_name));
         boolean has_more_changes = true;
         while (has_more_changes) {
             System.out.printf("%n%s onderdelen%n===============%n", boat_name);
