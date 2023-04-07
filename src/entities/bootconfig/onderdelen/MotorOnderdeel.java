@@ -1,9 +1,13 @@
-package entities.bootconfig;
+package entities.bootconfig.onderdelen;
 
+<<<<<<< HEAD:src/entities/bootconfig/MotorOnderdeel.java
 import java.util.ArrayList;
 import java.util.List;
 
 public class MotorOnderdeel extends BootConfigBase
+=======
+public class MotorOnderdeel extends OnderdeelBase
+>>>>>>> 7388aab989569174f900a2946bfdad6f65d04041:src/entities/bootconfig/onderdelen/MotorOnderdeel.java
 {
     double price;
 

@@ -47,8 +47,7 @@ public class BootManager {
         System.out.print("Vul in de naam van uw configuratie: ");
         String configuratie_naam = scanner.nextLine();
 
-        // TODO: Store boot type in some way (joren)
-        // TODO: Link prices to items (joren)
+        // TODO: Store boot type in some way
 
         // Check if name is duplicate
         while (loadedConfigurations.containsKey(configuratie_naam)) {

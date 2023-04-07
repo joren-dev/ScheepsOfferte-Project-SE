@@ -1,9 +1,13 @@
-package entities.bootconfig;
+package entities.bootconfig.onderdelen;
 
+<<<<<<< HEAD:src/entities/bootconfig/UiterlijkOnderdeel.java
 import java.util.ArrayList;
 import java.util.List;
 
 public class UiterlijkOnderdeel extends BootConfigBase
+=======
+public class UiterlijkOnderdeel extends OnderdeelBase
+>>>>>>> 7388aab989569174f900a2946bfdad6f65d04041:src/entities/bootconfig/onderdelen/UiterlijkOnderdeel.java
 {
     double price;
 
