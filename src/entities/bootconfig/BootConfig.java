@@ -20,6 +20,10 @@ public class BootConfig {
 
     }
 
+    public String get_boat_type() {
+        return this.boat_type;
+    }
+
     public void print_all_options()
     {
         for(CategoryBase category : options.values())
