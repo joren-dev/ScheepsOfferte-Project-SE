@@ -10,6 +10,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
+/*
+- Non-essentials worden niet toegevoegd, of niet geprint.
+- Na het maken van config print het de class obj, niet de opties (memory)
+- Change config functionaliteit werkt niet
+*/
+
 public class BootManager {
     public static final String[] kEssentialCategories = {"Motor", "Veiligheid", "Behuizing"};
     public static final String[] kOptionalCategories = {"Uiterlijk", "Extras"};
@@ -21,16 +27,15 @@ public class BootManager {
         put("Uiterlijk", List.of("Biologische verf", "Standaard verf", "LED verlichting"));
     }};
 
-    public static Map<String, List<CategoryBase>> loadedConfigurations = new HashMap<>();
+    public static Map<String, BootConfig> loadedConfigurations = new HashMap<>();
 
     public static void printLoadedConfigurations(final boolean print_options) {
         System.out.println("\nLoaded Configurations:");
 
-        loadedConfigurations.forEach((configName, configOptions) -> {
+        loadedConfigurations.forEach((configName, config_value) -> {
             if (print_options) {
                 System.out.printf("%s: %n", configName);
-//                configOptions.printOptions();
-                configOptions.forEach(option -> System.out.printf("- %s%n", option));
+                config_value.print_all_options();
 
                 System.out.println("---------------");
             } else {
@@ -47,31 +52,32 @@ public class BootManager {
         System.out.print("Vul in de naam van uw configuratie: ");
         String configuratie_naam = scanner.nextLine();
 
-        // TODO: Store boot type in some way
-
         // Check if name is duplicate
         while (loadedConfigurations.containsKey(configuratie_naam)) {
             System.out.println("Deze naam bestaat al. Kies een andere naam: ");
             configuratie_naam = scanner.nextLine();
         }
 
+        System.out.print("Welke boot type is het? : ");
+        String boat_type = scanner.nextLine();
+
+        BootConfig new_boat_config = new BootConfig(configuratie_naam, boat_type);
+
         Map<String, List<String>> chosen_options = new HashMap<>();
 
         // For the essential components it's a requirement you pick at least one. Hence, the allow_skip = false.
+        // Requests all options
         request_list_options(List.of(kEssentialCategories), "Essentials", chosen_options, scanner, false);
         request_list_options(List.of(kOptionalCategories), "Optionals", chosen_options, scanner,  true);
-        loadedConfigurations.put(configuratie_naam,
-                List.of(
-                    new MotorOnderdeel(chosen_options.get("Motor"), 0.0),
-                    new VeiligheidOnderdeel(chosen_options.get("Veiligheid"), 0.0),
-                    new BehuizingOnderdeel(chosen_options.get("Behuizing"), 0.0),
-                    new UiterlijkOnderdeel(chosen_options.get("Uiterlijk"), 0.0)
-                )
-        );
 
+        // Add categories to config
+        new_boat_config.add_category("Motor", new MotorOnderdeel(chosen_options.get("Motor"), 0.0));
+        new_boat_config.add_category("Veiligheid", new MotorOnderdeel(chosen_options.get("Veiligheid"), 0.0));
+        new_boat_config.add_category("Behuizing", new MotorOnderdeel(chosen_options.get("Behuizing"), 0.0));
+        new_boat_config.add_category("Uiterlijk", new MotorOnderdeel(chosen_options.get("Uiterlijk"), 0.0));
 
-        if (loadedConfigurations.get(configuratie_naam).isEmpty())
-            System.out.println("Let op: deze configuratie bevat geen opties.");
+        // Add config to list of loaded configurations
+        loadedConfigurations.put(configuratie_naam, new_boat_config);
 
         System.out.printf("Boot configuratie \033[1m'%s'\033[0m is toegevoegd met de volgende opties: %s%n%n",
                 configuratie_naam, loadedConfigurations.get(configuratie_naam));
@@ -116,10 +122,11 @@ public class BootManager {
 
     public static void changeBootConfiguration()
     {
+        /*
         final Scanner scanner = new Scanner(System.in);
 
         // Copy the loaded-configurations
-        final Map<String, List<CategoryBase>> original_contents = new HashMap<>(loadedConfigurations);
+        final Map<String, BootConfig> original_contents = new HashMap<>(loadedConfigurations);
 
         // List all current boot configs
         printLoadedConfigurations(false);
@@ -136,7 +143,7 @@ public class BootManager {
 
             // List all options they can modify or add with an index
             int i = 1;
-            for (CategoryBase option : loadedConfigurations.get(boat_name)) {
+            for (BootConfig option : loadedConfigurations.get(boat_name)) {
                 System.out.printf("%d. %s%n", i++, option);
             }
 
@@ -235,6 +242,8 @@ public class BootManager {
             loadedConfigurations = original_contents;
             System.out.println("De wijziging is gecanceld, er is niks veranderd");
         }
+
+         */
     }
 
     public static void removeBootConfiguration()

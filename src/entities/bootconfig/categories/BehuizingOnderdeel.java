@@ -1,7 +1,5 @@
 package entities.bootconfig.categories;
 
-import entities.bootconfig.BootConfigBase;
-
 import java.util.ArrayList;
 import java.util.List;
 
