@@ -11,9 +11,9 @@ import java.util.HashMap;
 
 
 /*
-- Non-essentials worden niet toegevoegd, of niet geprint.
-- Na het maken van config print het de class obj, niet de opties (memory)
-- Change config functionaliteit werkt niet
+- [x] Non-essentials worden niet toegevoegd, of niet geprint.
+- [x] Na het maken van config print het de class obj, niet de opties (memory)
+- [ ] Change config functionaliteit werkt niet
 */
 
 public class BootManager {
@@ -72,14 +72,28 @@ public class BootManager {
 
         // Add categories to config
         new_boat_config.add_category("Motor", new MotorOnderdeel(chosen_options.get("Motor"), 0.0));
-        new_boat_config.add_category("Veiligheid", new MotorOnderdeel(chosen_options.get("Veiligheid"), 0.0));
-        new_boat_config.add_category("Behuizing", new MotorOnderdeel(chosen_options.get("Behuizing"), 0.0));
-        new_boat_config.add_category("Uiterlijk", new MotorOnderdeel(chosen_options.get("Uiterlijk"), 0.0));
+        new_boat_config.add_category("Veiligheid", new VeiligheidOnderdeel(chosen_options.get("Veiligheid"), 0.0));
+        new_boat_config.add_category("Behuizing", new BehuizingOnderdeel(chosen_options.get("Behuizing"), 0.0));
+
+        for (String optional_category : kOptionalCategories) {
+            if (chosen_options.containsKey(optional_category)) {
+                switch (optional_category) {
+                    case "Uiterlijk":
+                        new_boat_config.add_category("Uiterlijk", new UiterlijkOnderdeel(chosen_options.get("Uiterlijk"), 0.0));
+                        break;
+                    case "Extras":
+                        new_boat_config.add_category("Extras", new ExtrasOnderdeel(chosen_options.get("Extras"), 0.0));
+                        break;
+                    default:
+                        throw new RuntimeException("Make sure to keep this up-to-date!");
+                }
+            }
+        }
 
         // Add config to list of loaded configurations
         loadedConfigurations.put(configuratie_naam, new_boat_config);
 
-        System.out.printf("Boot configuratie \033[1m'%s'\033[0m is toegevoegd met de volgende opties: %s%n%n",
+        System.out.printf("Boot configuratie \033[1m'%s'\033[0m is toegevoegd met de volgende opties: %n%s%n",
                 configuratie_naam, loadedConfigurations.get(configuratie_naam));
 
     }
