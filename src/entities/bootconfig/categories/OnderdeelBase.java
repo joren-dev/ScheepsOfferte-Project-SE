@@ -1,4 +1,4 @@
-package entities.bootconfig.onderdelen;
+package entities.bootconfig.categories;
 
 public abstract class OnderdeelBase {
 

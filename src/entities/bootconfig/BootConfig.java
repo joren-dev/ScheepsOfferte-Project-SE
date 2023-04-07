@@ -1,4 +1,4 @@
-package entities.bootconfig.onderdelen;
+package entities.bootconfig.categories;
 
 // this one is saved in the map in BootManager
 public class BootConfig {

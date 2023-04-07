@@ -1,17 +1,14 @@
-package entities.bootconfig.onderdelen;
+package entities.bootconfig.categories;
 
-<<<<<<< HEAD:src/entities/bootconfig/UiterlijkOnderdeel.java
 import java.util.ArrayList;
 import java.util.List;
 
-public class UiterlijkOnderdeel extends BootConfigBase
-=======
-public class UiterlijkOnderdeel extends OnderdeelBase
->>>>>>> 7388aab989569174f900a2946bfdad6f65d04041:src/entities/bootconfig/onderdelen/UiterlijkOnderdeel.java
+
+public class MotorOnderdeel extends CategoryBase
 {
     double price;
 
-    public UiterlijkOnderdeel(List<String> options, double price) {
+    public MotorOnderdeel(List<String> options, double price) {
         if (options == null) {
             throw new RuntimeException("OOPS");
         }
@@ -34,7 +31,7 @@ public class UiterlijkOnderdeel extends OnderdeelBase
 
     @Override
     public ArrayList<String> getWaardes() {
-        return new ArrayList<>(this.waardes);
+        return (ArrayList<String>) this.waardes;
     }
 
     @Override
@@ -49,7 +46,7 @@ public class UiterlijkOnderdeel extends OnderdeelBase
 
     @Override
     public boolean contains(String categoryOption) {
-        return categoryOption.equals("Uiterlijk");
+        return categoryOption.equalsIgnoreCase("motor");
     }
 
     @Override
@@ -64,9 +61,8 @@ public class UiterlijkOnderdeel extends OnderdeelBase
 
     @Override
     public String toString() {
-        return String.format("Uiterlijk: %s %.2f", this.waardes, this.price);
+        return String.format("Motor: %s %.2f", this.waardes, this.price);
     }
 
-    // set_verf
-    // ...
+    // set_dubbele_motor(boolean)
 }

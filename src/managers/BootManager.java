@@ -1,13 +1,13 @@
 package managers;
 
 import entities.bootconfig.*;
+import entities.bootconfig.categories.*;
 
 import java.util.Scanner;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 
 public class BootManager {
@@ -21,7 +21,7 @@ public class BootManager {
         put("Uiterlijk", List.of("Biologische verf", "Standaard verf", "LED verlichting"));
     }};
 
-    public static Map<String, List<BootConfigBase>> loadedConfigurations = new HashMap<>();
+    public static Map<String, List<CategoryBase>> loadedConfigurations = new HashMap<>();
 
     public static void printLoadedConfigurations(final boolean print_options) {
         System.out.println("\nLoaded Configurations:");
@@ -119,7 +119,7 @@ public class BootManager {
         final Scanner scanner = new Scanner(System.in);
 
         // Copy the loaded-configurations
-        final Map<String, List<BootConfigBase>> original_contents = new HashMap<>(loadedConfigurations);
+        final Map<String, List<CategoryBase>> original_contents = new HashMap<>(loadedConfigurations);
 
         // List all current boot configs
         printLoadedConfigurations(false);
@@ -136,7 +136,7 @@ public class BootManager {
 
             // List all options they can modify or add with an index
             int i = 1;
-            for (BootConfigBase option : loadedConfigurations.get(boat_name)) {
+            for (CategoryBase option : loadedConfigurations.get(boat_name)) {
                 System.out.printf("%d. %s%n", i++, option);
             }
 

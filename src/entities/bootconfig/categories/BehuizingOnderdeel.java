@@ -1,13 +1,15 @@
-package entities.bootconfig;
+package entities.bootconfig.categories;
+
+import entities.bootconfig.BootConfigBase;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VeiligheidOnderdeel extends BootConfigBase {
-    double price;
+public class BehuizingOnderdeel extends CategoryBase {
 
-    public VeiligheidOnderdeel(List<String> veiligheid, double price) {
-        this.waardes = veiligheid;
+    double price;
+    public BehuizingOnderdeel(List<String> behuizing, double price) {
+        this.waardes = behuizing;
         this.price = price;
     }
 
@@ -53,6 +55,6 @@ public class VeiligheidOnderdeel extends BootConfigBase {
 
     @Override
     public String toString() {
-        return String.format("Veiligheid: %s %.2f", this.waardes, this.price);
+        return String.format("Behuizing: %s %.2f", this.waardes, this.price);
     }
 }
