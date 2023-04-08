@@ -213,4 +213,10 @@ public class BootManager {
 
         System.out.println(sure ? "Succesvol verwijderd!" : "Bewerking geannuleerd door de gebruiker.");
     }
+
+    public static BootConfig getBootConfiguration(final String boat_config_name)
+    {
+        // Returns null if not present
+        return loadedConfigurations.get(boat_config_name);
+    }
 }
