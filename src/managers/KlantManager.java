@@ -13,7 +13,8 @@ public class KlantManager {
 
     public KlantManager(){
         // Standaard klant types
-        addKlantType("Zakelijke klant", 10);
+        addKlantType("Overheid klant", 4);
+        addKlantType("Zakelijke klant", 2);
         addKlantType("Particuliere klant", 0);
     }
 

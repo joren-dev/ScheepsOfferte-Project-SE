@@ -17,22 +17,27 @@ public class KlantTypeMenu extends MenuBase {
         while (true) {
             System.out.println("\033[1m== Klanttypen ==\033[0m");
             System.out.println("Wat wilt u doen?");
-            System.out.println("1. Klanttype toevoegen\n2. Klanttype wijzigen\n3. Klanttype verwijderen\n4. Terug naar hoofdmenu");
+            System.out.println("1. Klanttype toevoegen\n2. Klanttype wijzigen\n3. Klanttype verwijderen\n4. Klanttype lijst bekijken\n5. Terug naar hoofdmenu");
             System.out.print("Voer in: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
 
+            final int kVoegKlantType = 1, kWijzigKlantType = 2, kVerwijderKlantType = 3, kViewKlantType = 4, kNavigeerHoofdmenu = 5;
+
             switch (choice) {
-                case 1:
+                case kVoegKlantType:
                     addKlantType();
                     break;
-                case 2:
+                case kWijzigKlantType:
                     editKlantType();
                     break;
-                case 3:
+                case kVerwijderKlantType:
                     deleteKlantType();
                     break;
-                case 4:
+                case kViewKlantType:
+                    viewKlantType();
+                    break;
+                case kNavigeerHoofdmenu:
                     return;
                 default:
                     break;
@@ -76,4 +81,7 @@ public class KlantTypeMenu extends MenuBase {
         KlantManager.deleteKlantType(naam);
     }
 
+    private void viewKlantType() {
+        System.out.println(Arrays.toString(KlantManager.klantTypen.stream().map(KlantType::toString).toArray()));
+    }
 }

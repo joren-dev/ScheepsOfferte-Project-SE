@@ -1,15 +1,14 @@
 package menus;
 
 import entities.klant.Klant;
-import menus.MenuBase;
 
 import java.util.Scanner;
 
-public class ViewOfferteMenu extends MenuBase {
+public class OfferteMenu extends MenuBase {
 
     private Scanner scanner;
 
-    public ViewOfferteMenu() {
+    public OfferteMenu() {
         scanner = new Scanner(System.in);
     }
 
@@ -23,25 +22,45 @@ public class ViewOfferteMenu extends MenuBase {
             int choice = scanner.nextInt();
             scanner.nextLine();
 
+            final int kVoegOfferteToe = 1, kWijzigOfferte = 2, kToonOfferteLijst = 3, kVerwijderOfferte = 4, kNavigeerHoofdmenu = 5;
+
             switch (choice) {
-                case 1:
-                    // ..
+                case kVoegOfferteToe:
+                    addQuotation();
                     break;
-                case 2:
-                    // ..
+                case kWijzigOfferte:
+                    editQuotation();
                     break;
-                case 3:
-                    // ..
+                case kToonOfferteLijst:
+                    showQuotationList();
                     break;
-                case 4:
-                    // ..
+                case kVerwijderOfferte:
+                    deleteQuotation();
                     break;
-                case 5:
+                case kNavigeerHoofdmenu:
                     return;
                 default:
                     break;
             }
         }
+    }
+
+
+    public void addQuotation() {
+
+    }
+
+    public void editQuotation() {
+
+    }
+
+    public void showQuotationList() {
+
+    }
+
+    public void deleteQuotation() {
+
+
     }
 
     public void generateQuotation(
