@@ -18,7 +18,7 @@ public class KlantManager {
         addKlantType("Particuliere klant", 0);
     }
 
-    public static void addKlantType(String type_naam, double korting) {
+    public static void addKlantType(String type_naam, int korting) {
         for (KlantType each : klantTypen) {
             if (each.getTypeNaam().equals(type_naam)) {
                 System.out.println("Deze klanttype bestaat al.");
@@ -45,7 +45,7 @@ public class KlantManager {
         String nieuwe_klant_type_naam = scanner.nextLine();
 
         System.out.print("Nieuwe klanttype korting: ");
-        final double nieuwe_klant_type_korting = scanner.nextDouble() / 100.0;
+        final int nieuwe_klant_type_korting = scanner.nextInt();
         scanner.nextLine();
 
         if (optioneel_klant_type.isPresent()) {
