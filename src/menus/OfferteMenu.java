@@ -30,13 +30,13 @@ public class OfferteMenu extends MenuBase {
                     OfferteManager.addOfferte();
                     break;
                 case kWijzigOfferte:
-                    // TODO
+                    OfferteManager.editOfferte();
                     break;
                 case kToonOfferteLijst:
-                    // TODO
+                    OfferteManager.showOfferte();
                     break;
                 case kVerwijderOfferte:
-                    // TODO
+                    OfferteManager.deleteOfferte();
                     break;
                 case kNavigeerHoofdmenu:
                     return;
