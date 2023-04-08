@@ -2,7 +2,7 @@ package entities.klant;
 
 public class KlantType {
 
-    public KlantType(String type_naam, double korting){
+    public KlantType(String type_naam, int korting){
         this.korting = korting;
         this.type_naam = type_naam;
     }
@@ -12,7 +12,7 @@ public class KlantType {
         return type_naam;
     }
 
-    public double getKorting()
+    public int getKorting()
     {
         return korting;
     }
@@ -21,14 +21,14 @@ public class KlantType {
         this.type_naam = type_naam;
     }
 
-    public void setKorting(double korting){
+    public void setKorting(int korting){
         this.korting = korting;
     }
 
     public String toString() {
-        return String.format("Huidige waardes: naam=%s korting=%.2f", this.type_naam, this.korting);
+        return String.format("Huidige waardes: naam=%s korting=%d", this.type_naam, this.korting);
     }
 
     private String type_naam;
-    private double korting;
+    private int korting;
 }
