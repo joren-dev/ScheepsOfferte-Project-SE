@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import menus.MenuBase;
 
-public class MenuManager {
+public class  MenuManager {
     private Scanner scanner;
     private Map<String, MenuBase> menus;
 
@@ -37,7 +37,7 @@ public class MenuManager {
 
     public void start() {
         while (true) {
-
+            System.out.println("\033[1m== Main menu ==\033[0m");
             System.out.println("Type in de gewenste menu optie:");
             int optionNumber = 1;
 
