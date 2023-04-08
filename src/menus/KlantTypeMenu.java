@@ -96,6 +96,7 @@ public class KlantTypeMenu extends MenuBase {
                 if (klantfound.getTypeNaam().equals(naam)) {
                     found = true;
                     KlantManager.deleteKlantType(naam);
+                    break;
                 }
             }
         } while (!found);
