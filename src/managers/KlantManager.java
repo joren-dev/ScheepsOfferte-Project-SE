@@ -18,10 +18,10 @@ public class KlantManager {
         addKlantType("Particuliere klant", 0);
     }
 
-    public static void addKlantType(String type_naam, double korting) {
+    public static void addKlantType(String type_naam, int korting) {
         for (KlantType each : klantTypen) {
             if (each.getTypeNaam().equals(type_naam)) {
-                System.out.println("Dat entities.klant type bestaat al.");
+                System.out.println("Deze klanttype bestaat al.");
                 return;
             }
         }
@@ -30,9 +30,8 @@ public class KlantManager {
     }
 
     public static void deleteKlantType(String typenaam) {
-        // Verwijderd de entities.klant type als het bestaat.
-        KlantManager.klantTypen.removeIf((x)
-                -> x.getTypeNaam().equals(typenaam.toLowerCase()));
+        // Verwijderd de klant type als het bestaat.
+        KlantManager.klantTypen.removeIf((x) -> x.getTypeNaam().equals(typenaam.toLowerCase()));
 
     }
 
@@ -40,13 +39,13 @@ public class KlantManager {
         Scanner scanner = new Scanner(System.in);
 
         Optional<KlantType> optioneel_klant_type = KlantManager.klantTypen.stream().filter((klant_type) -> klant_type.getTypeNaam().equals(klant_type_naam.toLowerCase())).findFirst();
-        System.out.println(optioneel_klant_type.get().toString());
+        System.out.println(optioneel_klant_type.get());
 
         System.out.print("Nieuwe klanttype naam: ");
         String nieuwe_klant_type_naam = scanner.nextLine();
 
         System.out.print("Nieuwe klanttype korting: ");
-        final double nieuwe_klant_type_korting = scanner.nextDouble() / 100.0;
+        final int nieuwe_klant_type_korting = scanner.nextInt();
         scanner.nextLine();
 
         if (optioneel_klant_type.isPresent()) {

@@ -50,36 +50,56 @@ public class KlantTypeMenu extends MenuBase {
         String naam = scanner.nextLine();
 
         System.out.print("Hoeveel korting krijgt dit klanttype: ");
-        double korting = scanner.nextDouble();
+        int korting = scanner.nextInt();
         scanner.nextLine();
-        korting /= 100.0;
 
         KlantManager.addKlantType(naam, korting);
     }
 
 
     private void editKlantType() {
-        System.out.println("Welk klanttype wilt u bewerken?");
-        System.out.println(
-                Arrays.toString(
-                        KlantManager.klantTypen.stream().map(KlantType::getTypeNaam).toArray()
-                )
-        );
+        boolean found = false;
+        String klant_type_naam;
 
-        System.out.print("Maak uw keuze: ");
-        String klant_type_naam = scanner.nextLine();
+        do {
+            System.out.println("Welk klanttype wilt u bewerken?");
+            System.out.println(Arrays.toString(KlantManager.klantTypen.stream().map(KlantType::getTypeNaam).toArray()));
+            System.out.print("Maak uw keuze: ");
+            klant_type_naam = scanner.nextLine();
 
-        KlantManager.wijzigKlantType(klant_type_naam);
+            for (int i = 0; i != KlantManager.klantTypen.size(); i++) {
+                KlantType klantfound = KlantManager.klantTypen.get(i);
+
+                if (klantfound.getTypeNaam().equals(klant_type_naam)) {
+                    found = true;
+                    KlantManager.wijzigKlantType(klantfound.getTypeNaam());
+                }
+            }
+
+        } while (!found);
+
     }
 
     private void deleteKlantType() {
-        System.out.println("Welk klanttype wilt u verwijderen?");
-        System.out.println(Arrays.toString(KlantManager.klantTypen.stream().map(KlantType::getTypeNaam).toArray()));
+        boolean found = false;
 
-        System.out.print("Maak uw keuze: ");
-        String naam = scanner.nextLine();
+        do {
+            System.out.println("Welk klanttype wilt u verwijderen?");
+            System.out.println(Arrays.toString(KlantManager.klantTypen.stream().map(KlantType::getTypeNaam).toArray()));
 
-        KlantManager.deleteKlantType(naam);
+            System.out.print("Maak uw keuze: ");
+            String naam = scanner.nextLine();
+
+            for (int i = 0; i != KlantManager.klantTypen.size(); i++) {
+                KlantType klantfound = KlantManager.klantTypen.get(i);
+
+                if (klantfound.getTypeNaam().equals(naam)) {
+                    found = true;
+                    KlantManager.deleteKlantType(naam);
+                    break;
+                }
+            }
+        } while (!found);
     }
 
     private void viewKlantType() {
