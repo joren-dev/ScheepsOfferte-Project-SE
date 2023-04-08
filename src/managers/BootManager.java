@@ -1,12 +1,20 @@
 package managers;
 
+import entities.bootconfig.*;
+import entities.bootconfig.categories.*;
+
 import java.util.Scanner;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
+
+/*
+- [x] Non-essentials worden niet toegevoegd, of niet geprint.
+- [x] Na het maken van config print het de class obj, niet de opties (memory)
+- [ ] Change config functionaliteit werkt niet
+*/
 
 public class BootManager {
     public static final String[] kEssentialCategories = {"Motor", "Veiligheid", "Behuizing"};
@@ -19,15 +27,15 @@ public class BootManager {
         put("Uiterlijk", List.of("Biologische verf", "Standaard verf", "LED verlichting"));
     }};
 
-    public static Map<String, List<String>> loadedConfigurations = new HashMap<>();
+    public static Map<String, BootConfig> loadedConfigurations = new HashMap<>();
 
     public static void printLoadedConfigurations(final boolean print_options) {
         System.out.println("\nLoaded Configurations:");
 
-        loadedConfigurations.forEach((configName, configOptions) -> {
+        loadedConfigurations.forEach((configName, config_value) -> {
             if (print_options) {
                 System.out.printf("%s: %n", configName);
-                configOptions.forEach(option -> System.out.printf("- %s%n", option));
+                config_value.print_all_options();
 
                 System.out.println("---------------");
             } else {
@@ -44,29 +52,44 @@ public class BootManager {
         System.out.print("Vul in de naam van uw configuratie: ");
         String configuratie_naam = scanner.nextLine();
 
-        // TODO: Store boot type in some way (joren)
-        // TODO: Link prices to items (joren)
-
         // Check if name is duplicate
         while (loadedConfigurations.containsKey(configuratie_naam)) {
             System.out.println("Deze naam bestaat al. Kies een andere naam: ");
             configuratie_naam = scanner.nextLine();
         }
 
+        System.out.print("Welke boot type is het? : ");
+        String boat_type = scanner.nextLine();
+
+        BootConfig new_boat_config = new BootConfig(configuratie_naam, boat_type);
+
         Map<String, List<String>> chosen_options = new HashMap<>();
 
-        // For the essential components its a requirement you pick at least one. Hence the allow_skip = false.
+        // For the essential components it's a requirement you pick at least one. Hence, the allow_skip = false.
+        // Requests all options
         request_list_options(List.of(kEssentialCategories), "Essentials", chosen_options, scanner, false);
-        request_list_options(List.of(kOptionalCategories), "Optionals", chosen_options, scanner,  true);
+        request_list_options(List.of(kOptionalCategories), "Optionals", chosen_options, scanner, true);
 
-        loadedConfigurations.put(configuratie_naam, chosen_options.entrySet().stream()
-                .flatMap(entry -> entry.getValue().stream())
-                .collect(Collectors.toList()));
+        // Add categories to config
+        new_boat_config.add_category("Motor", new MotorOnderdeel(chosen_options.get("Motor"), 0.0));
+        new_boat_config.add_category("Veiligheid", new VeiligheidOnderdeel(chosen_options.get("Veiligheid"), 0.0));
+        new_boat_config.add_category("Behuizing", new BehuizingOnderdeel(chosen_options.get("Behuizing"), 0.0));
 
-        if (loadedConfigurations.get(configuratie_naam).isEmpty())
-            System.out.println("Let op: deze configuratie bevat geen opties.");
+        for (String optional_category : kOptionalCategories) {
+            if(chosen_options.get(optional_category).isEmpty() || !chosen_options.containsKey(optional_category))
+                continue;
 
-        System.out.printf("Boot configuratie \033[1m'%s'\033[0m is toegevoegd met de volgende opties: %s%n%n",
+            if (optional_category.equals("Uiterlijk"))
+                new_boat_config.add_category("Uiterlijk", new UiterlijkOnderdeel(chosen_options.get("Uiterlijk"), 0.0));
+
+            if (optional_category.equals("Extras"))
+                new_boat_config.add_category("Extras", new ExtrasOnderdeel(chosen_options.get("Extras"), 0.0));
+        }
+
+        // Add config to list of loaded configurations
+        loadedConfigurations.put(configuratie_naam, new_boat_config);
+
+        System.out.printf("Boot configuratie \033[1m'%s'\033[0m is toegevoegd met de volgende opties: %n%s%n",
                 configuratie_naam, loadedConfigurations.get(configuratie_naam));
 
     }
@@ -107,105 +130,71 @@ public class BootManager {
         }
     }
 
-    public static void changeBootConfiguration()
-    {
-        final Scanner scanner = new Scanner(System.in);
+    public static void changeBootConfiguration() {
+        Scanner scanner = new Scanner(System.in);
 
-        // Copy the loaded-configurations
-        final Map<String, List<String>> original_contents = new HashMap<>(loadedConfigurations);
+        System.out.println("\033[1m== Boot Configuratie aanpassen ==\033[0m");
 
-        // List all current boot configs
-        printLoadedConfigurations(false);
+        for (String key : loadedConfigurations.keySet()) {
+            System.out.printf("- %s%n", key);
+        }
 
-        // Prompt the user to choose a boat based on boat name (key value in loadedConfigurations map).
-        String boat_name = "";
-        do {
-            System.out.print("Welke boot wilt u wijzigen: ");
-            boat_name = scanner.nextLine();
-        } while (!loadedConfigurations.containsKey(boat_name));
-        boolean has_more_changes = true;
-        while (has_more_changes) {
-            System.out.printf("%n%s onderdelen%n===============%n", boat_name);
+        System.out.print("Vul in de naam van uw configuratie: ");
+        String configuratie_naam = scanner.nextLine();
 
-            // List all options they can modify or add with an index
-            int index = 1;
-            for (final String option : loadedConfigurations.get(boat_name))
-                System.out.printf("%d. %s%n", index++, option);
+        // Check if name is duplicate
+        while (!loadedConfigurations.containsKey(configuratie_naam)) {
+            System.out.println("Deze naam bestaat niet. Kies een andere naam: ");
+            configuratie_naam = scanner.nextLine();
+        }
 
-            final int max_option = index - 1;
-            System.out.printf("Welke optie wilt u aanpassen? (1-%d) (0 om te stoppen): ", max_option);
+        System.out.printf("Boot type: %s%n", loadedConfigurations.get(configuratie_naam).get_boat_type());
 
-            int choice;
-            do {
-                choice = scanner.nextInt();
+        System.out.print("Welke boot type moet het worden? : ");
+        String boat_type = scanner.nextLine();
 
-                if (choice < 0 || choice > max_option)
-                    System.out.printf("Ongeldige keuze. Kies een optie tussen 0 en %d: ", max_option);
+        BootConfig new_boat_config = new BootConfig(configuratie_naam, boat_type);
 
-            } while (choice < 0 || choice > max_option);
-            scanner.nextLine(); // consume the newline character
+        System.out.println("\nDe huidige opties:");
+        loadedConfigurations.get(configuratie_naam).print_all_options();
+        System.out.println("\nSelecteer welke u wilt behouden:");
 
-            if (choice == 0) {
-                has_more_changes = false;
-                continue;
-            }
+        Map<String, List<String>> chosen_options = new HashMap<>();
 
-            final String option = loadedConfigurations.get(boat_name).get(choice - 1);
+        // For the essential components it's a requirement you pick at least one. Hence, the allow_skip = false.
+        // Requests all options
+        request_list_options(List.of(kEssentialCategories), "Essentials", chosen_options, scanner, false);
+        request_list_options(List.of(kOptionalCategories), "Optionals", chosen_options, scanner, true);
 
-            // Needed as a lambda expression requires local variables referenced in a lambda to be final.
-            final String final_boat_name = boat_name;
-            kOptiesPerCategorie.forEach((categoryName, values) -> {
-                if (!values.contains(option))
-                    return; // Skip to the next iteration
+        // Add categories to config
+        new_boat_config.add_category("Motor", new MotorOnderdeel(chosen_options.get("Motor"), 0.0));
+        new_boat_config.add_category("Veiligheid", new VeiligheidOnderdeel(chosen_options.get("Veiligheid"), 0.0));
+        new_boat_config.add_category("Behuizing", new BehuizingOnderdeel(chosen_options.get("Behuizing"), 0.0));
 
-                System.out.print("Wilt u deze verwijderen? (j/n): ");
-                final boolean wants = scanner.nextLine().equals("j");
-                if (!wants)
-                    loadedConfigurations.get(final_boat_name).removeIf((item) -> item.equals(option));
-            });
-
-
-            for (final String category : kEssentialCategories) {
-                boolean is_fine = false;
-
-                for (final String category_option : kOptiesPerCategorie.get(category)) {
-                    if (loadedConfigurations.get(boat_name).contains(category_option)) {
-                        is_fine = true;
+        for (String optional_category : kOptionalCategories) {
+            if (chosen_options.containsKey(optional_category)) {
+                switch (optional_category) {
+                    case "Uiterlijk":
+                        new_boat_config.add_category("Uiterlijk", new UiterlijkOnderdeel(chosen_options.get("Uiterlijk"), 0.0));
                         break;
-                    }
-                }
-
-                if (!is_fine) {
-                    System.out.print("Deze optie is verplicht, kies een waarde als vervanging: ");
-
-                    for (final String category_option : kOptiesPerCategorie.get(category))
-                        System.out.println(category_option);
-
-                    String gekozen_optie = "";
-
-                    while (!kOptiesPerCategorie.get(category).contains(gekozen_optie)) {
-                        System.out.print("Welke optie wilt u toevoegen? (onderdeel naam): ");
-                        gekozen_optie = scanner.nextLine();
-                    }
-
-                    loadedConfigurations.get(boat_name).add(gekozen_optie);
+                    case "Extras":
+                        new_boat_config.add_category("Extras", new ExtrasOnderdeel(chosen_options.get("Extras"), 0.0));
+                        break;
+                    default:
+                        throw new RuntimeException("Make sure to keep this up-to-date!");
                 }
             }
         }
 
-        // Confirm if new config is correct
-        System.out.println(loadedConfigurations.get(boat_name));
-        System.out.print("Is deze configuratie correct? (j/n): ");
+        // Add config to list of loaded configurations
+        loadedConfigurations.put(configuratie_naam, new_boat_config);
 
-        if (!scanner.nextLine().equals("j")) {
-            // Set back original configuration in case canceled.
-            loadedConfigurations = original_contents;
-            System.out.println("De wijziging is gecanceld, er is niks veranderd");
-        }
+        System.out.printf("Boot configuratie \033[1m'%s'\033[0m is toegevoegd met de volgende opties: %n%s%n",
+                configuratie_naam, loadedConfigurations.get(configuratie_naam));
+
     }
 
-    public static void removeBootConfiguration()
-    {
+    public static void removeBootConfiguration() {
         Scanner scanner = new Scanner(System.in);
 
         // List boot configs
