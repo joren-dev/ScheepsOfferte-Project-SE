@@ -23,13 +23,6 @@ public class MotorOnderdeel extends CategoryBase
     }
 
     @Override
-    public void printOptions() {
-        for (String option : this.waardes) {
-            System.out.println(option);
-        }
-    }
-
-    @Override
     public ArrayList<String> getWaardes() {
         return (ArrayList<String>) this.waardes;
     }

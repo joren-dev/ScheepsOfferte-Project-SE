@@ -10,9 +10,9 @@ public class UiterlijkOnderdeel extends CategoryBase
     double price;
 
     public UiterlijkOnderdeel(List<String> options, double price) {
-        if (options == null) {
-            throw new RuntimeException("OOPS");
-        }
+        if (options == null)
+            throw new RuntimeException("Options was null");
+
         this.waardes = options;
         this.price = price;
     }
@@ -21,13 +21,6 @@ public class UiterlijkOnderdeel extends CategoryBase
     public String get_price()
     {
         return String.valueOf(this.price);
-    }
-
-    @Override
-    public void printOptions() {
-        for (String option : this.waardes) {
-            System.out.println(option);
-        }
     }
 
     @Override

@@ -8,7 +8,10 @@ public abstract class CategoryBase {
 
     public abstract String get_price();
 
-    public abstract void printOptions();
+    public void printOptions()
+    {
+        System.out.println(this.waardes);
+    }
 
     public abstract ArrayList<String> getWaardes();
 

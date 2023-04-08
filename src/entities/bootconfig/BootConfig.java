@@ -32,10 +32,11 @@ public class BootConfig {
 
     public String toString() {
         StringBuilder formatted_options = new StringBuilder();
-        for (CategoryBase option : options.values()) {
+
+        for (CategoryBase option : options.values())
             formatted_options.append(option.toString()).append("\n");
-        }
-        return String.format("%s (%s):%n%s", this.boat_name, this.boat_type, formatted_options);
+
+        return String.format("Naam (Boot type): %s (%s)%n%s", this.boat_name, this.boat_type, formatted_options);
     }
 
     public void add_category(String category_name, CategoryBase category)

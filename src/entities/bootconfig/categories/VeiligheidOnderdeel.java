@@ -17,11 +17,6 @@ public class VeiligheidOnderdeel extends CategoryBase {
     }
 
     @Override
-    public void printOptions() {
-        System.out.println(this.waardes);
-    }
-
-    @Override
     public ArrayList<String> getWaardes() {
         return (ArrayList<String>) this.waardes;
     }
