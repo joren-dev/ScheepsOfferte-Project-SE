@@ -2,9 +2,10 @@ package menus;
 
 import entities.klant.Klant;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class OfferteMenu extends MenuBase {
+public class OfferteMenu extends MenuBase implements Serializable {
 
     private Scanner scanner;
 

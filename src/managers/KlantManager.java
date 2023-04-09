@@ -1,12 +1,13 @@
 package managers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
 
 import entities.klant.KlantType;
 
-public class KlantManager {
+public class KlantManager implements Serializable {
 
     // Class members
     public static ArrayList<KlantType> klantTypen = new ArrayList<>();

@@ -1,12 +1,13 @@
 package managers;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 import menus.MenuBase;
 
-public class  MenuManager {
+public class  MenuManager implements Serializable {
     private Scanner scanner;
     private Map<String, MenuBase> menus;
 

@@ -3,6 +3,7 @@ package managers;
 import entities.bootconfig.*;
 import entities.bootconfig.categories.*;
 
+import java.io.Serializable;
 import java.util.Scanner;
 import java.util.Map;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.HashMap;
 - [ ] Change config functionaliteit werkt niet
 */
 
-public class BootManager {
+public class BootManager implements Serializable {
     public static final String[] kEssentialCategories = {"Motor", "Veiligheid", "Behuizing"};
     public static final String[] kOptionalCategories = {"Uiterlijk", "Extras"};
     private static final Map<String, List<String>> kOptiesPerCategorie = new HashMap<String, List<String>>() {{
@@ -112,6 +113,7 @@ public class BootManager {
 
             final List<String> selected_options = new ArrayList<>();
             String antwoord;
+            //TODO MAKE MONKEY-PROOF
             do {
                 System.out.printf("Welke %s onderdeel wil je toevoegen? (1-%s): ", category, i - 1);
 
@@ -150,6 +152,7 @@ public class BootManager {
 
         System.out.printf("Boot type: %s%n", loadedConfigurations.get(configuratie_naam).get_boat_type());
 
+        //TODO MAKE MONKEY-PROOF, EXACTE LOCATIE NIET VASTGESTELD.
         System.out.print("Welke boot type moet het worden? : ");
         String boat_type = scanner.nextLine();
 
@@ -214,7 +217,4 @@ public class BootManager {
         System.out.println(sure ? "Succesvol verwijderd!" : "Bewerking geannuleerd door de gebruiker.");
     }
 
-    public static void savedBootConfiguration() {
-        System.out.println("Hier komen de opgeslagen configuraties");
-    }
-    }
+}

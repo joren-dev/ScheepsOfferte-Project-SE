@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 // this one is saved in the map in BootManager
-public class BootConfig {
+public class BootConfig implements Serializable{
 
     private String boat_name;
     private String boat_type;
@@ -58,48 +58,4 @@ public class BootConfig {
     }}
     */
 
-
-    public void save(String file_name){
-        File file = new File(file_name);
-
-        try {
-            FileWriter writer = new FileWriter(file);
-
-            String content = "";
-            for (Map.Entry<String, CategoryBase> entry : this.options.entrySet()) {
-                content += String.format("%s:%s", entry.getKey(), entry.getValue().waardes);
-            }
-
-            content = String.format("%s%n%s%n%s", this.boat_name, this.boat_type, content);;
-            writer.write(content);
-
-            writer.close();
-
-            System.out.println("Successfully wrote to the file.");
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
-
-    public void viewSavedFile(String file_name){
-        File file = new File(file_name);
-        try {
-            FileReader reader = new FileReader(file);
-
-            BufferedReader bufferedReader = new BufferedReader(reader);
-
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                System.out.println(line);
-            }
-
-            bufferedReader.close();
-            reader.close();
-
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
 }

@@ -1,9 +1,10 @@
 package entities.bootconfig.categories;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VeiligheidOnderdeel extends CategoryBase {
+public class VeiligheidOnderdeel extends CategoryBase implements Serializable {
     double price;
 
     public VeiligheidOnderdeel(List<String> veiligheid, double price) {

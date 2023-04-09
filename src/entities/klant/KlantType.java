@@ -1,6 +1,8 @@
 package entities.klant;
 
-public class KlantType {
+import java.io.Serializable;
+
+public class KlantType implements Serializable {
 
     private String type_naam;
     private int korting;

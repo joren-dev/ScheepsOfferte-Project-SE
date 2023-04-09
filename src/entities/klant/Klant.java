@@ -1,6 +1,8 @@
 package entities.klant;
 
-public class Klant {
+import java.io.Serializable;
+
+public class Klant implements Serializable {
     public int korting;
     private String naam;
     private String bedrijf;
@@ -94,6 +96,11 @@ public class Klant {
     public int getKlantKorting() {
         return type.getKorting();
     }
+
+    public String toString() {
+        return String.format("%d %s %s %s %s %s %s", korting, naam, bedrijf, adres, email, telefoon, type);
+    }
 }
+
 
 

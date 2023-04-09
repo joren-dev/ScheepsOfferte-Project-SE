@@ -1,11 +1,12 @@
 package entities.bootconfig.categories;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class UiterlijkOnderdeel extends CategoryBase
+public class UiterlijkOnderdeel extends CategoryBase implements Serializable
 {
     double price;
 

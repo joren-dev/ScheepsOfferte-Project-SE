@@ -2,9 +2,10 @@ package menus;
 
 import managers.BootManager;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class BootConfiguratieMenu extends MenuBase {
+public class BootConfiguratieMenu extends MenuBase implements Serializable {
     private Scanner scanner;
 
     public BootConfiguratieMenu() {
@@ -17,13 +18,13 @@ public class BootConfiguratieMenu extends MenuBase {
             System.out.println("\033[1m== Boot Configuratie Beheer ==\033[0m");
             System.out.println("Wat wilt u doen?");
             System.out.println("1. Boot Configuratie toevoegen\n2. Boot Configuratie wijzigen\n" +
-                    "3. Boot Configuratie bekijken\n4. Boot Configuratie verwijderen\n5. Opgeslagen Boot Configuraties\n6. Terug naar hoofdmenu");
+                    "3. Boot Configuratie bekijken\n4. Boot Configuratie verwijderen\n5. Terug naar hoofdmenu");
             System.out.print("Voer in: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
 
             final int kBootConfiguratieToevoegen = 1, kBootConfiguratieWijzigen = 2, kBootConfiguratieBekijken = 3,
-                    kBootConfiguratieVerwijderen = 4, kOpgeslagenConfiguraties = 5, kTerugHoofdmenu = 6;
+                    kBootConfiguratieVerwijderen = 4, kTerugHoofdmenu = 5;
 
             switch (choice) {
                 case kBootConfiguratieToevoegen:
@@ -40,10 +41,6 @@ public class BootConfiguratieMenu extends MenuBase {
 
                 case kBootConfiguratieVerwijderen:
                     BootManager.removeBootConfiguration();
-                    break;
-
-                case kOpgeslagenConfiguraties:
-                    BootManager.savedBootConfiguration();
                     break;
 
                 case kTerugHoofdmenu:

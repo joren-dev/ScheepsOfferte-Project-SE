@@ -1,9 +1,10 @@
 package entities.bootconfig.categories;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class CategoryBase {
+public abstract class CategoryBase implements Serializable {
     public List<String> waardes;
 
     public abstract String get_price();

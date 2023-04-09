@@ -1,6 +1,8 @@
 package entities.offerte;
 
-public abstract class OfferteBase {
+import java.io.Serializable;
+
+public abstract class OfferteBase implements Serializable{
 
 
 }

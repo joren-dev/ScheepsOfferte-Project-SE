@@ -1,12 +1,13 @@
 package menus;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Scanner;
 
 import entities.klant.KlantType;
 import managers.KlantManager;
 
-public class KlantTypeMenu extends MenuBase {
+public class KlantTypeMenu extends MenuBase implements Serializable {
     private Scanner scanner;
 
     public KlantTypeMenu() {
