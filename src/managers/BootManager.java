@@ -19,6 +19,11 @@ import java.util.HashMap;
 public class BootManager {
     public static final String[] kEssentialCategories = {"Motor", "Veiligheid", "Behuizing"};
     public static final String[] kOptionalCategories = {"Uiterlijk", "Extras"};
+    // Note to group: Wat doen we met dubbele waardes in de configuratie? 2 motoren kan, gewoon een backup motor
+    // 2 veiligheidspakketten kan ook, 2 EHBO-dozen bijvoorbeeld
+    // 2 behuizingen kan ook, voor een ongeluk, dan kan je gewoon vervangen
+    // 2 koelkasten en 2 GPS-systemen is ook niet raar
+    // 2 lagen verf of 2 sets LED-verlichting is volgens mij ook niet echt een probleem
     private static final Map<String, List<String>> kOptiesPerCategorie = new HashMap<String, List<String>>() {{
         put("Motor", List.of("Standaard motor", "Opgevoerde motor", "Dubbele motor", "Duurzame motor"));
         put("Veiligheid", List.of("Standaard veiligheidspakket", "Extra veiligheidspakket"));
@@ -53,13 +58,16 @@ public class BootManager {
         String configuratie_naam = scanner.nextLine();
 
         // Check if name is duplicate
-        while (loadedConfigurations.containsKey(configuratie_naam)) {
-            System.out.println("Deze naam bestaat al. Kies een andere naam: ");
+        while (loadedConfigurations.containsKey(configuratie_naam) || configuratie_naam.equals("")) {
+            System.out.print("Deze naam bestaat al of is leeg. Kies een andere naam: ");
             configuratie_naam = scanner.nextLine();
         }
 
-        System.out.print("Welke boot type is het? : ");
-        String boat_type = scanner.nextLine();
+        String boat_type = "";
+        while (boat_type.length() == 0) {
+            System.out.print("Welke boot type is het? : ");
+            boat_type = scanner.nextLine();
+        }
 
         BootConfig new_boat_config = new BootConfig(configuratie_naam, boat_type);
 
@@ -111,18 +119,30 @@ public class BootManager {
                 System.out.printf("%d. %s%n", i++, option);
 
             final List<String> selected_options = new ArrayList<>();
-            String antwoord;
+            String antwoord = "j";
             do {
                 System.out.printf("Welke %s onderdeel wil je toevoegen? (1-%s): ", category, i - 1);
 
-                final int input = scanner.nextInt();
+//                final int input = scanner.nextInt();
+                String tmp_input = scanner.nextLine();
+                if (!tmp_input.matches("^\\d+$")) {
+                    System.out.println("Voer alstublieft een getal in.");
+                    continue;
+                }
+                int input = Integer.parseInt(tmp_input);
+
                 if (allow_skip && input == 1)
                     break;
+                if (input > (i-1) || input == 0)
+                    continue;
 
                 selected_options.add(options.get(input - (allow_skip ? 2 : 1)));
 
-                System.out.print("Wil je nog een optie toevoegen? (j/n): ");
-                antwoord = scanner.next();
+                antwoord = "ongeldige waarde";
+                while (!antwoord.equals("j") && !antwoord.equals("n")) {
+                    System.out.print("Wil je nog een optie toevoegen? (j/n): ");
+                    antwoord = scanner.next();
+                }
             } while (antwoord.equalsIgnoreCase("j"));
 
             configuration.put(category, selected_options);
@@ -150,8 +170,11 @@ public class BootManager {
 
         System.out.printf("Boot type: %s%n", loadedConfigurations.get(configuratie_naam).get_boat_type());
 
-        System.out.print("Welke boot type moet het worden? : ");
-        String boat_type = scanner.nextLine();
+        String boat_type = "";
+        while (boat_type.length() == 0) {
+            System.out.print("Welke boot type moet het worden? : ");
+            boat_type = scanner.nextLine();
+        }
 
         BootConfig new_boat_config = new BootConfig(configuratie_naam, boat_type);
 
@@ -201,16 +224,24 @@ public class BootManager {
         printLoadedConfigurations(false);
 
         // Remove based on boat name
-        System.out.println("Welke configuratie wilt u verwijderen?");
-        final String name = scanner.nextLine();
+
+        String name = "niet bestaande configuratienaam";
+
+        while (!loadedConfigurations.containsKey(name)) {
+            System.out.println("Welke configuratie wilt u verwijderen?");
+            name = scanner.nextLine();
+        }
 
         // Confirmation for deletion
-        System.out.println("Weet u het zeker (j/n)?");
-        boolean sure = scanner.nextLine().equals("j");
+        String sure = "";
+        while (!sure.equals("j") && !sure.equals("n")) {
+            System.out.println("Weet u het zeker (j/n)?");
+            sure = scanner.nextLine();
+        }
 
-        if (sure)
+        if (sure.equals("j"))
             loadedConfigurations.remove(name);
 
-        System.out.println(sure ? "Succesvol verwijderd!" : "Bewerking geannuleerd door de gebruiker.");
+        System.out.println(sure.equals("j") ? "Succesvol verwijderd!" : "Bewerking geannuleerd door de gebruiker.");
     }
 }

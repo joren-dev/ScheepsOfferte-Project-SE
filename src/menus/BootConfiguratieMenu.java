@@ -2,6 +2,7 @@ package menus;
 
 import managers.BootManager;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BootConfiguratieMenu extends MenuBase {
@@ -18,9 +19,16 @@ public class BootConfiguratieMenu extends MenuBase {
             System.out.println("Wat wilt u doen?");
             System.out.println("1. Boot Configuratie toevoegen\n2. Boot Configuratie wijzigen\n" +
                     "3. Boot Configuratie bekijken\n4. Boot Configuratie verwijderen\n5. Terug naar hoofdmenu");
-            System.out.print("Voer in: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = -1;
+            while (choice < 1 || choice > 5) {
+                System.out.print("Voer in: ");
+                try {
+                    choice = scanner.nextInt();
+                } catch (InputMismatchException identifier) {
+                    System.out.println("Vul alstublieft een getal in.");
+                }
+                scanner.nextLine();
+            }
 
             final int kBootConfiguratieToevoegen = 1, kBootConfiguratieWijzigen = 2, kBootConfiguratieBekijken = 3,
                     kBootConfiguratieVerwijderen = 4, kTerugHoofdmenu = 5;
