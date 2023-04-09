@@ -1,17 +1,17 @@
 package entities.offerte;
 
-import entities.bootconfig.BootConfig;
+import entities.bootconfig.BoatConfig;
 import entities.klant.Client;
 import entities.klant.ClientType;
 
 public abstract class OfferteBase {
     private Client klant;
     private ClientType klantType;
-    private BootConfig config;
+    private BoatConfig config;
     private String offerteDatum;
     private String vervalDatum;
 
-    public OfferteBase(Client klant, ClientType klantType, BootConfig config, String offerteDatum, String vervalDatum) {
+    public OfferteBase(Client klant, ClientType klantType, BoatConfig config, String offerteDatum, String vervalDatum) {
         this.klant = klant;
         this.klantType = klantType;
         this.config = config;
@@ -27,11 +27,11 @@ public abstract class OfferteBase {
         this.klant = klant;
     }
 
-    public BootConfig getConfig() {
+    public BoatConfig getConfig() {
         return config;
     }
 
-    public void setConfig(BootConfig config) {
+    public void setConfig(BoatConfig config) {
         this.config = config;
     }
 

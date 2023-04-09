@@ -1,6 +1,6 @@
 package managers;
 
-import entities.bootconfig.BootConfig;
+import entities.bootconfig.BoatConfig;
 import entities.klant.Client;
 import entities.klant.ClientType;
 
@@ -10,9 +10,6 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class OfferteManager {
-
-    // <offerte_nummer, OfferteObject>
-    // Map<String, BaseOfferte> offerte_list = ...
     public static Map<String, BasicOfferte> offerteLijst = new HashMap<>();
     private static int lastNumber = 10000;
 
@@ -23,63 +20,66 @@ public class OfferteManager {
     }
 
     public static void createOfferte() {
-        Scanner scanner = new Scanner(System.in);
-
-        ArrayList<ClientType> allKlantTypes = ClientManager.get_all_client_types();
-        Map<String, BootConfig> allBoatConfigurations = BootManager.get_all_boat_configs();
-        ClientType selectedKlantType = null;
-        BootConfig selectedBootConfig = null;
-        String input = "";
-        boolean isInputValid = false;
+        final Scanner scanner = new Scanner(System.in);
 
         System.out.println("\033[1m== Offerte maken ==\033[0m");
 
-// Klanttype selecteren
-        while (!isInputValid) {
-            System.out.println("Voor welk klanttype maak je deze offerte?");
-            System.out.println(allKlantTypes);
-            System.out.print("Maak uw keuze: ");
-            input = scanner.nextLine();
+        // Create instances that'll hold currently selected client type & boat config
+        ClientType selected_klant_type = null;
+        BoatConfig selected_boot_config = null;
 
-            if (ClientManager.contains_client_type(input)) {
-                for (ClientType huidigeKlantType : allKlantTypes) {
-                    if (Objects.equals(huidigeKlantType.get_type_name(), input)) {
-                        selectedKlantType = huidigeKlantType;
-                        isInputValid = true;
-                        break;
-                    }
-                }
-            } else {
+        boolean is_input_valid = false;
+        while (!is_input_valid) {
+            System.out.println("Voor welk klanttype maak je deze offerte?");
+
+            final ArrayList<ClientType> all_klant_types = ClientManager.get_all_client_types();
+            System.out.println(all_klant_types);
+
+            System.out.print("Maak uw keuze: ");
+            String input = scanner.nextLine();
+
+            if (!ClientManager.contains_client_type(input)) {
                 System.err.println("Klanttype niet gevonden");
+                continue;
+            }
+
+            for (final ClientType huidige_klant_type : all_klant_types) {
+                if (Objects.equals(huidige_klant_type.get_type_name(), input)) {
+                    selected_klant_type = huidige_klant_type;
+                    is_input_valid = true;
+                    break;
+                }
             }
         }
 
-        System.out.printf("Geselecteerde klanttype: %n%s%n%n", selectedKlantType.get_type_name());
-        isInputValid = false;
+        System.out.printf("Geselecteerde klanttype: %n%s%n%n", selected_klant_type.get_type_name());
 
-// Bootconfig selecteren
-        while (!isInputValid) {
+        // Reset input validity
+        is_input_valid = false;
+
+
+        while (!is_input_valid) {
             System.out.println("Welke bootconfiguratie wilt u toevoegen aan de offerte?");
             BootManager.print_loaded_configs(false);
             System.out.print("Maak uw keuze: ");
+            String input;
             input = scanner.nextLine();
 
             if (BootManager.contains_boat_config(input)) {
-                selectedBootConfig = BootManager.get_boat(input);
-                isInputValid = true;
+                selected_boot_config = BootManager.get_config(input);
+                is_input_valid = true;
             } else {
                 System.out.println("Bootconfiguratie niet gevonden.");
             }
         }
 
-        System.out.printf("Geselecteerde boot configuratie: %n%s%n%n", selectedBootConfig.toString());
-        isInputValid = false;
+        System.out.printf("Geselecteerde boot configuratie: %n%s%n%n", selected_boot_config.toString());
 
         String naam = "";
         String adres = "";
         String email = "";
         String telefoon = "";
-        int aantalDagenTotVervallen = 0;
+        int aantal_dagen_tot_vervallen = 0;
 
         System.out.println("Wat is de naam van de klant?");
         naam = scanner.nextLine();
@@ -101,14 +101,14 @@ public class OfferteManager {
         System.out.println("Klant telefoon nummer: " + telefoon);
 
         System.out.println("Hoelang is de offerte geldig");
-        aantalDagenTotVervallen = scanner.nextInt();
-        String vervalDatum = LocalDateTime.now().plusDays(aantalDagenTotVervallen).toString();
-        System.out.println("De vervaldatum is: " + vervalDatum);
+        aantal_dagen_tot_vervallen = scanner.nextInt();
+        String verval_datum = LocalDateTime.now().plusDays(aantal_dagen_tot_vervallen).toString();
+        System.out.println("De vervaldatum is: " + verval_datum);
 
-        Client klant = new Client(naam, adres, email, telefoon, selectedKlantType);
-        String offerteDatum = LocalDateTime.now().toString();
+        Client klant = new Client(naam, adres, email, telefoon, selected_klant_type);
+        String offerte_datum = LocalDateTime.now().toString();
 
-        BasicOfferte offerte = new BasicOfferte(klant, selectedKlantType, selectedBootConfig, offerteDatum, vervalDatum);
+        BasicOfferte offerte = new BasicOfferte(klant, selected_klant_type, selected_boot_config, offerte_datum, verval_datum);
 
         // TODO:
         /*
@@ -136,8 +136,7 @@ public class OfferteManager {
         return "SF-%d" + lastNumber;
     }
 
-    private static boolean is_valid_email(final String email)
-    {
+    private static boolean is_valid_email(final String email) {
         //  TODO: schrijf code die checkt op de email valid is...
         return true;
     }
