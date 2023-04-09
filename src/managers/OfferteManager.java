@@ -31,9 +31,7 @@ public class OfferteManager {
         boolean is_input_valid = false;
         while (!is_input_valid) {
             System.out.println("Voor welk klanttype maak je deze offerte?");
-
-            final ArrayList<ClientType> all_klant_types = ClientManager.get_all_client_types();
-            System.out.println(all_klant_types);
+            BoatManager.print_loaded_configs(false);
 
             System.out.print("Maak uw keuze: ");
             String input = scanner.nextLine();
@@ -42,8 +40,8 @@ public class OfferteManager {
                 System.err.println("Klanttype niet gevonden");
                 continue;
             }
-
-            for (final ClientType huidige_klant_type : all_klant_types) {
+            
+            for (final ClientType huidige_klant_type : ClientManager.get_all_client_types()) {
                 if (Objects.equals(huidige_klant_type.get_type_name(), input)) {
                     selected_klant_type = huidige_klant_type;
                     is_input_valid = true;
