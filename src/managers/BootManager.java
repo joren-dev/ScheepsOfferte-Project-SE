@@ -36,7 +36,7 @@ public class BootManager {
         });
     }
 
-    public static void addBootConfiguratie() {
+    public static void addBoatConfiguration() {
         final Scanner scanner = new Scanner(System.in);
 
         System.out.println("\033[1m== Boot Configuratie toevoegen ==\033[0m");
@@ -63,7 +63,7 @@ public class BootManager {
                 continue;
 
             if (optional_category.equals("Uiterlijk"))
-                new_boat_config.add_category("Uiterlijk", new UiterlijkOnderdeel(chosen_options.get("Uiterlijk"), 0.0));
+                new_boat_config.add_category("Uiterlijk", new AppearancePart(chosen_options.get("Uiterlijk"), 0.0));
 
             if (optional_category.equals("Extras"))
                 new_boat_config.add_category("Extras", new ExtrasOnderdeel(chosen_options.get("Extras"), 0.0));
@@ -139,7 +139,7 @@ public class BootManager {
         }
     }
 
-    public static void changeBootConfiguration() {
+    public static void changeBoatConfiguration() {
         final Scanner scanner = new Scanner(System.in);
 
         System.out.println("\033[1m== Boot Configuratie aanpassen ==\033[0m");
@@ -176,7 +176,7 @@ public class BootManager {
             if (chosen_options.containsKey(optional_category)) {
                 switch (optional_category) {
                     case "Uiterlijk":
-                        new_boat_config.add_category("Uiterlijk", new UiterlijkOnderdeel(chosen_options.get("Uiterlijk"), 0.0));
+                        new_boat_config.add_category("Uiterlijk", new AppearancePart(chosen_options.get("Uiterlijk"), 0.0));
                         break;
                     case "Extras":
                         new_boat_config.add_category("Extras", new ExtrasOnderdeel(chosen_options.get("Extras"), 0.0));
@@ -194,7 +194,7 @@ public class BootManager {
                 configuration_name, loadedConfigurations.get(configuration_name));
     }
 
-    public static void removeBootConfiguration() {
+    public static void removeBoatConfiguration() {
         Scanner scanner = new Scanner(System.in);
 
         // List boot configs
@@ -228,8 +228,8 @@ public class BootManager {
         request_list_options(List.of(kOptionalCategories), "Optionals", ref_options, scanner, true);
 
         // Add categories to config
-        ref_boatconfig.add_category("Motor", new MotorOnderdeel(ref_options.get("Motor"), 0.0));
-        ref_boatconfig.add_category("Veiligheid", new VeiligheidOnderdeel(ref_options.get("Veiligheid"), 0.0));
-        ref_boatconfig.add_category("Behuizing", new BehuizingOnderdeel(ref_options.get("Behuizing"), 0.0));
+        ref_boatconfig.add_category("Motor", new MotorPart(ref_options.get("Motor"), 0.0));
+        ref_boatconfig.add_category("Veiligheid", new SafetyPart(ref_options.get("Veiligheid"), 0.0));
+        ref_boatconfig.add_category("Behuizing", new HousingPart(ref_options.get("Behuizing"), 0.0));
     }
 }

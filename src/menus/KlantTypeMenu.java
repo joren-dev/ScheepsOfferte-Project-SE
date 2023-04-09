@@ -3,8 +3,8 @@ package menus;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import entities.klant.KlantType;
-import managers.KlantManager;
+import entities.klant.ClientType;
+import managers.ClientManager;
 
 public class KlantTypeMenu extends MenuBase {
     private Scanner scanner;
@@ -13,31 +13,33 @@ public class KlantTypeMenu extends MenuBase {
         scanner = new Scanner(System.in);
     }
 
-    public void showMenu() {
+    @Override
+    public void show_menu() {
         while (true) {
             System.out.println("\033[1m== Klanttypen ==\033[0m");
             System.out.println("Wat wilt u doen?");
             System.out.println("1. Klanttype toevoegen\n2. Klanttype wijzigen\n3. Klanttype verwijderen\n4. Klanttype lijst bekijken\n5. Terug naar hoofdmenu");
             System.out.print("Voer in: ");
+
             int choice = scanner.nextInt();
             scanner.nextLine();
 
-            final int kVoegKlantType = 1, kWijzigKlantType = 2, kVerwijderKlantType = 3, kViewKlantType = 4, kNavigeerHoofdmenu = 5;
+            final int kAddKlantType = 1, kChangeKlantType = 2, kRemoveKlantType = 3, kViewKlantType = 4, kNavigateToHoofdmenu = 5;
 
             switch (choice) {
-                case kVoegKlantType:
-                    addKlantType();
+                case kAddKlantType:
+                    add_client_type();
                     break;
-                case kWijzigKlantType:
-                    editKlantType();
+                case kChangeKlantType:
+                    edit_client_type();
                     break;
-                case kVerwijderKlantType:
-                    deleteKlantType();
+                case kRemoveKlantType:
+                    delete_client_type();
                     break;
                 case kViewKlantType:
-                    viewKlantType();
+                    view_client_type();
                     break;
-                case kNavigeerHoofdmenu:
+                case kNavigateToHoofdmenu:
                     return;
                 default:
                     break;
@@ -45,34 +47,37 @@ public class KlantTypeMenu extends MenuBase {
         }
     }
 
-    private void addKlantType() {
+    private void add_client_type() {
         System.out.print("Hoe noemt u dit klanttype: ");
-        String naam = scanner.nextLine();
+        final String name = scanner.nextLine();
 
         System.out.print("Hoeveel korting krijgt dit klanttype: ");
-        int korting = scanner.nextInt();
+
+        final int discount = scanner.nextInt();
         scanner.nextLine();
 
-        KlantManager.addKlantType(naam, korting);
+        ClientManager.add_client_type(name, discount);
     }
 
 
-    private void editKlantType() {
+    private void edit_client_type() {
+
         boolean found = false;
-        String klant_type_naam;
+        String client_type_name;
 
         do {
             System.out.println("Welk klanttype wilt u bewerken?");
-            System.out.println(Arrays.toString(KlantManager.klantTypen.stream().map(KlantType::getTypeNaam).toArray()));
+            System.out.println(Arrays.toString(ClientManager.client_types.stream().map(ClientType::get_type_name).toArray()));
+
             System.out.print("Maak uw keuze: ");
-            klant_type_naam = scanner.nextLine();
+            client_type_name = scanner.nextLine();
 
-            for (int i = 0; i != KlantManager.klantTypen.size(); i++) {
-                KlantType klantfound = KlantManager.klantTypen.get(i);
+            for (int i = 0; i != ClientManager.client_types.size(); i++) {
+                ClientType found_client = ClientManager.client_types.get(i);
 
-                if (klantfound.getTypeNaam().equals(klant_type_naam)) {
+                if (found_client.get_type_name().equals(client_type_name)) {
                     found = true;
-                    KlantManager.wijzigKlantType(klantfound.getTypeNaam());
+                    ClientManager.change_client_type(found_client.get_type_name());
                 }
             }
 
@@ -80,29 +85,29 @@ public class KlantTypeMenu extends MenuBase {
 
     }
 
-    private void deleteKlantType() {
+    private void delete_client_type() {
         boolean found = false;
 
         do {
             System.out.println("Welk klanttype wilt u verwijderen?");
-            System.out.println(Arrays.toString(KlantManager.klantTypen.stream().map(KlantType::getTypeNaam).toArray()));
+            System.out.println(Arrays.toString(ClientManager.client_types.stream().map(ClientType::get_type_name).toArray()));
 
             System.out.print("Maak uw keuze: ");
-            String naam = scanner.nextLine();
+            String name = scanner.nextLine();
 
-            for (int i = 0; i != KlantManager.klantTypen.size(); i++) {
-                KlantType klantfound = KlantManager.klantTypen.get(i);
+            for (int i = 0; i != ClientManager.client_types.size(); i++) {
+                ClientType found_client = ClientManager.client_types.get(i);
 
-                if (klantfound.getTypeNaam().equals(naam)) {
+                if (found_client.get_type_name().equals(name)) {
                     found = true;
-                    KlantManager.deleteKlantType(naam);
+                    ClientManager.delete_client_type(name);
                     break;
                 }
             }
         } while (!found);
     }
 
-    private void viewKlantType() {
-        System.out.println(Arrays.toString(KlantManager.klantTypen.stream().map(KlantType::toString).toArray()));
+    private void view_client_type() {
+        System.out.println(Arrays.toString(ClientManager.client_types.stream().map(ClientType::toString).toArray()));
     }
 }

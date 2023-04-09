@@ -3,12 +3,12 @@ package entities.bootconfig.categories;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExtrasOnderdeel extends CategoryBase {
+public class HousingPart extends CategoryBase {
 
     double price;
-    public ExtrasOnderdeel(final List<String> extra_list, final double price)
+    public HousingPart(final List<String> housing, final double price)
     {
-        this.values = extra_list;
+        this.values = housing;
         this.price = price;
     }
 
@@ -55,8 +55,7 @@ public class ExtrasOnderdeel extends CategoryBase {
     }
 
     @Override
-    public String toString()
-    {
-        return String.format("Extras: %s %.2f", this.values, this.price);
+    public String toString() {
+        return String.format("Behuizing: %s %.2f", this.values, this.price);
     }
 }

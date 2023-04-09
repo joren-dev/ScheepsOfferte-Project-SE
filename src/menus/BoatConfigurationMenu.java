@@ -5,20 +5,22 @@ import managers.BootManager;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class BootConfiguratieMenu extends MenuBase {
+public class BoatConfigurationMenu extends MenuBase {
     private Scanner scanner;
 
-    public BootConfiguratieMenu() {
+    public BoatConfigurationMenu() {
         scanner = new Scanner(System.in);
     }
 
     @Override
-    public void showMenu() {
+    public void show_menu() {
+
         while (true) {
             System.out.println("\033[1m== Boot Configuratie Beheer ==\033[0m");
             System.out.println("Wat wilt u doen?");
             System.out.println("1. Boot Configuratie toevoegen\n2. Boot Configuratie wijzigen\n" +
                     "3. Boot Configuratie bekijken\n4. Boot Configuratie verwijderen\n5. Terug naar hoofdmenu");
+
             int choice = -1;
             while (choice < 1 || choice > 5) {
                 System.out.print("Voer in: ");
@@ -30,27 +32,27 @@ public class BootConfiguratieMenu extends MenuBase {
                 scanner.nextLine();
             }
 
-            final int kBootConfiguratieToevoegen = 1, kBootConfiguratieWijzigen = 2, kBootConfiguratieBekijken = 3,
-                    kBootConfiguratieVerwijderen = 4, kTerugHoofdmenu = 5;
+            final int kAddBootConfiguration = 1, kChangeBootConfiguration = 2, kViewBootConfigurations = 3,
+                    kRemoveBootConfiguration = 4, kReturnToMainMenu = 5;
 
             switch (choice) {
-                case kBootConfiguratieToevoegen:
-                    BootManager.addBootConfiguratie();
+                case kAddBootConfiguration:
+                    BootManager.addBoatConfiguration();
                     break;
 
-                case kBootConfiguratieWijzigen:
-                    BootManager.changeBootConfiguration();
+                case kChangeBootConfiguration:
+                    BootManager.changeBoatConfiguration();
                     break;
 
-                case kBootConfiguratieBekijken:
+                case kViewBootConfigurations:
                     BootManager.printLoadedConfigurations(true);
                     break;
 
-                case kBootConfiguratieVerwijderen:
-                    BootManager.removeBootConfiguration();
+                case kRemoveBootConfiguration:
+                    BootManager.removeBoatConfiguration();
                     break;
 
-                case kTerugHoofdmenu:
+                case kReturnToMainMenu:
                     return;
 
                 default:

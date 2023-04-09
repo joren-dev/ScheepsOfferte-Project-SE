@@ -1,8 +1,6 @@
 package menus;
 
-import java.util.Scanner;
-
 public abstract class MenuBase {
 
-    public abstract void showMenu();
+    public abstract void show_menu();
 }
