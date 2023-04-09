@@ -28,34 +28,25 @@ public class OfferteManager {
         ClientType selected_klant_type = null;
         BoatConfig selected_boot_config = null;
 
-        boolean is_input_valid = false;
-        while (!is_input_valid) {
+        while (true) {
             System.out.println("Voor welk klanttype maak je deze offerte?");
-            BoatManager.print_loaded_configs(false);
+            ClientManager.print_client_types();
 
             System.out.print("Maak uw keuze: ");
             String input = scanner.nextLine();
 
-            if (!ClientManager.contains_client_type(input)) {
-                System.err.println("Klanttype niet gevonden");
-                continue;
+            if (ClientManager.contains_client_type(input)) {
+                selected_klant_type = ClientManager.get_client_type(input);
+                break;
             }
-            
-            for (final ClientType huidige_klant_type : ClientManager.get_all_client_types()) {
-                if (Objects.equals(huidige_klant_type.get_type_name(), input)) {
-                    selected_klant_type = huidige_klant_type;
-                    is_input_valid = true;
-                    break;
-                }
-            }
+
+            System.err.println("Klanttype niet gevonden");
         }
 
         System.out.printf("Geselecteerde klanttype: %n%s%n%n", selected_klant_type.get_type_name());
 
-        // Reset input validity
-        is_input_valid = false;
 
-
+        boolean is_input_valid = false;
         while (!is_input_valid) {
             System.out.println("Welke bootconfiguratie wilt u toevoegen aan de offerte?");
             BoatManager.print_loaded_configs(false);
@@ -67,7 +58,7 @@ public class OfferteManager {
                 selected_boot_config = BoatManager.get_config(input);
                 is_input_valid = true;
             } else {
-                System.out.println("Bootconfiguratie niet gevonden.");
+                System.err.println("Bootconfiguratie niet gevonden.");
             }
         }
 

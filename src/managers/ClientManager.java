@@ -67,12 +67,30 @@ public class ClientManager {
 
     public static boolean contains_client_type(final String client_type_name)
     {
-        for (final ClientType clientType : loaded_client_types) {
-            if (clientType.get_type_name().equals(client_type_name))
+        for (final ClientType client_type : loaded_client_types) {
+            if (client_type.get_type_name().equals(client_type_name))
                 return true;
         }
 
         return false;
     }
+
+    public static void print_client_types()
+    {
+        for (final ClientType client_type : loaded_client_types)
+            System.out.println("- " + client_type.get_type_name());
+    }
+
+    public static ClientType get_client_type(final String client_type_name)
+    {
+
+        for (final ClientType client_type : loaded_client_types) {
+            if (client_type.get_type_name().equals(client_type_name))
+                return client_type;
+        }
+
+        return null;
+    }
+
 }
 
