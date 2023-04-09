@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class BootManager {
+public class BoatManager {
     public static final String[] kEssentialCategories = {"Motor", "Veiligheid", "Behuizing"};
     public static final String[] kOptionalCategories = {"Uiterlijk", "Extras"};
     private static final Map<String, List<String>> kOptiesPerCategorie = new HashMap<String, List<String>>() {{
@@ -147,11 +147,9 @@ public class BootManager {
         for (final String key : loaded_boat_configurations.keySet())
             System.out.printf("- %s%n", key);
 
-        System.out.print("Vul in de naam van uw configuratie: ");
-
         String configuration_name;
         do {
-            System.out.print("Kies een (valide) andere naam: ");
+            System.out.print("Kies een (valide) configuratie naam die u wilt wijzigen: ");
             configuration_name = scanner.nextLine();
         } while (!contains_boat_config(configuration_name) || configuration_name.isEmpty());
 
