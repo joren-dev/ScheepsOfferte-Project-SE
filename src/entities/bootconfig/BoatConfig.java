@@ -6,13 +6,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 // this one is saved in the map in BootManager
-public class BootConfig {
+public class BoatConfig {
 
     private String boat_name;
     private String boat_type;
     private Map<String, CategoryBase> options = new HashMap<>();
 
-    public BootConfig(String boat_name, String boat_type)
+    public BoatConfig(String boat_name, String boat_type)
     {
         this.boat_name = boat_name;
         this.boat_type = boat_type;
