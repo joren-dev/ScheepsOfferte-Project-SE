@@ -56,4 +56,8 @@ public class KlantManager {
             klant_type.setKorting(nieuwe_klant_type_korting);
         }
     }
+
+    public static ArrayList<KlantType> getAllKlantTypes() {
+        return klantTypen;
+    }
 }

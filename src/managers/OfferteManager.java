@@ -1,23 +1,41 @@
 package managers;
 
 import entities.bootconfig.BootConfig;
+import entities.klant.KlantType;
+import entities.offerte.BasicOfferte;
+import entities.offerte.OfferteBase;
+import managers.KlantManager;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class OfferteManager {
 
     // <offerte_nummer, OfferteObject>
     // Map<String, BaseOfferte> offerte_list = ...
+    public static Map<String, BasicOfferte> offerteLijst = new HashMap<>();
+    private static int lastNumber = 10000;
 
 
-    public OfferteManager()
-    {
+    public OfferteManager() {
         // Check existing offertes /saves/offertes/
         //                                  offertenr12.txt
         //                                  offertenr134.txt
     }
 
-    public static void addOfferte() {
+    public static void createOfferte() {
+        Scanner scanner = new Scanner(System.in);
+        String offerteNummer = generateOfferteNummer();
+        // Klanttype
+        System.out.println("\033[1m== Offerte maken ==\033[0m");
+        System.out.println("Voor welk klanttype maak je deze offerte?");
+        ArrayList<KlantType> allKlantTypes = KlantManager.getAllKlantTypes();
+        System.out.println(allKlantTypes);
+        System.out.println(offerteNummer);
+        String klantTypeInput = scanner.nextLine();
 
-        // Bedrijfsgegevens/particulier
 
         // sout(Do you wish to use an existing configuration)
         // if(true)
@@ -49,6 +67,13 @@ public class OfferteManager {
 
     public static void showOfferte() {
 
+    }
+
+    public static String generateOfferteNummer() {
+        lastNumber++;
+        String offerteNummer = "";
+        offerteNummer = "SF" + lastNumber;
+        return offerteNummer;
     }
 
 }

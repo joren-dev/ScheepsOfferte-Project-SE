@@ -1,5 +1,6 @@
 import managers.MenuManager;
 import managers.KlantManager;
+import managers.OfferteManager;
 import menus.KlantTypeMenu;
 import menus.OfferteMenu;
 import menus.BootConfiguratieMenu;
@@ -11,6 +12,7 @@ public class Main {
         // Start up menu manager
         MenuManager manager = new MenuManager();
         KlantManager klant_manager = new KlantManager();
+        OfferteManager offerte_manager = new OfferteManager();
 
         // Add menu items here...
         manager.addMenu("Beheer Klanttype(s)", new KlantTypeMenu());

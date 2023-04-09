@@ -23,11 +23,11 @@ public class OfferteMenu extends MenuBase {
             int choice = scanner.nextInt();
             scanner.nextLine();
 
-            final int kVoegOfferteToe = 1, kWijzigOfferte = 2, kToonOfferteLijst = 3, kVerwijderOfferte = 4, kNavigeerHoofdmenu = 5;
+            final int kMaakOfferte = 1, kWijzigOfferte = 2, kToonOfferteLijst = 3, kVerwijderOfferte = 4, kNavigeerHoofdmenu = 5;
 
             switch (choice) {
-                case kVoegOfferteToe:
-                    OfferteManager.addOfferte();
+                case kMaakOfferte:
+                    OfferteManager.createOfferte();
                     break;
                 case kWijzigOfferte:
                     OfferteManager.editOfferte();
