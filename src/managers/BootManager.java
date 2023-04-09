@@ -84,7 +84,7 @@ public class BootManager {
         new_boat_config.add_category("Behuizing", new BehuizingOnderdeel(chosen_options.get("Behuizing"), 0.0));
 
         for (String optional_category : kOptionalCategories) {
-            if(chosen_options.get(optional_category).isEmpty() || !chosen_options.containsKey(optional_category))
+            if (chosen_options.get(optional_category).isEmpty() || !chosen_options.containsKey(optional_category))
                 continue;
 
             if (optional_category.equals("Uiterlijk"))
@@ -133,16 +133,16 @@ public class BootManager {
 
                 if (allow_skip && input == 1)
                     break;
-                if (input > (i-1) || input == 0)
+                if (input > (i - 1) || input == 0)
                     continue;
 
                 selected_options.add(options.get(input - (allow_skip ? 2 : 1)));
 
-String add_option_input;
-do {
-    System.out.print("Wil je nog een optie toevoegen? (j/n): ");
-    add_option_input = scanner.next();
-} while (!add_option_input.equals("j") && !add_option_input.equals("n"));
+                antwoord = "ongeldige waarde";
+                while (!antwoord.equals("j") && !antwoord.equals("n")) {
+                    System.out.print("Wil je nog een optie toevoegen? (j/n): ");
+                    antwoord = scanner.next();
+                }
             } while (antwoord.equalsIgnoreCase("j"));
 
             configuration.put(category, selected_options);
