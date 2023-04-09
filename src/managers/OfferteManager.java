@@ -1,8 +1,9 @@
 package managers;
 
 import entities.bootconfig.BootConfig;
-import entities.klant.Klant;
-import entities.klant.KlantType;
+import entities.klant.Client;
+import entities.klant.ClientType;
+
 import entities.offerte.BasicOfferte;
 
 import java.time.LocalDateTime;
@@ -24,9 +25,9 @@ public class OfferteManager {
     public static void createOfferte() {
         Scanner scanner = new Scanner(System.in);
 
-        ArrayList<KlantType> allKlantTypes = KlantManager.klantTypen;
+        ArrayList<ClientType> allKlantTypes = ClientManager.client_types;
         Map<String, BootConfig> allBoatConfigurations = BootManager.loadedConfigurations;
-        KlantType selectedKlantType = null;
+        ClientType selectedKlantType = null;
         BootConfig selectedBootConfig= null;
         String input = "";
         boolean isInputValid = false;
@@ -40,8 +41,8 @@ public class OfferteManager {
             System.out.print("Maak uw keuze: ");
             input = scanner.nextLine();
 
-            for (KlantType huidigeKlantType : allKlantTypes) {
-                if (Objects.equals(huidigeKlantType.getTypeNaam(), input)) {
+            for (ClientType huidigeKlantType : allKlantTypes) {
+                if (Objects.equals(huidigeKlantType.get_type_name(), input)) {
                     selectedKlantType = huidigeKlantType;
                     isInputValid = true;
                     break;
@@ -52,7 +53,7 @@ public class OfferteManager {
                 System.err.println("Klanttype niet gevonden");
             }
         }
-        System.out.printf("Geselecteerde klanttype: %n%s%n%n", selectedKlantType.getTypeNaam());
+        System.out.printf("Geselecteerde klanttype: %n%s%n%n", selectedKlantType.get_type_name());
         isInputValid = false;
 
         //Bootconfig selecteren
@@ -104,18 +105,18 @@ public class OfferteManager {
         String vervalDatum = LocalDateTime.now().plusDays(aantalDagenTotVervallen).toString();
         System.out.println("De vervaldatum is: " + vervalDatum);
 
-        Klant klant = new Klant(naam, adres, email, telefoon, selectedKlantType);
+        Client klant = new Client(naam, adres, email, telefoon, selectedKlantType);
         String offerteDatum = LocalDateTime.now().toString();
 
         BasicOfferte offerte = new BasicOfferte(klant, selectedKlantType, selectedBootConfig, offerteDatum, vervalDatum);
 
         // sout(Do you wish to use an existing configuration)
         // if(true)
-//        BootManager.printLoadedConfigurations(false);
-//        // request them to pick one, and check if its even valid/if it exists
-//        BootConfig config_used = BootManager.getBootConfiguration("change this");
-//        if (config_used == null)
-//            System.out.println("De boot config die u opvroeg bestaat niet");
+        //   BootManager.printLoadedConfigurations(false);
+        // request them to pick one, and check if its even valid/if it exists
+        // BootConfig config_used = BootManager.getBootConfiguration("change this");
+        //if (config_used == null)
+        //   System.out.println("De boot config die u opvroeg bestaat niet");
 
 
         // Now u can get the config's data by calling this or creating a new method that
@@ -126,7 +127,7 @@ public class OfferteManager {
         // config_used.print_all_options();
         // else
         // configuration from scratch...
-//        offerteLijst.put(offerteNummer, offerte);
+        // offerteLijst.put(offerteNummer, offerte);
     }
 
     public static void editOfferte() {
