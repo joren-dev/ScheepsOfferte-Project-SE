@@ -3,12 +3,14 @@ package entities.bootconfig.categories;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExtrasOnderdeel extends CategoryBase {
 
+public class MotorPart extends CategoryBase
+{
     double price;
-    public ExtrasOnderdeel(final List<String> extra_list, final double price)
+
+    public MotorPart(List<String> options, double price)
     {
-        this.values = extra_list;
+        this.values = options;
         this.price = price;
     }
 
@@ -39,7 +41,7 @@ public class ExtrasOnderdeel extends CategoryBase {
     @Override
     public boolean contains(final String category_option)
     {
-        return this.values.contains(category_option);
+        return category_option.equalsIgnoreCase("motor");
     }
 
     @Override
@@ -57,6 +59,8 @@ public class ExtrasOnderdeel extends CategoryBase {
     @Override
     public String toString()
     {
-        return String.format("Extras: %s %.2f", this.values, this.price);
+        return String.format("Motor: %s %.2f", this.values, this.price);
     }
+
+    // set_dubbele_motor(boolean)
 }
