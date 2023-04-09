@@ -1,30 +1,27 @@
-import entities.klant.Klant;
-import entities.klant.KlantType;
-import managers.FileManager;
 import managers.MenuManager;
-import managers.KlantManager;
+import managers.ClientManager;
+
 import menus.FileMenu;
 import menus.KlantTypeMenu;
 import menus.OfferteMenu;
-import menus.BootConfiguratieMenu;
-
-import java.io.File;
+import menus.BoatConfigurationMenu;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("\033[1m|| ShipFlex offerte software ||\033[0m");
 
-        // Start up menu manager
-        MenuManager manager = new MenuManager();
-        KlantManager klant_manager = new KlantManager();
+        // Initialize managers
+        MenuManager menu_manager = new MenuManager();
+        ClientManager client_manager = new ClientManager();
 
-        // Add menu items here...
-        manager.addMenu("Beheer Klanttype(s)", new KlantTypeMenu());
-        manager.addMenu("Beheer Offerte(s)", new OfferteMenu());
-        manager.addMenu("Beheer Boot Configuraties", new BootConfiguratieMenu());
-        manager.addMenu("Opslaan van informatie", new FileMenu());
+        // Initializes menu items
+        menu_manager.add_menu("Beheer Klanttype(s)", new KlantTypeMenu());
+        menu_manager.add_menu("Beheer Offerte(s)", new OfferteMenu());
+        menu_manager.add_menu("Beheer Boot Configuraties", new BoatConfigurationMenu());
+        menu_manager.add_menu("Opslaan van informatie", new FileMenu());
+
 
         // Starts the menu manager
-        manager.start();
+        menu_manager.start();
     }
 }

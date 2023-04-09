@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExtrasOnderdeel extends CategoryBase implements Serializable {
-
+public class SafetyPart extends CategoryBase implements Serializable {
     double price;
-    public ExtrasOnderdeel(final List<String> extra_list, final double price)
+
+    public SafetyPart(final List<String> safety_list, final double price)
     {
-        this.values = extra_list;
+        this.values = safety_list;
         this.price = price;
     }
 
@@ -32,19 +32,19 @@ public class ExtrasOnderdeel extends CategoryBase implements Serializable {
     }
 
     @Override
-    public void remove(final String option)
+    public void remove(String option)
     {
         this.values.remove(option);
     }
 
     @Override
-    public boolean contains(final String category_option)
+    public boolean contains(String category_option)
     {
         return this.values.contains(category_option);
     }
 
     @Override
-    public void add(final String chosen_option)
+    public void add(String chosen_option)
     {
         this.values.add(chosen_option);
     }
@@ -56,8 +56,7 @@ public class ExtrasOnderdeel extends CategoryBase implements Serializable {
     }
 
     @Override
-    public String toString()
-    {
-        return String.format("Extras: %s %.2f", this.values, this.price);
+    public String toString() {
+        return String.format("Veiligheid: %s %.2f", this.values, this.price);
     }
 }
