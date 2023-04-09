@@ -213,4 +213,8 @@ public class BootManager {
 
         System.out.println(sure ? "Succesvol verwijderd!" : "Bewerking geannuleerd door de gebruiker.");
     }
-}
+
+    public static void savedBootConfiguration() {
+        System.out.println("Hier komen de opgeslagen configuraties");
+    }
+    }
