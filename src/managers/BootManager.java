@@ -138,11 +138,11 @@ public class BootManager {
 
                 selected_options.add(options.get(input - (allow_skip ? 2 : 1)));
 
-                antwoord = "ongeldige waarde";
-                while (!antwoord.equals("j") && !antwoord.equals("n")) {
-                    System.out.print("Wil je nog een optie toevoegen? (j/n): ");
-                    antwoord = scanner.next();
-                }
+String add_option_input;
+do {
+    System.out.print("Wil je nog een optie toevoegen? (j/n): ");
+    add_option_input = scanner.next();
+} while (!add_option_input.equals("j") && !add_option_input.equals("n"));
             } while (antwoord.equalsIgnoreCase("j"));
 
             configuration.put(category, selected_options);
