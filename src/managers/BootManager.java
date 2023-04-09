@@ -19,7 +19,7 @@ public class BootManager {
         put("Extras", List.of("Airco", "Ingebouwde koelkast", "GPS-Systeem", "Dieptemeter", "Radar"));
         put("Uiterlijk", List.of("Biologische verf", "Standaard verf", "LED verlichting"));
     }};
-    public static Map<String, BootConfig> loaded_boat_configurations = new HashMap<>();
+    public static Map<String, BoatConfig> loaded_boat_configurations = new HashMap<>();
 
     public static void print_loaded_configs(final boolean print_options) {
         System.out.println("\nLoaded Configurations:");
@@ -53,7 +53,7 @@ public class BootManager {
             boat_type = scanner.nextLine();
         } while (boat_type.isEmpty());
 
-        BootConfig new_boat_config = new BootConfig(configuration_name, boat_type);
+        BoatConfig new_boat_config = new BoatConfig(configuration_name, boat_type);
         Map<String, List<String>> chosen_options = new HashMap<>();
 
         request_options(chosen_options, new_boat_config);
@@ -163,7 +163,7 @@ public class BootManager {
             boat_type = scanner.nextLine();
         } while (boat_type.isEmpty());
 
-        BootConfig new_boat_config = new BootConfig(configuration_name, boat_type);
+        BoatConfig new_boat_config = new BoatConfig(configuration_name, boat_type);
 
         System.out.println("\nDe huidige opties:");
         loaded_boat_configurations.get(configuration_name).print_all_options();
@@ -219,7 +219,7 @@ public class BootManager {
         System.out.println(sure.equals("j") ? "Succesvol verwijderd!" : "Bewerking geannuleerd door de gebruiker.");
     }
 
-    private static void request_options(Map<String, List<String>> ref_options, BootConfig ref_boatconfig) {
+    private static void request_options(Map<String, List<String>> ref_options, BoatConfig ref_boatconfig) {
         final Scanner scanner = new Scanner(System.in);
 
         // For the essential components it's a requirement you pick at least one. Hence, the allow_skip = false.
@@ -241,8 +241,12 @@ public class BootManager {
         return false;
     }
 
-    public static Map<String, BootConfig> get_all_boat_configs()
+    public static Map<String, BoatConfig> get_all_boat_configs()
     {
         return loaded_boat_configurations;
+    }
+
+    public static BoatConfig get_config(final String config_name) {
+        return loaded_boat_configurations.get(config_name);
     }
 }
