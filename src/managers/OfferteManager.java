@@ -94,6 +94,9 @@ public class OfferteManager {
 
         System.out.println("Wat is de email van de klant?");
         email = scanner.nextLine();
+
+        // TODO: Use a do while/while loop to keep asking for input if they input an invalid email address
+        final boolean email_valid = is_valid_email(email);
         System.out.println("Klant email: " + email);
 
         System.out.println("Wat is het telefoon nummer van de klant?");
@@ -110,24 +113,13 @@ public class OfferteManager {
 
         BasicOfferte offerte = new BasicOfferte(klant, selectedKlantType, selectedBootConfig, offerteDatum, vervalDatum);
 
-        // sout(Do you wish to use an existing configuration)
-        // if(true)
-        //   BootManager.printLoadedConfigurations(false);
-        // request them to pick one, and check if its even valid/if it exists
-        // BootConfig config_used = BootManager.getBootConfiguration("change this");
-        //if (config_used == null)
-        //   System.out.println("De boot config die u opvroeg bestaat niet");
-
-
-        // Now u can get the config's data by calling this or creating a new method that
-        // references each category inside BootConfig seperately. E.G.:
-        // UiterlijkOnderdeel uiterlijk_obj = config_used.get_category("Uiterlijk")
-        // etc
-
-        // config_used.print_all_options();
-        // else
-        // configuration from scratch...
-        // offerteLijst.put(offerteNummer, offerte);
+        // TODO:
+        /*
+            - Verbeter representatie van data
+            - Geef aan dat datum in aantal dagen is
+            - Valideer telefoon nummer lengte
+            - Valideer of het een geldig email adres is
+        */
     }
 
     public static void editOfferte() {
@@ -145,5 +137,11 @@ public class OfferteManager {
     public static String generateOfferteNumber() {
         lastNumber++;
         return "SF-%d" + lastNumber;
+    }
+
+    private static boolean is_valid_email(final String email)
+    {
+        //  TODO: schrijf code die checkt op de email valid is...
+        return true;
     }
 }
