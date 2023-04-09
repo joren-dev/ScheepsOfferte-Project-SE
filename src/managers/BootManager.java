@@ -19,12 +19,12 @@ public class BootManager {
         put("Extras", List.of("Airco", "Ingebouwde koelkast", "GPS-Systeem", "Dieptemeter", "Radar"));
         put("Uiterlijk", List.of("Biologische verf", "Standaard verf", "LED verlichting"));
     }};
-    public static Map<String, BootConfig> loadedConfigurations = new HashMap<>();
+    public static Map<String, BootConfig> loaded_boat_configurations = new HashMap<>();
 
-    public static void printLoadedConfigurations(final boolean print_options) {
+    public static void print_loaded_configs(final boolean print_options) {
         System.out.println("\nLoaded Configurations:");
 
-        loadedConfigurations.forEach((configName, config_value) -> {
+        loaded_boat_configurations.forEach((configName, config_value) -> {
             if (!print_options) {
                 System.out.println("- " + configName);
                 return;
@@ -36,7 +36,7 @@ public class BootManager {
         });
     }
 
-    public static void addBoatConfiguration() {
+    public static void add_boat_config() {
         final Scanner scanner = new Scanner(System.in);
 
         System.out.println("\033[1m== Boot Configuratie toevoegen ==\033[0m");
@@ -45,7 +45,7 @@ public class BootManager {
         do {
             System.out.print("Vul een (valide) naam in voor uw nieuwe configuratie: ");
             configuration_name = scanner.nextLine();
-        } while (loadedConfigurations.containsKey(configuration_name) || configuration_name.isEmpty());
+        } while (loaded_boat_configurations.containsKey(configuration_name) || configuration_name.isEmpty());
 
         String boat_type;
         do {
@@ -70,10 +70,10 @@ public class BootManager {
         }
 
         // Add config to list of loaded configurations
-        loadedConfigurations.put(configuration_name, new_boat_config);
+        loaded_boat_configurations.put(configuration_name, new_boat_config);
 
         System.out.printf("Boot configuratie \033[1m'%s'\033[0m is toegevoegd met de volgende opties: %n%s%n",
-                configuration_name, loadedConfigurations.get(configuration_name));
+                configuration_name, loaded_boat_configurations.get(configuration_name));
 
     }
 
@@ -139,12 +139,12 @@ public class BootManager {
         }
     }
 
-    public static void changeBoatConfiguration() {
+    public static void change_boat_config() {
         final Scanner scanner = new Scanner(System.in);
 
         System.out.println("\033[1m== Boot Configuratie aanpassen ==\033[0m");
 
-        for (final String key : loadedConfigurations.keySet())
+        for (final String key : loaded_boat_configurations.keySet())
             System.out.printf("- %s%n", key);
 
         System.out.print("Vul in de naam van uw configuratie: ");
@@ -153,9 +153,9 @@ public class BootManager {
         do {
             System.out.print("Kies een (valide) andere naam: ");
             configuration_name = scanner.nextLine();
-        } while (loadedConfigurations.containsKey(configuration_name) || configuration_name.isEmpty());
+        } while (!contains_boat_config(configuration_name) || configuration_name.isEmpty());
 
-        System.out.printf("Boot type: %s%n", loadedConfigurations.get(configuration_name).get_boat_type());
+        System.out.printf("Boot type: %s%n", loaded_boat_configurations.get(configuration_name).get_boat_type());
 
         String boat_type;
         do {
@@ -166,7 +166,7 @@ public class BootManager {
         BootConfig new_boat_config = new BootConfig(configuration_name, boat_type);
 
         System.out.println("\nDe huidige opties:");
-        loadedConfigurations.get(configuration_name).print_all_options();
+        loaded_boat_configurations.get(configuration_name).print_all_options();
         System.out.println("\nSelecteer welke u wilt behouden:");
 
         Map<String, List<String>> chosen_options = new HashMap<>();
@@ -188,24 +188,24 @@ public class BootManager {
         }
 
         // Add config to list of loaded configurations
-        loadedConfigurations.put(configuration_name, new_boat_config);
+        loaded_boat_configurations.put(configuration_name, new_boat_config);
 
         System.out.printf("Boot configuratie \033[1m'%s'\033[0m is toegevoegd met de volgende opties: %n%s%n",
-                configuration_name, loadedConfigurations.get(configuration_name));
+                configuration_name, loaded_boat_configurations.get(configuration_name));
     }
 
-    public static void removeBoatConfiguration() {
-        Scanner scanner = new Scanner(System.in);
+    public static void remove_boat_config() {
+        final Scanner scanner = new Scanner(System.in);
 
         // List boot configs
-        printLoadedConfigurations(false);
+        print_loaded_configs(false);
 
         // Remove based on boat name
         String name;
         do {
             System.out.println("Type in de (valide) naam van de configuratie: ");
             name = scanner.nextLine();
-        } while (!loadedConfigurations.containsKey(name));
+        } while (!loaded_boat_configurations.containsKey(name));
 
         String sure;
         do {
@@ -214,7 +214,7 @@ public class BootManager {
         } while (!sure.equals("j") && !sure.equals("n"));
 
         if (sure.equals("j"))
-            loadedConfigurations.remove(name);
+            loaded_boat_configurations.remove(name);
 
         System.out.println(sure.equals("j") ? "Succesvol verwijderd!" : "Bewerking geannuleerd door de gebruiker.");
     }
@@ -231,5 +231,18 @@ public class BootManager {
         ref_boatconfig.add_category("Motor", new MotorPart(ref_options.get("Motor"), 0.0));
         ref_boatconfig.add_category("Veiligheid", new SafetyPart(ref_options.get("Veiligheid"), 0.0));
         ref_boatconfig.add_category("Behuizing", new HousingPart(ref_options.get("Behuizing"), 0.0));
+    }
+
+    public static boolean contains_boat_config(final String boat_config_name)
+    {
+        if(loaded_boat_configurations.containsKey(boat_config_name))
+            return true;
+
+        return false;
+    }
+
+    public static Map<String, BootConfig> get_all_boat_configs()
+    {
+        return loaded_boat_configurations;
     }
 }

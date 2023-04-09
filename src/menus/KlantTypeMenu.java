@@ -67,13 +67,13 @@ public class KlantTypeMenu extends MenuBase {
 
         do {
             System.out.println("Welk klanttype wilt u bewerken?");
-            System.out.println(Arrays.toString(ClientManager.client_types.stream().map(ClientType::get_type_name).toArray()));
+            System.out.println(Arrays.toString(ClientManager.loaded_client_types.stream().map(ClientType::get_type_name).toArray()));
 
             System.out.print("Maak uw keuze: ");
             client_type_name = scanner.nextLine();
 
-            for (int i = 0; i != ClientManager.client_types.size(); i++) {
-                ClientType found_client = ClientManager.client_types.get(i);
+            for (int i = 0; i != ClientManager.loaded_client_types.size(); i++) {
+                ClientType found_client = ClientManager.loaded_client_types.get(i);
 
                 if (found_client.get_type_name().equals(client_type_name)) {
                     found = true;
@@ -90,13 +90,13 @@ public class KlantTypeMenu extends MenuBase {
 
         do {
             System.out.println("Welk klanttype wilt u verwijderen?");
-            System.out.println(Arrays.toString(ClientManager.client_types.stream().map(ClientType::get_type_name).toArray()));
+            System.out.println(Arrays.toString(ClientManager.loaded_client_types.stream().map(ClientType::get_type_name).toArray()));
 
             System.out.print("Maak uw keuze: ");
             String name = scanner.nextLine();
 
-            for (int i = 0; i != ClientManager.client_types.size(); i++) {
-                ClientType found_client = ClientManager.client_types.get(i);
+            for (int i = 0; i != ClientManager.loaded_client_types.size(); i++) {
+                ClientType found_client = ClientManager.loaded_client_types.get(i);
 
                 if (found_client.get_type_name().equals(name)) {
                     found = true;
@@ -108,6 +108,6 @@ public class KlantTypeMenu extends MenuBase {
     }
 
     private void view_client_type() {
-        System.out.println(Arrays.toString(ClientManager.client_types.stream().map(ClientType::toString).toArray()));
+        System.out.println(Arrays.toString(ClientManager.loaded_client_types.stream().map(ClientType::toString).toArray()));
     }
 }
