@@ -60,13 +60,13 @@ public class OfferteManager {
 
         while (!is_input_valid) {
             System.out.println("Welke bootconfiguratie wilt u toevoegen aan de offerte?");
-            BootManager.print_loaded_configs(false);
+            BoatManager.print_loaded_configs(false);
             System.out.print("Maak uw keuze: ");
             String input;
             input = scanner.nextLine();
 
-            if (BootManager.contains_boat_config(input)) {
-                selected_boot_config = BootManager.get_config(input);
+            if (BoatManager.contains_boat_config(input)) {
+                selected_boot_config = BoatManager.get_config(input);
                 is_input_valid = true;
             } else {
                 System.out.println("Bootconfiguratie niet gevonden.");
