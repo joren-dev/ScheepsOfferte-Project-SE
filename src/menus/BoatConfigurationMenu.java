@@ -1,6 +1,6 @@
 package menus;
 
-import managers.BootManager;
+import managers.BoatManager;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -38,19 +38,19 @@ public class BoatConfigurationMenu extends MenuBase implements Serializable {
 
             switch (choice) {
                 case kAddBootConfiguration:
-                    BootManager.add_boat_config();
+                    BoatManager.add_boat_config();
                     break;
 
                 case kChangeBootConfiguration:
-                    BootManager.change_boat_config();
+                    BoatManager.change_boat_config();
                     break;
 
                 case kViewBootConfigurations:
-                    BootManager.print_loaded_configs(true);
+                    BoatManager.print_loaded_configs(true);
                     break;
 
                 case kRemoveBootConfiguration:
-                    BootManager.remove_boat_config();
+                    BoatManager.remove_boat_config();
                     break;
 
                 case kReturnToMainMenu:

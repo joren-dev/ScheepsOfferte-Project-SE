@@ -10,9 +10,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
-public class BootManager implements Serializable {
-
+public class BoatManager implements Serializable {
     public static final String[] kEssentialCategories = {"Motor", "Veiligheid", "Behuizing"};
     public static final String[] kOptionalCategories = {"Uiterlijk", "Extras"};
     private static final Map<String, List<String>> kOptiesPerCategorie = new HashMap<String, List<String>>() {{
@@ -150,11 +148,9 @@ public class BootManager implements Serializable {
         for (final String key : loaded_boat_configurations.keySet())
             System.out.printf("- %s%n", key);
 
-        System.out.print("Vul in de naam van uw configuratie: ");
-
         String configuration_name;
         do {
-            System.out.print("Kies een (valide) andere naam: ");
+            System.out.print("Kies een (valide) configuratie naam die u wilt wijzigen: ");
             configuration_name = scanner.nextLine();
         } while (!contains_boat_config(configuration_name) || configuration_name.isEmpty());
 
@@ -236,16 +232,14 @@ public class BootManager implements Serializable {
         ref_boatconfig.add_category("Behuizing", new HousingPart(ref_options.get("Behuizing"), 0.0));
     }
 
-    public static boolean contains_boat_config(final String boat_config_name)
-    {
-        if(loaded_boat_configurations.containsKey(boat_config_name))
+    public static boolean contains_boat_config(final String boat_config_name) {
+        if (loaded_boat_configurations.containsKey(boat_config_name))
             return true;
 
         return false;
     }
 
-    public static Map<String, BoatConfig> get_all_boat_configs()
-    {
+    public static Map<String, BoatConfig> get_all_boat_configs() {
         return loaded_boat_configurations;
     }
 
