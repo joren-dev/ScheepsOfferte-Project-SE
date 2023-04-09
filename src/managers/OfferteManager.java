@@ -113,11 +113,8 @@ public class OfferteManager {
 
     }
 
-    public static String generateOfferteNummer() {
+    public static String generateOfferteNumber() {
         lastNumber++;
-        String offerteNummer = "";
-        offerteNummer = "SF" + lastNumber;
-        return offerteNummer;
+        return "SF-%d" + lastNumber;
     }
-
 }
