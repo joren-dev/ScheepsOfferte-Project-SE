@@ -9,21 +9,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
-/*
-- [x] Non-essentials worden niet toegevoegd, of niet geprint.
-- [x] Na het maken van config print het de class obj, niet de opties (memory)
-- [ ] Change config functionaliteit werkt niet
-*/
-
 public class BootManager {
     public static final String[] kEssentialCategories = {"Motor", "Veiligheid", "Behuizing"};
     public static final String[] kOptionalCategories = {"Uiterlijk", "Extras"};
-    // Note to group: Wat doen we met dubbele waardes in de configuratie? 2 motoren kan, gewoon een backup motor
-    // 2 veiligheidspakketten kan ook, 2 EHBO-dozen bijvoorbeeld
-    // 2 behuizingen kan ook, voor een ongeluk, dan kan je gewoon vervangen
-    // 2 koelkasten en 2 GPS-systemen is ook niet raar
-    // 2 lagen verf of 2 sets LED-verlichting is volgens mij ook niet echt een probleem
     private static final Map<String, List<String>> kOptiesPerCategorie = new HashMap<String, List<String>>() {{
         put("Motor", List.of("Standaard motor", "Opgevoerde motor", "Dubbele motor", "Duurzame motor"));
         put("Veiligheid", List.of("Standaard veiligheidspakket", "Extra veiligheidspakket"));
@@ -31,7 +19,6 @@ public class BootManager {
         put("Extras", List.of("Airco", "Ingebouwde koelkast", "GPS-Systeem", "Dieptemeter", "Radar"));
         put("Uiterlijk", List.of("Biologische verf", "Standaard verf", "LED verlichting"));
     }};
-
     public static Map<String, BootConfig> loadedConfigurations = new HashMap<>();
 
     public static void printLoadedConfigurations(final boolean print_options) {
@@ -67,7 +54,6 @@ public class BootManager {
         } while (boat_type.isEmpty());
 
         BootConfig new_boat_config = new BootConfig(configuration_name, boat_type);
-
         Map<String, List<String>> chosen_options = new HashMap<>();
 
         request_options(chosen_options, new_boat_config);
@@ -122,7 +108,7 @@ public class BootManager {
 
                     try {
                         tmp_int_input = Integer.parseInt(tmp_input);
-                    } catch (NumberFormatException e) {
+                    } catch (final NumberFormatException e) {
                         System.out.print("Voer alstublieft een getal in: ");
                         continue;
                     }
@@ -141,6 +127,7 @@ public class BootManager {
                 do {
                     System.out.print(first_iteration ? "Wil je nog een optie toevoegen? (j/n): " :
                             "Ongeldige input, vul \"j\" of \"n\" in: ");
+
                     input_add_option = scanner.nextLine();
                     first_iteration = false;
                 } while (!input_add_option.equals("j") && !input_add_option.equals("n"));
@@ -153,22 +140,22 @@ public class BootManager {
     }
 
     public static void changeBootConfiguration() {
-        Scanner scanner = new Scanner(System.in);
+        final Scanner scanner = new Scanner(System.in);
 
         System.out.println("\033[1m== Boot Configuratie aanpassen ==\033[0m");
 
-        for (String key : loadedConfigurations.keySet())
+        for (final String key : loadedConfigurations.keySet())
             System.out.printf("- %s%n", key);
 
         System.out.print("Vul in de naam van uw configuratie: ");
 
-        String configuratie_naam;
+        String configuration_name;
         do {
             System.out.print("Kies een (valide) andere naam: ");
-            configuratie_naam = scanner.nextLine();
-        } while (loadedConfigurations.containsKey(configuratie_naam) || configuratie_naam.isEmpty());
+            configuration_name = scanner.nextLine();
+        } while (loadedConfigurations.containsKey(configuration_name) || configuration_name.isEmpty());
 
-        System.out.printf("Boot type: %s%n", loadedConfigurations.get(configuratie_naam).get_boat_type());
+        System.out.printf("Boot type: %s%n", loadedConfigurations.get(configuration_name).get_boat_type());
 
         String boat_type;
         do {
@@ -176,19 +163,16 @@ public class BootManager {
             boat_type = scanner.nextLine();
         } while (boat_type.isEmpty());
 
-        BootConfig new_boat_config = new BootConfig(configuratie_naam, boat_type);
+        BootConfig new_boat_config = new BootConfig(configuration_name, boat_type);
 
         System.out.println("\nDe huidige opties:");
-        loadedConfigurations.get(configuratie_naam).print_all_options();
+        loadedConfigurations.get(configuration_name).print_all_options();
         System.out.println("\nSelecteer welke u wilt behouden:");
 
         Map<String, List<String>> chosen_options = new HashMap<>();
-
-
         request_options(chosen_options, new_boat_config);
 
-
-        for (String optional_category : kOptionalCategories) {
+        for (final String optional_category : kOptionalCategories) {
             if (chosen_options.containsKey(optional_category)) {
                 switch (optional_category) {
                     case "Uiterlijk":
@@ -204,11 +188,10 @@ public class BootManager {
         }
 
         // Add config to list of loaded configurations
-        loadedConfigurations.put(configuratie_naam, new_boat_config);
+        loadedConfigurations.put(configuration_name, new_boat_config);
 
         System.out.printf("Boot configuratie \033[1m'%s'\033[0m is toegevoegd met de volgende opties: %n%s%n",
-                configuratie_naam, loadedConfigurations.get(configuratie_naam));
-
+                configuration_name, loadedConfigurations.get(configuration_name));
     }
 
     public static void removeBootConfiguration() {
