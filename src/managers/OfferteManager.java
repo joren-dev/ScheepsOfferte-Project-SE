@@ -45,21 +45,18 @@ public class OfferteManager {
 
         System.out.printf("Geselecteerde klanttype: %n%s%n%n", selected_klant_type.get_type_name());
 
-
-        boolean is_input_valid = false;
-        while (!is_input_valid) {
+        while (true) {
             System.out.println("Welke bootconfiguratie wilt u toevoegen aan de offerte?");
             BoatManager.print_loaded_configs(false);
             System.out.print("Maak uw keuze: ");
-            String input;
-            input = scanner.nextLine();
+            String input = scanner.nextLine();
 
             if (BoatManager.contains_boat_config(input)) {
                 selected_boot_config = BoatManager.get_config(input);
-                is_input_valid = true;
-            } else {
-                System.err.println("Bootconfiguratie niet gevonden.");
+                break;
             }
+
+            System.err.println("Bootconfiguratie niet gevonden.");
         }
 
         System.out.printf("Geselecteerde boot configuratie: %n%s%n%n", selected_boot_config.toString());
