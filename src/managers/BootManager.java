@@ -119,11 +119,11 @@ public class BootManager {
                 System.out.printf("%d. %s%n", i++, option);
 
             final List<String> selected_options = new ArrayList<>();
-            String antwoord = "j";
+
+            String input_add_option = "";
             do {
                 System.out.printf("Welke %s onderdeel wil je toevoegen? (1-%s): ", category, i - 1);
 
-//                final int input = scanner.nextInt();
                 String tmp_input = scanner.nextLine();
                 if (!tmp_input.matches("^\\d+$")) {
                     System.out.println("Voer alstublieft een getal in.");
@@ -138,12 +138,12 @@ public class BootManager {
 
                 selected_options.add(options.get(input - (allow_skip ? 2 : 1)));
 
-                antwoord = "ongeldige waarde";
-                while (!antwoord.equals("j") && !antwoord.equals("n")) {
+                do {
                     System.out.print("Wil je nog een optie toevoegen? (j/n): ");
-                    antwoord = scanner.next();
-                }
-            } while (antwoord.equalsIgnoreCase("j"));
+                    input_add_option = scanner.nextLine();
+                } while(!input_add_option.equals("j") && !input_add_option.equals("n"));
+
+            } while (input_add_option.equalsIgnoreCase("j"));
 
             configuration.put(category, selected_options);
             System.out.println();
