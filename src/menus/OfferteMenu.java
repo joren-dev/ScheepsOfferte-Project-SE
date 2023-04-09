@@ -18,7 +18,7 @@ public class OfferteMenu extends MenuBase {
         while (true) {
             System.out.println("\033[1m== Weergeven Offerte ==\033[0m");
             System.out.println("Wat wilt u doen?");
-            System.out.println("1. Offerte toevoegen\n2. Offerte wijzigen wijzigen\n3. Offerte lijst weergeven\n4. Offerte verwijderen\n5. Terug naar hoofdmenu");
+            System.out.println("1. Offerte maken\n2. Offerte wijzigen\n3. Offerte lijst weergeven\n4. Offerte verwijderen\n5. Terug naar hoofdmenu");
             System.out.print("Voer in: ");
             int choice = scanner.nextInt();
             scanner.nextLine();

@@ -1,5 +1,5 @@
 package entities.offerte;
 
-public class BasicOfferte {
-    
+public class BasicOfferte extends OfferteBase {
+
 }
