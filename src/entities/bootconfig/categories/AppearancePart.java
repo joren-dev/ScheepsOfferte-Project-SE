@@ -1,14 +1,17 @@
 package entities.bootconfig.categories;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExtrasOnderdeel extends CategoryBase {
 
+public class AppearancePart extends CategoryBase
+{
     double price;
-    public ExtrasOnderdeel(final List<String> extra_list, final double price)
+
+    public AppearancePart(final List<String> options, final double price)
     {
-        this.values = extra_list;
+        this.values = options;
         this.price = price;
     }
 
@@ -21,7 +24,7 @@ public class ExtrasOnderdeel extends CategoryBase {
     @Override
     public ArrayList<String> get_values()
     {
-        return (ArrayList<String>) this.values;
+        return new ArrayList<>(this.values);
     }
 
     @Override
@@ -39,7 +42,7 @@ public class ExtrasOnderdeel extends CategoryBase {
     @Override
     public boolean contains(final String category_option)
     {
-        return this.values.contains(category_option);
+        return category_option.equals("Uiterlijk");
     }
 
     @Override
@@ -57,6 +60,6 @@ public class ExtrasOnderdeel extends CategoryBase {
     @Override
     public String toString()
     {
-        return String.format("Extras: %s %.2f", this.values, this.price);
+        return String.format("Uiterlijk: %s %.2f", this.values, this.price);
     }
 }

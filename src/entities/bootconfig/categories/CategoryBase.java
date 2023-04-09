@@ -4,24 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class CategoryBase {
-    public List<String> waardes;
+    public List<String> values;
 
     public abstract String get_price();
 
-    public void printOptions()
+    public void print_options()
     {
-        System.out.println(this.waardes);
+        System.out.println(this.values);
     }
 
-    public abstract ArrayList<String> getWaardes();
+    public abstract ArrayList<String> get_values();
 
-    public abstract int getNrOfOptions();
+    public abstract int get_option_amount();
 
-    public abstract void remove(String option);
+    public abstract void remove(final String option);
 
-    public abstract boolean contains(String categoryOption);
+    public abstract boolean contains(final String category_option);
 
-    public abstract void add(String gekozenOptie);
+    public abstract void add(final String chosen_option);
 
     public abstract boolean isEmpty();
 
