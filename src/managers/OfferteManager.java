@@ -25,52 +25,49 @@ public class OfferteManager {
     public static void createOfferte() {
         Scanner scanner = new Scanner(System.in);
 
-        ArrayList<ClientType> allKlantTypes = ClientManager.client_types;
-        Map<String, BootConfig> allBoatConfigurations = BootManager.loadedConfigurations;
+        ArrayList<ClientType> allKlantTypes = ClientManager.get_all_client_types();
+        Map<String, BootConfig> allBoatConfigurations = BootManager.get_all_boat_configs();
         ClientType selectedKlantType = null;
-        BootConfig selectedBootConfig= null;
+        BootConfig selectedBootConfig = null;
         String input = "";
         boolean isInputValid = false;
 
         System.out.println("\033[1m== Offerte maken ==\033[0m");
 
-        //Klanttype selecteren
+// Klanttype selecteren
         while (!isInputValid) {
             System.out.println("Voor welk klanttype maak je deze offerte?");
             System.out.println(allKlantTypes);
             System.out.print("Maak uw keuze: ");
             input = scanner.nextLine();
 
-            for (ClientType huidigeKlantType : allKlantTypes) {
-                if (Objects.equals(huidigeKlantType.get_type_name(), input)) {
-                    selectedKlantType = huidigeKlantType;
-                    isInputValid = true;
-                    break;
+            if (ClientManager.contains_client_type(input)) {
+                for (ClientType huidigeKlantType : allKlantTypes) {
+                    if (Objects.equals(huidigeKlantType.get_type_name(), input)) {
+                        selectedKlantType = huidigeKlantType;
+                        isInputValid = true;
+                        break;
+                    }
                 }
-            }
-
-            if (!isInputValid) {
+            } else {
                 System.err.println("Klanttype niet gevonden");
             }
         }
+
         System.out.printf("Geselecteerde klanttype: %n%s%n%n", selectedKlantType.get_type_name());
         isInputValid = false;
 
-        //Bootconfig selecteren
+// Bootconfig selecteren
         while (!isInputValid) {
             System.out.println("Welke bootconfiguratie wilt u toevoegen aan de offerte?");
-            System.out.println(allBoatConfigurations);
+            BootManager.print_loaded_configs(false);
             System.out.print("Maak uw keuze: ");
             input = scanner.nextLine();
 
-            for (Map.Entry<String, BootConfig> entry : allBoatConfigurations.entrySet()) {
-                if (Objects.equals(entry.getKey(), input)) {
-                    selectedBootConfig = entry.getValue();
-                    isInputValid = true;
-                    break;
-                }
-            }
-            if (!isInputValid) {
+            if (BootManager.contains_boat_config(input)) {
+                selectedBootConfig = BootManager.get_boat(input);
+                isInputValid = true;
+            } else {
                 System.out.println("Bootconfiguratie niet gevonden.");
             }
         }

@@ -37,19 +37,19 @@ public class BoatConfigurationMenu extends MenuBase {
 
             switch (choice) {
                 case kAddBootConfiguration:
-                    BootManager.addBoatConfiguration();
+                    BootManager.add_boat_config();
                     break;
 
                 case kChangeBootConfiguration:
-                    BootManager.changeBoatConfiguration();
+                    BootManager.change_boat_config();
                     break;
 
                 case kViewBootConfigurations:
-                    BootManager.printLoadedConfigurations(true);
+                    BootManager.print_loaded_configs(true);
                     break;
 
                 case kRemoveBootConfiguration:
-                    BootManager.removeBoatConfiguration();
+                    BootManager.remove_boat_config();
                     break;
 
                 case kReturnToMainMenu:
