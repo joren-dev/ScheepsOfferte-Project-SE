@@ -1,11 +1,11 @@
 package managers;
 
 import entities.bootconfig.BootConfig;
+import entities.klant.Klant;
 import entities.klant.KlantType;
 import entities.offerte.BasicOfferte;
-import entities.offerte.OfferteBase;
-import managers.KlantManager;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class OfferteManager {
@@ -14,7 +14,6 @@ public class OfferteManager {
     // Map<String, BaseOfferte> offerte_list = ...
     public static Map<String, BasicOfferte> offerteLijst = new HashMap<>();
     private static int lastNumber = 10000;
-
 
     public OfferteManager() {
         // Check existing offertes /saves/offertes/
@@ -25,7 +24,6 @@ public class OfferteManager {
     public static void createOfferte() {
         Scanner scanner = new Scanner(System.in);
 
-        BasicOfferte offerte = new BasicOfferte();
         ArrayList<KlantType> allKlantTypes = KlantManager.klantTypen;
         Map<String, BootConfig> allBoatConfigurations = BootManager.loadedConfigurations;
         KlantType selectedKlantType = null;
@@ -77,9 +75,39 @@ public class OfferteManager {
         }
 
         System.out.printf("Geselecteerde boot configuratie: %n%s%n%n", selectedBootConfig.toString());
+        isInputValid = false;
 
+        String naam = "";
+        String adres = "";
+        String email = "";
+        String telefoon = "";
+        int aantalDagenTotVervallen = 0;
 
-        
+        System.out.println("Wat is de naam van de klant?");
+        naam = scanner.nextLine();
+        System.out.println("Klant naam: " + naam);
+
+        System.out.println("Wat is het adres van de klant?");
+        adres = scanner.nextLine();
+        System.out.println("Klant adres: " + adres);
+
+        System.out.println("Wat is de email van de klant?");
+        email = scanner.nextLine();
+        System.out.println("Klant email: " + email);
+
+        System.out.println("Wat is het telefoon nummer van de klant?");
+        telefoon = scanner.nextLine();
+        System.out.println("Klant telefoon nummer: " + telefoon);
+
+        System.out.println("Hoelang is de offerte geldig");
+        aantalDagenTotVervallen = scanner.nextInt();
+        String vervalDatum = LocalDateTime.now().plusDays(aantalDagenTotVervallen).toString();
+        System.out.println("De vervaldatum is: " + vervalDatum);
+
+        Klant klant = new Klant(naam, adres, email, telefoon, selectedKlantType);
+        String offerteDatum = LocalDateTime.now().toString();
+
+        BasicOfferte offerte = new BasicOfferte(klant, selectedKlantType, selectedBootConfig, offerteDatum, vervalDatum);
 
         // sout(Do you wish to use an existing configuration)
         // if(true)
