@@ -4,6 +4,7 @@ import entities.bootconfig.BoatConfig;
 import entities.klant.Client;
 import entities.klant.ClientType;
 
+
 public abstract class OfferteBase {
     private Client client;
     private ClientType client_type;

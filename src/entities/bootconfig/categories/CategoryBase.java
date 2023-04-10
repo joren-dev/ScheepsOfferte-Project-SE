@@ -3,6 +3,7 @@ package entities.bootconfig.categories;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public abstract class CategoryBase {
     public List<String> values;
 
@@ -26,6 +27,4 @@ public abstract class CategoryBase {
     public abstract boolean isEmpty();
 
     public abstract String toString();
-    // setters
-
 }

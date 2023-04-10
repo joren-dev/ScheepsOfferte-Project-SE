@@ -3,6 +3,7 @@ package entities.bootconfig.categories;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class SafetyPart extends CategoryBase {
     double price;
 
@@ -55,7 +56,8 @@ public class SafetyPart extends CategoryBase {
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return String.format("Veiligheid: %s %.2f", this.values, this.price);
     }
 }

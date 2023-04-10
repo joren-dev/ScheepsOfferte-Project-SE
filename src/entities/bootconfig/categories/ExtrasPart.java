@@ -3,10 +3,11 @@ package entities.bootconfig.categories;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExtrasOnderdeel extends CategoryBase {
-
+public class ExtrasPart extends CategoryBase
+{
     double price;
-    public ExtrasOnderdeel(final List<String> extra_list, final double price)
+
+    public ExtrasPart(final List<String> extra_list, final double price)
     {
         this.values = extra_list;
         this.price = price;

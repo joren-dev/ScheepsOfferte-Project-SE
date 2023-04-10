@@ -1,15 +1,14 @@
 package entities.bootconfig;
 
-import entities.bootconfig.categories.*;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import entities.bootconfig.categories.CategoryBase;
 
 
 public class BoatConfig
 {
-    private String boat_name;
-    private String boat_type;
+    private String boat_name, boat_type;
 
     // Defines standard categories for a configuration.
     public static Map<String, CategoryBase> categories = new HashMap<>();
@@ -51,7 +50,3 @@ public class BoatConfig
         return categories.get(category_name);
     }
 }
-
-
-
-

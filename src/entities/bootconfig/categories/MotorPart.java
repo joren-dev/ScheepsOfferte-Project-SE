@@ -61,6 +61,4 @@ public class MotorPart extends CategoryBase
     {
         return String.format("Motor: %s %.2f", this.values, this.price);
     }
-
-    // set_dubbele_motor(boolean)
 }

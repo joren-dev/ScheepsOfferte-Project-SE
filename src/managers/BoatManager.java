@@ -66,7 +66,7 @@ public class BoatManager {
                 new_boat_config.add_category("Uiterlijk", new AppearancePart(chosen_options.get("Uiterlijk"), 0.0));
 
             if (optional_category.equals("Extras"))
-                new_boat_config.add_category("Extras", new ExtrasOnderdeel(chosen_options.get("Extras"), 0.0));
+                new_boat_config.add_category("Extras", new ExtrasPart(chosen_options.get("Extras"), 0.0));
         }
 
         // Add config to list of loaded configurations
@@ -184,7 +184,7 @@ public class BoatManager {
                         new_boat_config.add_category("Uiterlijk", new AppearancePart(chosen_options.get("Uiterlijk"), 0.0));
                         break;
                     case "Extras":
-                        new_boat_config.add_category("Extras", new ExtrasOnderdeel(chosen_options.get("Extras"), 0.0));
+                        new_boat_config.add_category("Extras", new ExtrasPart(chosen_options.get("Extras"), 0.0));
                         break;
                     default:
                         throw new RuntimeException("Make sure to keep this up-to-date!");
