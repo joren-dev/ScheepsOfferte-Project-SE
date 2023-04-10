@@ -24,7 +24,7 @@ public class KlantTypeMenu extends MenuBase {
             System.out.println("Wat wilt u doen?");
             System.out.println("1. Klanttype toevoegen\n2. Klanttype wijzigen\n3. Klanttype verwijderen\n4. Klanttype lijst bekijken\n5. Terug naar hoofdmenu");
 
-            final int max_option = ClientTypeMenuOptions.kNavigateToHoofdmenu.ordinal() + 1;
+            final int max_option = ClientTypeMenuOptions.kNavigateToMainMenu.ordinal() + 1;
             final int choice = RequestInputUtils.request_valid_choice(
                     "Voer een getal tussen 1 en " + max_option + " in: ",
                     Integer::parseInt,
@@ -34,19 +34,19 @@ public class KlantTypeMenu extends MenuBase {
             final ClientTypeMenuOptions enum_choice = ClientTypeMenuOptions.values()[choice - 1];
 
             switch (enum_choice) {
-                case kAddKlantType:
+                case kAddClientType:
                     add_client_type();
                     break;
-                case kChangeKlantType:
+                case kChangeClientType:
                     edit_client_type();
                     break;
-                case kRemoveKlantType:
+                case kRemoveClientType:
                     delete_client_type();
                     break;
-                case kViewKlantType:
+                case kViewClientType:
                     view_client_type();
                     break;
-                case kNavigateToHoofdmenu:
+                case kNavigateToMainMenu:
                     return;
                 default:
                     break;

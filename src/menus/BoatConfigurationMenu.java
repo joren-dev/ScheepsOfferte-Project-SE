@@ -23,7 +23,7 @@ public class BoatConfigurationMenu extends MenuBase {
             System.out.println("1. Boot Configuratie toevoegen\n2. Boot Configuratie wijzigen\n" +
                     "3. Boot Configuratie bekijken\n4. Boot Configuratie verwijderen\n5. Terug naar hoofdmenu");
 
-            final int max_option = BoatConfigurationMenuOptions.kReturnToMainMenu.ordinal() + 1;
+            final int max_option = BoatConfigurationMenuOptions.kNavigateToMainMenu.ordinal() + 1;
             final int choice = RequestInputUtils.request_valid_choice(
                     "Voer een getal tussen 1 en " + max_option + " in: ",
                     Integer::parseInt,
@@ -49,7 +49,7 @@ public class BoatConfigurationMenu extends MenuBase {
                     BoatManager.remove_boat_config();
                     break;
 
-                case kReturnToMainMenu:
+                case kNavigateToMainMenu:
                     return;
 
                 default:

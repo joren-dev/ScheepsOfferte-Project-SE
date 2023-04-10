@@ -3,7 +3,6 @@ package menus;
 import java.util.Scanner;
 
 import managers.OfferteManager;
-import utils.ConstantUtils;
 import utils.RequestInputUtils;
 import utils.ConstantUtils.OfferteMenuOptions;
 
@@ -23,7 +22,7 @@ public class OfferteMenu extends MenuBase {
             System.out.println("Wat wilt u doen?");
             System.out.println("1. Offerte toevoegen\n2. Offerte wijzigen \n3. Offerte lijst weergeven\n4. Offerte verwijderen\n5. Terug naar hoofdmenu");
 
-            final int max_option = OfferteMenuOptions.kNavigeerHoofdmenu.ordinal() + 1;
+            final int max_option = OfferteMenuOptions.kNavigateToMainMenu.ordinal() + 1;
             final int choice = RequestInputUtils.request_valid_choice(
                     "Voer een getal tussen 1 en " + max_option + " in: ",
                     Integer::parseInt,
@@ -33,19 +32,19 @@ public class OfferteMenu extends MenuBase {
             final OfferteMenuOptions enum_choice = OfferteMenuOptions.values()[choice - 1];
 
             switch (enum_choice) {
-                case kMaakOfferte:
+                case kCreateOfferte:
                     OfferteManager.create_offerte();
                     break;
-                case kWijzigOfferte:
+                case kChangeOfferte:
                     OfferteManager.edit_offerte();
                     break;
-                case kToonOfferteLijst:
+                case kViewOfferteLijst:
                     OfferteManager.show_offerte();
                     break;
-                case kVerwijderOfferte:
+                case kRemoveOfferte:
                     OfferteManager.delete_offerte();
                     break;
-                case kNavigeerHoofdmenu:
+                case kNavigateToMainMenu:
                     return;
                 default:
                     break;

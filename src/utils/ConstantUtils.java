@@ -4,20 +4,20 @@ public class ConstantUtils {
 
     public enum ClientTypeMenuOptions
     {
-        kAddKlantType,
-        kChangeKlantType,
-        kRemoveKlantType,
-        kViewKlantType,
-        kNavigateToHoofdmenu;
+        kAddClientType,
+        kChangeClientType,
+        kRemoveClientType,
+        kViewClientType,
+        kNavigateToMainMenu;
     }
 
     public enum OfferteMenuOptions
     {
-        kMaakOfferte,
-        kWijzigOfferte,
-        kToonOfferteLijst,
-        kVerwijderOfferte,
-        kNavigeerHoofdmenu;
+        kCreateOfferte,
+        kChangeOfferte,
+        kViewOfferteLijst,
+        kRemoveOfferte,
+        kNavigateToMainMenu;
     }
 
     public enum BoatConfigurationMenuOptions
@@ -26,6 +26,6 @@ public class ConstantUtils {
         kChangeBootConfiguration,
         kViewBootConfigurations,
         kRemoveBootConfiguration,
-        kReturnToMainMenu;
+        kNavigateToMainMenu;
     }
 }
