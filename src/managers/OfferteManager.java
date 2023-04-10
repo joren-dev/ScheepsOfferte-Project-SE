@@ -7,7 +7,14 @@ import entities.klant.ClientType;
 import entities.offerte.BasicOfferte;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashMap;
+import java.util.InputMismatchException;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.function.Function;
+
+import utils.RequestInputUtils;
+import utils.ValidationUtils;
 
 public class OfferteManager {
     public static Map<String, BasicOfferte> offerteLijst = new HashMap<>();
@@ -24,8 +31,7 @@ public class OfferteManager {
 
         System.out.println("\033[1m== Offerte maken ==\033[0m");
 
-        if (BoatManager.get_all_boat_configs().isEmpty())
-        {
+        if (BoatManager.get_all_boat_configs().isEmpty()) {
             System.out.println("U heeft geen boot configuraties, stel eerst een configuratie samen.\n");
             return;
         }
@@ -61,45 +67,31 @@ public class OfferteManager {
             System.err.println("Bootconfiguratie niet gevonden.");
         }
 
-        int aantal_dagen_tot_vervallen = 0;
+        final String client_name = RequestInputUtils.request_data("Wat is de naam van de klant? (a-Z): ",
+                String::toLowerCase, ValidationUtils::is_valid_name);
 
-        System.out.println("Wat is de naam van de klant?");
-        String naam = scanner.nextLine();
-        System.out.println("Klant naam: " + naam);
+        final String client_address = RequestInputUtils.request_data("Wat is het adres van de klant? (Straat 23, postcode, stad/dorp): ",
+                String::toLowerCase, ValidationUtils::is_valid_address);
 
-        System.out.println("Wat is het adres van de klant?");
-        String adres = scanner.nextLine();
-        System.out.println("Klant adres: " + adres);
+        final String client_email = RequestInputUtils.request_data("Wat is de email van de klant? (example@email.com): ",
+                Function.identity(), ValidationUtils::is_valid_email);
 
-        System.out.println("Wat is de email van de klant?");
-        String email = scanner.nextLine();
+        final String client_phone_number = RequestInputUtils.request_data("Wat is het telefoonnummer van de klant? (tussen 8-10 digits): ",
+                Function.identity(), ValidationUtils::is_valid_phone_number);
 
-        // TODO: Use a do while/while loop to keep asking for input if they input an invalid email address
+        final int days_till_expiry = RequestInputUtils.request_data("Hoelang is de offerte geldig (dagen): ",
+                Integer::parseInt,
+                days -> days > 0);
 
-        final boolean email_valid = is_valid_email(email);
-        System.out.println("Klant email: " + email);
 
-        System.out.println("Wat is het telefoon nummer van de klant?");
-        String telefoon = scanner.nextLine();
-        System.out.println("Klant telefoon nummer: " + telefoon);
+        // Calculate expiry date
+        String offerte_date = LocalDateTime.now().toString();
+        String verval_date = LocalDateTime.now().plusDays(days_till_expiry).toString();
+        System.out.println("De vervaldatum is: " + verval_date);
 
-        System.out.println("Hoelang is de offerte geldig (dagen): ");
-        aantal_dagen_tot_vervallen = scanner.nextInt();
-        String verval_datum = LocalDateTime.now().plusDays(aantal_dagen_tot_vervallen).toString();
-        System.out.println("De vervaldatum is: " + verval_datum);
+        Client client = new Client(client_name, client_address, client_email, client_name, selected_klant_type);
 
-        Client klant = new Client(naam, adres, email, telefoon, selected_klant_type);
-        String offerte_datum = LocalDateTime.now().toString();
-
-        BasicOfferte offerte = new BasicOfferte(klant, selected_klant_type, selected_boot_config, offerte_datum, verval_datum);
-
-        // TODO:
-        /*
-            - Verbeter representatie van data
-            - Geef aan dat datum in aantal dagen is
-            - Valideer telefoon nummer lengte
-            - Valideer of het een geldig email adres is
-        */
+        BasicOfferte offerte = new BasicOfferte(client, selected_klant_type, selected_boot_config, offerte_date, verval_date);
     }
 
     public static void edit_offerte() {
@@ -107,7 +99,7 @@ public class OfferteManager {
     }
 
     public static void delete_offerte() {
-        
+
     }
 
     public static void show_offerte() {
@@ -119,8 +111,4 @@ public class OfferteManager {
         return "SF-%d" + lastNumber;
     }
 
-    private static boolean is_valid_email(final String email) {
-        //  TODO: schrijf code die checkt op de email valid is...
-        return true;
-    }
 }
