@@ -19,10 +19,14 @@ public class KlantTypeMenu extends MenuBase {
             System.out.println("\033[1m== Klanttypen ==\033[0m");
             System.out.println("Wat wilt u doen?");
             System.out.println("1. Klanttype toevoegen\n2. Klanttype wijzigen\n3. Klanttype verwijderen\n4. Klanttype lijst bekijken\n5. Terug naar hoofdmenu");
-            System.out.print("Voer in: ");
 
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            String input = "";
+            while (!input.matches("^[12345]$")) {   // TODO: make dynamic
+                System.out.print("Voer in (valide) getal (1-5): ");
+                input = scanner.nextLine();
+            }
+
+            final int choice = Integer.parseInt(input);
 
             final int kAddKlantType = 1, kChangeKlantType = 2, kRemoveKlantType = 3, kViewKlantType = 4, kNavigateToHoofdmenu = 5;
 
@@ -48,47 +52,51 @@ public class KlantTypeMenu extends MenuBase {
     }
 
     private void add_client_type() {
-        System.out.print("Hoe noemt u dit klanttype: ");
-        final String name = scanner.nextLine();
 
-        System.out.print("Hoeveel korting krijgt dit klanttype: ");
+        String client_type_name = "";
+        while (!client_type_name.matches("^[a-zA-Z][a-zA-Z ]*$")) {
+            System.out.print("Vul een (valide) klanttype naam in (a-Z): ");
+            client_type_name = scanner.nextLine();
+        }
 
-        final int discount = scanner.nextInt();
-        scanner.nextLine();
+        String discount = "";
 
-        ClientManager.add_client_type(name, discount);
+        while (!discount.matches("^[0-9]{1,2}$")) {
+            System.out.print("Vul in een (valide) procent korting voor dit klanttype (0-100): ");
+            discount = scanner.nextLine();
+        }
+
+        ClientManager.add_client_type(client_type_name, Integer.parseInt(discount));
     }
 
 
     private void edit_client_type() {
-
-        boolean found = false;
         String client_type_name;
 
-        do {
+        while (true) {
             System.out.println("Welk klanttype wilt u bewerken?");
             System.out.println(Arrays.toString(ClientManager.loaded_client_types.stream().map(ClientType::get_type_name).toArray()));
 
-            System.out.print("Maak uw keuze: ");
-            client_type_name = scanner.nextLine();
+            client_type_name = "";
+
+            while (!client_type_name.matches("^[a-zA-Z][a-zA-Z ]*$")) {
+                System.out.print("Vul in een (valide) klant-type naam in (a-Z): ");
+                client_type_name = scanner.nextLine();
+            }
 
             for (int i = 0; i != ClientManager.loaded_client_types.size(); i++) {
                 ClientType found_client = ClientManager.loaded_client_types.get(i);
 
                 if (found_client.get_type_name().equals(client_type_name)) {
-                    found = true;
                     ClientManager.change_client_type(found_client.get_type_name());
+                    return;
                 }
             }
-
-        } while (!found);
-
+        }
     }
 
     private void delete_client_type() {
-        boolean found = false;
-
-        do {
+        while (true) {
             System.out.println("Welk klanttype wilt u verwijderen?");
             System.out.println(Arrays.toString(ClientManager.loaded_client_types.stream().map(ClientType::get_type_name).toArray()));
 
@@ -99,12 +107,11 @@ public class KlantTypeMenu extends MenuBase {
                 ClientType found_client = ClientManager.loaded_client_types.get(i);
 
                 if (found_client.get_type_name().equals(name)) {
-                    found = true;
                     ClientManager.delete_client_type(name);
-                    break;
+                    return;
                 }
             }
-        } while (!found);
+        }
     }
 
     private void view_client_type() {
