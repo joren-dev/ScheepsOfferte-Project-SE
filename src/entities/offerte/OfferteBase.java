@@ -5,57 +5,68 @@ import entities.klant.Client;
 import entities.klant.ClientType;
 
 public abstract class OfferteBase {
-    private Client klant;
-    private ClientType klantType;
+    private Client client;
+    private ClientType client_type;
     private BoatConfig config;
-    private String offerteDatum;
-    private String vervalDatum;
+    private String offerte_date;
+    private String expiry_date;
 
-    public OfferteBase(Client klant, ClientType klantType, BoatConfig config, String offerteDatum, String vervalDatum) {
-        this.klant = klant;
-        this.klantType = klantType;
+    public OfferteBase(Client client, ClientType client_type, BoatConfig config, String offerte_date, String expiry_date)
+    {
+        this.client = client;
+        this.client_type = client_type;
         this.config = config;
-        this.offerteDatum = offerteDatum;
-        this.vervalDatum = vervalDatum;
+        this.offerte_date = offerte_date;
+        this.expiry_date = expiry_date;
     }
 
-    public Client getKlant() {
-        return klant;
+    public Client get_client()
+    {
+        return client;
     }
 
-    public void setKlant(Client klant) {
-        this.klant = klant;
+    public void set_client(Client client) {
+
+        this.client = client;
     }
 
-    public BoatConfig getConfig() {
+    public BoatConfig get_config()
+    {
         return config;
     }
 
-    public void setConfig(BoatConfig config) {
+    public void set_config(BoatConfig config)
+    {
         this.config = config;
     }
 
-    public String getOfferteDatum() {
-        return offerteDatum;
+    public String get_offerte_date()
+    {
+        return offerte_date;
     }
 
-    public void setOfferteDatum(String offerteDatum) {
-        this.offerteDatum = offerteDatum;
+    public void set_offerte_date(String offerte_date)
+    {
+        this.offerte_date = offerte_date;
     }
 
-    public String getVervalDatum() {
-        return vervalDatum;
+    public String get_expiry_date()
+    {
+        return expiry_date;
     }
 
-    public void setVervalDatum(String vervalDatum) {
-        this.vervalDatum = vervalDatum;
+    public void set_expiry_date(String expiry_date)
+    {
+        this.expiry_date = expiry_date;
     }
 
-    public ClientType getKlantType() {
-        return klantType;
+    public ClientType get_client_type()
+    {
+        return client_type;
     }
 
-    public void setKlantType(ClientType klantType) {
-        this.klantType = klantType;
+    public void set_client_type(ClientType client_type)
+    {
+        this.client_type = client_type;
     }
 }
