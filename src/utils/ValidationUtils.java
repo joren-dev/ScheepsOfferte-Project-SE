@@ -14,7 +14,6 @@ public class ValidationUtils {
         return address.matches(regex);
     }
 
-
     public static boolean is_valid_email(final String email) {
         if (email == null || email.isEmpty())
             return false;
@@ -22,8 +21,8 @@ public class ValidationUtils {
         // Regex pattern to check if email address is valid
         final String pattern = "^[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,}$";
 
-        Pattern regex = Pattern.compile(pattern);
-        Matcher matcher = regex.matcher(email);
+        final Pattern regex = Pattern.compile(pattern);
+        final Matcher matcher = regex.matcher(email);
 
         return matcher.matches();
     }
@@ -40,5 +39,4 @@ public class ValidationUtils {
 
         return false;
     }
-
 }
