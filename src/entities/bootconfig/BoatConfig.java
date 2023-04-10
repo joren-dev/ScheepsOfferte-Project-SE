@@ -5,12 +5,14 @@ import entities.bootconfig.categories.*;
 import java.util.HashMap;
 import java.util.Map;
 
-// this one is saved in the map in BootManager
-public class BoatConfig {
 
+public class BoatConfig
+{
     private String boat_name;
     private String boat_type;
-    private Map<String, CategoryBase> options = new HashMap<>();
+
+    // Defines standard categories for a configuration.
+    public static Map<String, CategoryBase> categories = new HashMap<>();
 
     public BoatConfig(String boat_name, String boat_type)
     {
@@ -25,7 +27,7 @@ public class BoatConfig {
 
     public void print_all_options()
     {
-        for(CategoryBase category : options.values())
+        for(CategoryBase category : categories.values())
             category.print_options();
     }
 
@@ -33,7 +35,7 @@ public class BoatConfig {
     {
         final StringBuilder formatted_options = new StringBuilder();
 
-        for (final CategoryBase option : options.values())
+        for (final CategoryBase option : categories.values())
             formatted_options.append(option.toString()).append("\n");
 
         return String.format("Naam (Boot type): %s (%s)%n%s", this.boat_name, this.boat_type, formatted_options);
@@ -41,11 +43,8 @@ public class BoatConfig {
 
     public void add_category(final String category_name, final CategoryBase category)
     {
-        options.put(category_name, category);
+        categories.put(category_name, category);
     }
-
-    // Defines standard categories for a configuration.
-    public static Map<String, CategoryBase> categories = new HashMap<>();
 
     public static CategoryBase get_category(final String category_name)
     {
