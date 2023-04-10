@@ -9,10 +9,6 @@ public class ValidationUtils {
         return name.matches("[a-zA-Z]+");
     }
 
-    public static boolean is_valid_choice(final int choice) {
-        return choice >= 1 && choice <= 5;
-    }
-
     public static boolean is_valid_address(final String address) {
         final String regex = "^[a-zA-Z]+\\s\\d+,\\s\\d{4}[a-zA-Z]{2},\\s[a-zA-Z]+$";
         return address.matches(regex);
@@ -43,4 +39,10 @@ public class ValidationUtils {
 
         return false;
     }
+
+    public static boolean is_valid_full_name(final String client_type_name) {
+        final String regex = "^[a-zA-Z][a-zA-Z ]*$";
+        return client_type_name.matches(regex);
+    }
+
 }

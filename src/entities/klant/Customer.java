@@ -1,6 +1,6 @@
 package entities.klant;
 
-public class Client {
+public class Customer {
 
     public int discount;
     private String name;
@@ -8,10 +8,10 @@ public class Client {
     private String address;
     private String email;
     private String phone_number;
-    private ClientType type;
+    private CustomerType type;
 
-    public Client(final String name, final String company, final String address, final String email,
-                  final String phone_number, final ClientType type) {
+    public Customer(final String name, final String company, final String address, final String email,
+                    final String phone_number, final CustomerType type) {
         this.name = name;
         this.company = company;
         this.address = address;
@@ -21,8 +21,8 @@ public class Client {
 
     }
 
-    public Client(final String name, final String address, final String email, final String phone_number,
-                  final ClientType type) {
+    public Customer(final String name, final String address, final String email, final String phone_number,
+                    final CustomerType type) {
         this.name = name;
         this.address = address;
         this.email = email;
@@ -70,11 +70,11 @@ public class Client {
         this.phone_number = phone_number;
     }
 
-    public ClientType get_client_type() {
+    public CustomerType get_client_type() {
         return type;
     }
 
-    public void set_client_type(ClientType type) {
+    public void set_client_type(CustomerType type) {
         this.type = type;
     }
 

@@ -1,8 +1,8 @@
 package managers;
 
 import entities.bootconfig.BoatConfig;
-import entities.klant.Client;
-import entities.klant.ClientType;
+import entities.klant.Customer;
+import entities.klant.CustomerType;
 
 import entities.offerte.BasicOfferte;
 
@@ -35,16 +35,16 @@ public class OfferteManager {
             return;
         }
 
-        ClientType selected_klant_type;
+        CustomerType selected_klant_type;
         while (true) {
             System.out.println("Voor welk klanttype maak je deze offerte?");
-            ClientManager.print_client_types();
+            CustomerManager.print_client_types();
 
             System.out.print("Maak uw keuze: ");
             String input = scanner.nextLine();
 
-            if (ClientManager.contains_client_type(input)) {
-                selected_klant_type = ClientManager.get_client_type(input);
+            if (CustomerManager.contains_client_type(input)) {
+                selected_klant_type = CustomerManager.get_client_type(input);
                 break;
             }
 
@@ -88,9 +88,9 @@ public class OfferteManager {
         String verval_date = LocalDateTime.now().plusDays(days_till_expiry).toString();
         System.out.println("De vervaldatum is: " + verval_date);
 
-        Client client = new Client(client_name, client_address, client_email, client_name, selected_klant_type);
+        Customer customer = new Customer(client_name, client_address, client_email, client_name, selected_klant_type);
 
-        BasicOfferte offerte = new BasicOfferte(client, selected_klant_type, selected_boot_config, offerte_date, verval_date);
+        BasicOfferte offerte = new BasicOfferte(customer, selected_klant_type, selected_boot_config, offerte_date, verval_date);
     }
 
     public static void edit_offerte() {

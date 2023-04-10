@@ -1,10 +1,10 @@
 package entities.klant;
 
-public class ClientType {
+public class CustomerType {
     private String type_name;
     private int discount;
 
-    public ClientType(final String type_name, final int discount) {
+    public CustomerType(final String type_name, final int discount) {
         this.discount = discount;
         this.type_name = type_name;
     }
