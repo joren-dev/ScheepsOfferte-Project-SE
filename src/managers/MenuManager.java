@@ -49,7 +49,7 @@ public class  MenuManager {
 
             String invoer = "";
             while (!invoer.matches("^\\d$")) {
-                System.out.print("Jouw keuze: ");
+                System.out.print("Uw keuze: ");
                 invoer = scanner.nextLine();
             }
 

@@ -19,10 +19,10 @@ public class OfferteMenu extends MenuBase {
 
             String invoer = "";
             while (!invoer.matches("^\\d+$")) {
-                System.out.print("Voer in: ");
+                System.out.print("Vul in een (valide) getal in (1-5): ");
                 invoer = scanner.nextLine();
             }
-            int choice = Integer.parseInt(invoer);
+            final int choice = Integer.parseInt(invoer);
 
             final int kVoegOfferteToe = 1, kWijzigOfferte = 2, kToonOfferteLijst = 3, kVerwijderOfferte = 4, kNavigeerHoofdmenu = 5;
 

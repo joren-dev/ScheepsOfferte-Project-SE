@@ -21,12 +21,12 @@ public class KlantTypeMenu extends MenuBase {
             System.out.println("1. Klanttype toevoegen\n2. Klanttype wijzigen\n3. Klanttype verwijderen\n4. Klanttype lijst bekijken\n5. Terug naar hoofdmenu");
 
             String input = "";
-            while (!input.matches("^[12345]$")) {
-                System.out.print("Voer in: ");
+            while (!input.matches("^[12345]$")) {   // TODO: make dynamic
+                System.out.print("Voer in (valide) getal (1-5): ");
                 input = scanner.nextLine();
             }
 
-            int choice = Integer.parseInt(input);
+            final int choice = Integer.parseInt(input);
 
             final int kAddKlantType = 1, kChangeKlantType = 2, kRemoveKlantType = 3, kViewKlantType = 4, kNavigateToHoofdmenu = 5;
 
@@ -53,23 +53,20 @@ public class KlantTypeMenu extends MenuBase {
 
     private void add_client_type() {
 
-        String name = "";
-        while (!name.matches("^[a-zA-Z][a-zA-Z ]*$")) {
-            System.out.print("Hoe noemt u dit klanttype: ");
-            name = scanner.nextLine();
+        String client_type_name = "";
+        while (!client_type_name.matches("^[a-zA-Z][a-zA-Z ]*$")) {
+            System.out.print("Vul een (valide) klanttype naam in (a-Z): ");
+            client_type_name = scanner.nextLine();
         }
 
-        int discount;
-        String input = "";
+        String discount = "";
 
-        while (!input.matches("^[0-9]{1,2}$")) {
-            System.out.print("Hoeveel procent korting krijgt dit klanttype: ");
-            input = scanner.nextLine();
+        while (!discount.matches("^[0-9]{1,2}$")) {
+            System.out.print("Vul in een (valide) procent korting voor dit klanttype (0-100): ");
+            discount = scanner.nextLine();
         }
 
-        discount = Integer.parseInt(input);
-
-        ClientManager.add_client_type(name, discount);
+        ClientManager.add_client_type(client_type_name, Integer.parseInt(discount));
     }
 
 
@@ -83,7 +80,7 @@ public class KlantTypeMenu extends MenuBase {
             client_type_name = "";
 
             while (!client_type_name.matches("^[a-zA-Z][a-zA-Z ]*$")) {
-                System.out.print("Maak uw keuze: ");
+                System.out.print("Vul in een (valide) klant-type naam in (a-Z): ");
                 client_type_name = scanner.nextLine();
             }
 

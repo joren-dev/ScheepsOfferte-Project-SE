@@ -22,12 +22,12 @@ public class BoatConfigurationMenu extends MenuBase {
                     "3. Boot Configuratie bekijken\n4. Boot Configuratie verwijderen\n5. Terug naar hoofdmenu");
 
             String invoer = "";
-            while (!invoer.matches("^[12345]$")) {
-                System.out.print("Voer in: ");
+            while (!invoer.matches("^[12345]$")) {  // TODO: make dynamic
+                System.out.print("Voer in (valide) getal (1-5): ");
                 invoer = scanner.nextLine();
             }
 
-            int choice = Integer.parseInt(invoer);
+            final int choice = Integer.parseInt(invoer);
 
             final int kAddBootConfiguration = 1, kChangeBootConfiguration = 2, kViewBootConfigurations = 3,
                     kRemoveBootConfiguration = 4, kReturnToMainMenu = 5;

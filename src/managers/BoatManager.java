@@ -161,7 +161,7 @@ public class BoatManager {
             boat_type = loaded_boat_configurations.get(configuration_name).get_boat_type();
         } else {
             do {
-                System.out.print("Welke boot type is het? : ");
+                System.out.print("Voer nieuw boot type in: ");
                 boat_type = scanner.nextLine();
             } while (boat_type.isEmpty());
         }
