@@ -31,16 +31,16 @@ public class OfferteMenu extends MenuBase {
 
             switch (choice) {
                 case kMaakOfferte:
-                    OfferteManager.createOfferte();
+                    OfferteManager.create_offerte();
                     break;
                 case kWijzigOfferte:
-                    OfferteManager.editOfferte();
+                    OfferteManager.edit_offerte();
                     break;
                 case kToonOfferteLijst:
-                    OfferteManager.showOfferte();
+                    OfferteManager.show_offerte();
                     break;
                 case kVerwijderOfferte:
-                    OfferteManager.deleteOfferte();
+                    OfferteManager.delete_offerte();
                     break;
                 case kNavigeerHoofdmenu:
                     return;

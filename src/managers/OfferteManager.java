@@ -19,15 +19,18 @@ public class OfferteManager {
         //                                  offertenr134.txt
     }
 
-    public static void createOfferte() {
+    public static void create_offerte() {
         final Scanner scanner = new Scanner(System.in);
 
         System.out.println("\033[1m== Offerte maken ==\033[0m");
 
-        // Create instances that'll hold currently selected client type & boat config
-        ClientType selected_klant_type = null;
-        BoatConfig selected_boot_config = null;
+        if (BoatManager.get_all_boat_configs().isEmpty())
+        {
+            System.out.println("U heeft geen boot configuraties, stel eerst een configuratie samen.\n");
+            return;
+        }
 
+        ClientType selected_klant_type;
         while (true) {
             System.out.println("Voor welk klanttype maak je deze offerte?");
             ClientManager.print_client_types();
@@ -43,18 +46,12 @@ public class OfferteManager {
             System.err.println("Klanttype niet gevonden");
         }
 
-        System.out.printf("Geselecteerde klanttype: %n%s%n%n", selected_klant_type.get_type_name());
-
+        BoatConfig selected_boot_config;
         while (true) {
             System.out.println("Welke bootconfiguratie wilt u toevoegen aan de offerte?");
             BoatManager.print_loaded_configs(false);
-            System.out.print("Maak uw keuze (Skip voor geen): ");
+            System.out.print("Maak uw keuze: ");
             String input = scanner.nextLine();
-
-            if (input.equalsIgnoreCase("Skip")) {
-                break;
-            }
-
 
             if (BoatManager.contains_boat_config(input)) {
                 selected_boot_config = BoatManager.get_config(input);
@@ -62,12 +59,6 @@ public class OfferteManager {
             }
 
             System.err.println("Bootconfiguratie niet gevonden.");
-        }
-        // if boat config present
-        if (selected_boot_config != null) {
-            System.out.printf("Geselecteerde boot configuratie: %n%s%n%n", selected_boot_config.toString());
-        } else {
-            System.out.println("Geen boot geselecteerd.");
         }
 
         int aantal_dagen_tot_vervallen = 0;
@@ -92,7 +83,7 @@ public class OfferteManager {
         String telefoon = scanner.nextLine();
         System.out.println("Klant telefoon nummer: " + telefoon);
 
-        System.out.println("Hoelang is de offerte geldig");
+        System.out.println("Hoelang is de offerte geldig (dagen): ");
         aantal_dagen_tot_vervallen = scanner.nextInt();
         String verval_datum = LocalDateTime.now().plusDays(aantal_dagen_tot_vervallen).toString();
         System.out.println("De vervaldatum is: " + verval_datum);
@@ -111,19 +102,19 @@ public class OfferteManager {
         */
     }
 
-    public static void editOfferte() {
+    public static void edit_offerte() {
 
     }
 
-    public static void deleteOfferte() {
+    public static void delete_offerte() {
         
     }
 
-    public static void showOfferte() {
+    public static void show_offerte() {
 
     }
 
-    public static String generateOfferteNumber() {
+    public static String gen_offerte_nr() {
         lastNumber++;
         return "SF-%d" + lastNumber;
     }
