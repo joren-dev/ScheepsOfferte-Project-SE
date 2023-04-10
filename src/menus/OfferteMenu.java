@@ -3,8 +3,11 @@ package menus;
 import java.io.Serializable;
 import java.util.Scanner;
 
-public class OfferteMenu extends MenuBase implements Serializable {
+import managers.OfferteManager;
+import utils.RequestInputUtils;
+import utils.ConstantUtils.OfferteMenuOptions;
 
+public class OfferteMenu extends MenuBase implements Serializable {
     private Scanner scanner;
 
     public OfferteMenu() {
@@ -15,32 +18,33 @@ public class OfferteMenu extends MenuBase implements Serializable {
     public void show_menu() {
         while (true) {
             System.out.println("\033[1m== Weergeven Offerte ==\033[0m");
+
             System.out.println("Wat wilt u doen?");
-            System.out.println("1. Offerte toevoegen\n2. Offerte wijzigen wijzigen\n3. Offerte lijst weergeven\n4. Offerte verwijderen\n5. Terug naar hoofdmenu");
+            System.out.println("1. Offerte toevoegen\n2. Offerte wijzigen \n3. Offerte lijst weergeven\n4. Offerte verwijderen\n5. Terug naar hoofdmenu");
 
-            String invoer = "";
-            while (!invoer.matches("^\\d+$")) {
-                System.out.print("Vul in een (valide) getal in (1-5): ");
-                invoer = scanner.nextLine();
-            }
-            final int choice = Integer.parseInt(invoer);
+            final int max_option = OfferteMenuOptions.kNavigateToMainMenu.ordinal() + 1;
+            final int choice = RequestInputUtils.request_valid_choice(
+                    "Voer een getal tussen 1 en " + max_option + " in: ",
+                    Integer::parseInt,
+                    1, max_option);
 
-            final int kVoegOfferteToe = 1, kWijzigOfferte = 2, kToonOfferteLijst = 3, kVerwijderOfferte = 4, kNavigeerHoofdmenu = 5;
+            // Convert choice into specific option in enum.
+            final OfferteMenuOptions enum_choice = OfferteMenuOptions.values()[choice - 1];
 
-            switch (choice) {
-                case kVoegOfferteToe:
-                    addQuotation();
+            switch (enum_choice) {
+                case kCreateOfferte:
+                    OfferteManager.create_offerte();
                     break;
-                case kWijzigOfferte:
-                    editQuotation();
+                case kChangeOfferte:
+                    OfferteManager.edit_offerte();
                     break;
-                case kToonOfferteLijst:
-                    showQuotationList();
+                case kViewOfferteLijst:
+                    OfferteManager.show_offerte();
                     break;
-                case kVerwijderOfferte:
-                    deleteQuotation();
+                case kRemoveOfferte:
+                    OfferteManager.delete_offerte();
                     break;
-                case kNavigeerHoofdmenu:
+                case kNavigateToMainMenu:
                     return;
                 default:
                     break;
@@ -48,20 +52,23 @@ public class OfferteMenu extends MenuBase implements Serializable {
         }
     }
 
-
-    public void addQuotation() {
-
-    }
-
-    public void editQuotation() {
+    public void addQuotation()
+    {
 
     }
 
-    public void showQuotationList() {
+    public void editQuotation()
+    {
 
     }
 
-    public void deleteQuotation() {
+    public void showQuotationList()
+    {
+
+    }
+
+    public void deleteQuotation()
+    {
 
     }
 }

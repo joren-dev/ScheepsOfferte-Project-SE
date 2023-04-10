@@ -2,7 +2,8 @@ package menus;
 
 import managers.BoatManager;
 
-import java.util.InputMismatchException;
+import utils.ConstantUtils.BoatConfigurationMenuOptions;
+import utils.RequestInputUtils;
 import java.util.Scanner;
 import java.io.Serializable;
 
@@ -18,22 +19,21 @@ public class BoatConfigurationMenu extends MenuBase implements Serializable {
 
         while (true) {
             System.out.println("\033[1m== Boot Configuratie Beheer ==\033[0m");
+
             System.out.println("Wat wilt u doen?");
             System.out.println("1. Boot Configuratie toevoegen\n2. Boot Configuratie wijzigen\n" +
                     "3. Boot Configuratie bekijken\n4. Boot Configuratie verwijderen\n5. Terug naar hoofdmenu");
 
-            String invoer = "";
-            while (!invoer.matches("^[12345]$")) {  // TODO: make dynamic
-                System.out.print("Voer in (valide) getal (1-5): ");
-                invoer = scanner.nextLine();
-            }
+            final int max_option = BoatConfigurationMenuOptions.kNavigateToMainMenu.ordinal() + 1;
+            final int choice = RequestInputUtils.request_valid_choice(
+                    "Voer een getal tussen 1 en " + max_option + " in: ",
+                    Integer::parseInt,
+                    1, max_option);
 
-            final int choice = Integer.parseInt(invoer);
+            // Convert choice into specific option in enum.
+            final BoatConfigurationMenuOptions enum_choice = BoatConfigurationMenuOptions.values()[choice - 1];
 
-            final int kAddBootConfiguration = 1, kChangeBootConfiguration = 2, kViewBootConfigurations = 3,
-                    kRemoveBootConfiguration = 4, kReturnToMainMenu = 5;
-
-            switch (choice) {
+            switch (enum_choice) {
                 case kAddBootConfiguration:
                     BoatManager.add_boat_config();
                     break;
@@ -50,7 +50,7 @@ public class BoatConfigurationMenu extends MenuBase implements Serializable {
                     BoatManager.remove_boat_config();
                     break;
 
-                case kReturnToMainMenu:
+                case kNavigateToMainMenu:
                     return;
 
                 default:

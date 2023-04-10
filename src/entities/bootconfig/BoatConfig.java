@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BoatConfig implements Serializable {
-    public static Map<String, CategoryBase> categories = new HashMap<>();
     private String boat_name;
     private String boat_type;
     private Map<String, CategoryBase> options = new HashMap<>();
@@ -38,4 +37,16 @@ public class BoatConfig implements Serializable {
     public void add_category(final String category_name, final CategoryBase category) {
         options.put(category_name, category);
     }
+
+    public static CategoryBase get_category(final String category_name)
+    {
+        return categories.get(category_name);
+    }
+
+    // Defines standard categories for a configuration.
+    public static Map<String, CategoryBase> categories = new HashMap<>();
 }
+
+
+
+

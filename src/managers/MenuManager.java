@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 import menus.MenuBase;
+import utils.RequestInputUtils;
+
 
 public class  MenuManager implements Serializable {
     private Scanner scanner;
@@ -41,27 +43,20 @@ public class  MenuManager implements Serializable {
         while (true) {
             System.out.println("\033[1m== Main menu ==\033[0m");
             System.out.println("Type in de gewenste menu optie:");
-            int optionNumber = 1;
 
+            int optionNumber = 1;
             for (final String name : menus.keySet()) {
                 System.out.println(optionNumber + ". " + name);
                 optionNumber++;
             }
 
-            String invoer = "";
-            while (!invoer.matches("^\\d$")) {
-                System.out.print("Uw keuze: ");
-                invoer = scanner.nextLine();
-            }
+            final int choice = RequestInputUtils.request_valid_choice(
+                    "Uw keuze: ", Integer::parseInt, 1, menus.size()
+            );
 
-            final int choice = Integer.parseInt(invoer);
+            MenuBase selectedMenuBase = (MenuBase) menus.values().toArray()[choice - 1];
 
-            if (choice < 1 || choice > menus.size()) {
-                System.out.println("Ongeldige keuze, probeer het AUB opnieuw");
-            } else {
-                MenuBase selectedMenuBase = (MenuBase) menus.values().toArray()[choice - 1];
-                selectedMenuBase.show_menu();
-            }
+            selectedMenuBase.show_menu();
         }
     }
 }
