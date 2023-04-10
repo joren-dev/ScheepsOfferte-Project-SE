@@ -7,7 +7,7 @@ import java.util.Scanner;
 import menus.MenuBase;
 import utils.RequestInputUtils;
 
-public class  MenuManager {
+public class MenuManager {
     private Scanner scanner;
     private Map<String, MenuBase> menus;
 
@@ -52,12 +52,9 @@ public class  MenuManager {
                     "Uw keuze: ", Integer::parseInt, 1, menus.size()
             );
 
-            if (choice < 1 || choice > menus.size()) {
-                System.out.println("Ongeldige keuze, probeer het opnieuw.");
-            } else {
-                MenuBase selectedMenuBase = (MenuBase) menus.values().toArray()[choice - 1];
-                selectedMenuBase.show_menu();
-            }
+            MenuBase selectedMenuBase = (MenuBase) menus.values().toArray()[choice - 1];
+
+            selectedMenuBase.show_menu();
         }
     }
 }

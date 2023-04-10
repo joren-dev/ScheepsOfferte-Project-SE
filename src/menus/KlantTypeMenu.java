@@ -5,12 +5,10 @@ import java.util.Scanner;
 
 import entities.klant.ClientType;
 import managers.ClientManager;
+import utils.ConstantUtils.ClientTypeMenuOptions;
 import utils.RequestInputUtils;
-import utils.ValidationUtils;
 
 public class KlantTypeMenu extends MenuBase {
-    private final int kAddKlantType = 1, kChangeKlantType = 2, kRemoveKlantType = 3, kViewKlantType = 4,
-            kNavigateToHoofdmenu = 5;
 
     private Scanner scanner;
 
@@ -26,12 +24,16 @@ public class KlantTypeMenu extends MenuBase {
             System.out.println("Wat wilt u doen?");
             System.out.println("1. Klanttype toevoegen\n2. Klanttype wijzigen\n3. Klanttype verwijderen\n4. Klanttype lijst bekijken\n5. Terug naar hoofdmenu");
 
+            final int max_option = ClientTypeMenuOptions.kNavigateToHoofdmenu.ordinal() + 1;
             final int choice = RequestInputUtils.request_valid_choice(
-                    "Voer een getal tussen 1 en 5 in: ",
+                    "Voer een getal tussen 1 en " + max_option + " in: ",
                     Integer::parseInt,
-                    1, 5);
+                    1, max_option);
 
-            switch (choice) {
+            // Convert choice into specific option in enum.
+            final ClientTypeMenuOptions enum_choice = ClientTypeMenuOptions.values()[choice - 1];
+
+            switch (enum_choice) {
                 case kAddKlantType:
                     add_client_type();
                     break;

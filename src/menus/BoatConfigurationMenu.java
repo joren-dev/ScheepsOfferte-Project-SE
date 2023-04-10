@@ -1,16 +1,12 @@
 package menus;
 
 import managers.BoatManager;
-import utils.RequestInputUtils;
-import utils.ValidationUtils;
 
-import java.util.InputMismatchException;
+import utils.ConstantUtils.BoatConfigurationMenuOptions;
+import utils.RequestInputUtils;
 import java.util.Scanner;
 
 public class BoatConfigurationMenu extends MenuBase {
-    private final int kAddBootConfiguration = 1, kChangeBootConfiguration = 2, kViewBootConfigurations = 3,
-            kRemoveBootConfiguration = 4, kReturnToMainMenu = 5;
-
     private Scanner scanner;
 
     public BoatConfigurationMenu() {
@@ -22,16 +18,21 @@ public class BoatConfigurationMenu extends MenuBase {
 
         while (true) {
             System.out.println("\033[1m== Boot Configuratie Beheer ==\033[0m");
+
             System.out.println("Wat wilt u doen?");
             System.out.println("1. Boot Configuratie toevoegen\n2. Boot Configuratie wijzigen\n" +
                     "3. Boot Configuratie bekijken\n4. Boot Configuratie verwijderen\n5. Terug naar hoofdmenu");
 
+            final int max_option = BoatConfigurationMenuOptions.kReturnToMainMenu.ordinal() + 1;
             final int choice = RequestInputUtils.request_valid_choice(
-                    "Voer een getal tussen 1 en 5 in: ",
+                    "Voer een getal tussen 1 en " + max_option + " in: ",
                     Integer::parseInt,
-                    1, 5);
+                    1, max_option);
 
-            switch (choice) {
+            // Convert choice into specific option in enum.
+            final BoatConfigurationMenuOptions enum_choice = BoatConfigurationMenuOptions.values()[choice - 1];
+
+            switch (enum_choice) {
                 case kAddBootConfiguration:
                     BoatManager.add_boat_config();
                     break;

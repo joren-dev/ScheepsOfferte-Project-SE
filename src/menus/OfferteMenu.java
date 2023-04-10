@@ -3,12 +3,11 @@ package menus;
 import java.util.Scanner;
 
 import managers.OfferteManager;
+import utils.ConstantUtils;
 import utils.RequestInputUtils;
-import utils.ValidationUtils;
+import utils.ConstantUtils.OfferteMenuOptions;
 
 public class OfferteMenu extends MenuBase {
-    private final int kMaakOfferte = 1, kWijzigOfferte = 2, kToonOfferteLijst = 3, kVerwijderOfferte = 4,
-            kNavigeerHoofdmenu = 5;
 
     private Scanner scanner;
 
@@ -24,12 +23,16 @@ public class OfferteMenu extends MenuBase {
             System.out.println("Wat wilt u doen?");
             System.out.println("1. Offerte toevoegen\n2. Offerte wijzigen \n3. Offerte lijst weergeven\n4. Offerte verwijderen\n5. Terug naar hoofdmenu");
 
-            int choice = RequestInputUtils.request_valid_choice(
-                    "Voer een getal tussen 1 en 5 in: ",
+            final int max_option = OfferteMenuOptions.kNavigeerHoofdmenu.ordinal() + 1;
+            final int choice = RequestInputUtils.request_valid_choice(
+                    "Voer een getal tussen 1 en " + max_option + " in: ",
                     Integer::parseInt,
-                    1, 5);
+                    1, max_option);
 
-            switch (choice) {
+            // Convert choice into specific option in enum.
+            final OfferteMenuOptions enum_choice = OfferteMenuOptions.values()[choice - 1];
+
+            switch (enum_choice) {
                 case kMaakOfferte:
                     OfferteManager.create_offerte();
                     break;
