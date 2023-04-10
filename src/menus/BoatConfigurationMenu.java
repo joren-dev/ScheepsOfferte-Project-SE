@@ -21,16 +21,13 @@ public class BoatConfigurationMenu extends MenuBase {
             System.out.println("1. Boot Configuratie toevoegen\n2. Boot Configuratie wijzigen\n" +
                     "3. Boot Configuratie bekijken\n4. Boot Configuratie verwijderen\n5. Terug naar hoofdmenu");
 
-            int choice = -1;
-            while (choice < 1 || choice > 5) {
+            String invoer = "";
+            while (!invoer.matches("^[12345]$")) {
                 System.out.print("Voer in: ");
-                try {
-                    choice = scanner.nextInt();
-                } catch (InputMismatchException identifier) {
-                    System.out.println("Vul alstublieft een getal in.");
-                }
-                scanner.nextLine();
+                invoer = scanner.nextLine();
             }
+
+            int choice = Integer.parseInt(invoer);
 
             final int kAddBootConfiguration = 1, kChangeBootConfiguration = 2, kViewBootConfigurations = 3,
                     kRemoveBootConfiguration = 4, kReturnToMainMenu = 5;

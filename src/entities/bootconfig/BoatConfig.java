@@ -16,7 +16,6 @@ public class BoatConfig {
     {
         this.boat_name = boat_name;
         this.boat_type = boat_type;
-
     }
 
     public String get_boat_type()

@@ -47,9 +47,13 @@ public class  MenuManager {
                 optionNumber++;
             }
 
-            System.out.print("Jouw keuze: ");
-            final int choice = scanner.nextInt();
-            scanner.nextLine();
+            String invoer = "";
+            while (!invoer.matches("^\\d$")) {
+                System.out.print("Jouw keuze: ");
+                invoer = scanner.nextLine();
+            }
+
+            final int choice = Integer.parseInt(invoer);
 
             if (choice < 1 || choice > menus.size()) {
                 System.out.println("Ongeldige keuze, probeer het AUB opnieuw");
