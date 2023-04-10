@@ -5,7 +5,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class RequestInputUtils {
-    public static <T> T request_data(final String prompt, final Function<String, T> parser, final Predicate<T> validator) {
+    public static <T> T request_raw_data(final String prompt, final Function<String, T> parser, final Predicate<T> validator) {
         final Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -26,28 +26,25 @@ public class RequestInputUtils {
         }
     }
 
-    public static <T, MIN extends Comparable<MIN>, MAX extends Comparable<MAX>> T request_valid_choice(
-            String prompt, Function<String, T> parser, MIN min, MAX max) {
+    public static <T extends Comparable<T>> T request_valid_choice(
+            final String prompt, final Function<String, T> parser, final T min, final T max) {
 
-        Scanner scanner = new Scanner(System.in);
+        final Scanner scanner = new Scanner(System.in);
 
         while (true) {
             System.out.print(prompt);
-            String input = scanner.nextLine();
+            final String input = scanner.nextLine();
+
             try {
-                T value = parser.apply(input);
-                if (value instanceof Comparable) {
-                    Comparable<MIN> cmin = (MIN) min;
-                    Comparable<MAX> cmax = (MAX) max;
-                    if (cmin.compareTo((MIN) value) <= 0 && cmax.compareTo((MAX) value) >= 0) {
-                        return value;
-                    }
-                }
+                final T value = parser.apply(input);
+
+                if (min.compareTo(value) <= 0 && max.compareTo(value) >= 0)
+                    return value;
+
                 System.out.printf("Ongeldige invoer. Voer een getal tussen %s en %s in.\n", min, max);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 System.out.printf("Ongeldige invoer. Voer een getal tussen %s en %s in.\n", min, max);
             }
         }
     }
-
 }

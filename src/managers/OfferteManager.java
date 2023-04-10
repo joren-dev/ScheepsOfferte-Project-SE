@@ -8,7 +8,6 @@ import entities.offerte.BasicOfferte;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Function;
@@ -67,19 +66,19 @@ public class OfferteManager {
             System.err.println("Bootconfiguratie niet gevonden.");
         }
 
-        final String client_name = RequestInputUtils.request_data("Wat is de naam van de klant? (a-Z): ",
+        final String client_name = RequestInputUtils.request_raw_data("Wat is de naam van de klant? (a-Z): ",
                 String::toLowerCase, ValidationUtils::is_valid_name);
 
-        final String client_address = RequestInputUtils.request_data("Wat is het adres van de klant? (Straat 23, postcode, stad/dorp): ",
+        final String client_address = RequestInputUtils.request_raw_data("Wat is het adres van de klant? (Straat 23, postcode, stad/dorp): ",
                 String::toLowerCase, ValidationUtils::is_valid_address);
 
-        final String client_email = RequestInputUtils.request_data("Wat is de email van de klant? (example@email.com): ",
+        final String client_email = RequestInputUtils.request_raw_data("Wat is de email van de klant? (example@email.com): ",
                 Function.identity(), ValidationUtils::is_valid_email);
 
-        final String client_phone_number = RequestInputUtils.request_data("Wat is het telefoonnummer van de klant? (tussen 8-10 digits): ",
+        final String client_phone_number = RequestInputUtils.request_raw_data("Wat is het telefoonnummer van de klant? (tussen 8-10 digits): ",
                 Function.identity(), ValidationUtils::is_valid_phone_number);
 
-        final int days_till_expiry = RequestInputUtils.request_data("Hoelang is de offerte geldig (dagen): ",
+        final int days_till_expiry = RequestInputUtils.request_raw_data("Hoelang is de offerte geldig (dagen): ",
                 Integer::parseInt,
                 days -> days > 0);
 
