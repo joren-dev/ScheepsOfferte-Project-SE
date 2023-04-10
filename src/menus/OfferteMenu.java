@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import managers.OfferteManager;
 import utils.RequestInputUtils;
+import utils.ValidationUtils;
 
 public class OfferteMenu extends MenuBase {
     private final int kMaakOfferte = 1, kWijzigOfferte = 2, kToonOfferteLijst = 3, kVerwijderOfferte = 4,
@@ -23,8 +24,10 @@ public class OfferteMenu extends MenuBase {
             System.out.println("Wat wilt u doen?");
             System.out.println("1. Offerte toevoegen\n2. Offerte wijzigen \n3. Offerte lijst weergeven\n4. Offerte verwijderen\n5. Terug naar hoofdmenu");
 
-            final int choice = RequestInputUtils.request_data("Vul in een (valide) getal in (1-5): ",
-                    Integer::parseInt, num -> num >= 1 && num <= 5);
+            int choice = RequestInputUtils.request_valid_choice(
+                    "Voer een getal tussen 1 en 5 in: ",
+                    Integer::parseInt,
+                    1, 5);
 
             switch (choice) {
                 case kMaakOfferte:

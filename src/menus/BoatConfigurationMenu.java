@@ -2,6 +2,7 @@ package menus;
 
 import managers.BoatManager;
 import utils.RequestInputUtils;
+import utils.ValidationUtils;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -25,9 +26,10 @@ public class BoatConfigurationMenu extends MenuBase {
             System.out.println("1. Boot Configuratie toevoegen\n2. Boot Configuratie wijzigen\n" +
                     "3. Boot Configuratie bekijken\n4. Boot Configuratie verwijderen\n5. Terug naar hoofdmenu");
 
-            final int choice = RequestInputUtils.request_data("Voer in (valide) getal (1-5): ",
+            final int choice = RequestInputUtils.request_valid_choice(
+                    "Voer een getal tussen 1 en 5 in: ",
                     Integer::parseInt,
-                    num -> num >= 1 && num <= 5);
+                    1, 5);
 
             switch (choice) {
                 case kAddBootConfiguration:

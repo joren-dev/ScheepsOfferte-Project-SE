@@ -9,6 +9,10 @@ public class ValidationUtils {
         return name.matches("[a-zA-Z]+");
     }
 
+    public static boolean is_valid_choice(final int choice) {
+        return choice >= 1 && choice <= 5;
+    }
+
     public static boolean is_valid_address(final String address) {
         final String regex = "^[a-zA-Z]+\\s\\d+,\\s\\d{4}[a-zA-Z]{2},\\s[a-zA-Z]+$";
         return address.matches(regex);

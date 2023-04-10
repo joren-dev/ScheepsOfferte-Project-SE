@@ -26,4 +26,28 @@ public class RequestInputUtils {
         }
     }
 
+    public static <T, MIN extends Comparable<MIN>, MAX extends Comparable<MAX>> T request_valid_choice(
+            String prompt, Function<String, T> parser, MIN min, MAX max) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine();
+            try {
+                T value = parser.apply(input);
+                if (value instanceof Comparable) {
+                    Comparable<MIN> cmin = (MIN) min;
+                    Comparable<MAX> cmax = (MAX) max;
+                    if (cmin.compareTo((MIN) value) <= 0 && cmax.compareTo((MAX) value) >= 0) {
+                        return value;
+                    }
+                }
+                System.out.printf("Ongeldige invoer. Voer een getal tussen %s en %s in.\n", min, max);
+            } catch (Exception e) {
+                System.out.printf("Ongeldige invoer. Voer een getal tussen %s en %s in.\n", min, max);
+            }
+        }
+    }
+
 }

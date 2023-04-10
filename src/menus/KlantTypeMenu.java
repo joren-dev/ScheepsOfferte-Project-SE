@@ -6,6 +6,7 @@ import java.util.Scanner;
 import entities.klant.ClientType;
 import managers.ClientManager;
 import utils.RequestInputUtils;
+import utils.ValidationUtils;
 
 public class KlantTypeMenu extends MenuBase {
     private final int kAddKlantType = 1, kChangeKlantType = 2, kRemoveKlantType = 3, kViewKlantType = 4,
@@ -25,8 +26,10 @@ public class KlantTypeMenu extends MenuBase {
             System.out.println("Wat wilt u doen?");
             System.out.println("1. Klanttype toevoegen\n2. Klanttype wijzigen\n3. Klanttype verwijderen\n4. Klanttype lijst bekijken\n5. Terug naar hoofdmenu");
 
-            final int choice = RequestInputUtils.request_data("Voer in (valide) getal (1-5): ",
-                    Integer::parseInt, num -> num >= 1 && num <= 5);
+            final int choice = RequestInputUtils.request_valid_choice(
+                    "Voer een getal tussen 1 en 5 in: ",
+                    Integer::parseInt,
+                    1, 5);
 
             switch (choice) {
                 case kAddKlantType:
