@@ -237,7 +237,7 @@ public class BoatManager {
         ref_boatconfig.add_category("Veiligheid", new SafetyPart(ref_options.get("Veiligheid"), 0.0));
         ref_boatconfig.add_category("Behuizing", new HousingPart(ref_options.get("Behuizing"), 0.0));
     }
-
+    
     public static boolean contains_boat_config(final String boat_config_name)
     {
         return loaded_boat_configurations.containsKey(boat_config_name);
@@ -246,6 +246,7 @@ public class BoatManager {
     public static Map<String, BoatConfig> get_all_boat_configs()
     {
         return loaded_boat_configurations;
+
     }
 
     public static BoatConfig get_config(final String config_name) {

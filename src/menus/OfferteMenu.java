@@ -2,6 +2,8 @@ package menus;
 
 import java.util.Scanner;
 
+import managers.OfferteManager;
+
 public class OfferteMenu extends MenuBase {
 
     private Scanner scanner;
@@ -15,7 +17,8 @@ public class OfferteMenu extends MenuBase {
         while (true) {
             System.out.println("\033[1m== Weergeven Offerte ==\033[0m");
             System.out.println("Wat wilt u doen?");
-            System.out.println("1. Offerte toevoegen\n2. Offerte wijzigen wijzigen\n3. Offerte lijst weergeven\n4. Offerte verwijderen\n5. Terug naar hoofdmenu");
+
+            System.out.println("1. Offerte toevoegen\n2. Offerte wijzigen \n3. Offerte lijst weergeven\n4. Offerte verwijderen\n5. Terug naar hoofdmenu");
 
             String invoer = "";
             while (!invoer.matches("^\\d+$")) {
@@ -24,20 +27,20 @@ public class OfferteMenu extends MenuBase {
             }
             final int choice = Integer.parseInt(invoer);
 
-            final int kVoegOfferteToe = 1, kWijzigOfferte = 2, kToonOfferteLijst = 3, kVerwijderOfferte = 4, kNavigeerHoofdmenu = 5;
+            final int kMaakOfferte = 1, kWijzigOfferte = 2, kToonOfferteLijst = 3, kVerwijderOfferte = 4, kNavigeerHoofdmenu = 5;
 
             switch (choice) {
-                case kVoegOfferteToe:
-                    addQuotation();
+                case kMaakOfferte:
+                    OfferteManager.create_offerte();
                     break;
                 case kWijzigOfferte:
-                    editQuotation();
+                    OfferteManager.edit_offerte();
                     break;
                 case kToonOfferteLijst:
-                    showQuotationList();
+                    OfferteManager.show_offerte();
                     break;
                 case kVerwijderOfferte:
-                    deleteQuotation();
+                    OfferteManager.delete_offerte();
                     break;
                 case kNavigeerHoofdmenu:
                     return;
@@ -47,20 +50,23 @@ public class OfferteMenu extends MenuBase {
         }
     }
 
-
-    public void addQuotation() {
-
-    }
-
-    public void editQuotation() {
+    public void addQuotation()
+    {
 
     }
 
-    public void showQuotationList() {
+    public void editQuotation()
+    {
 
     }
 
-    public void deleteQuotation() {
+    public void showQuotationList()
+    {
+
+    }
+
+    public void deleteQuotation()
+    {
 
     }
 }
