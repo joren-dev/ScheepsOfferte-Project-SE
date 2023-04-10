@@ -44,21 +44,25 @@ public class ClientManager implements Serializable {
         Optional<ClientType> optional_client_type = ClientManager.loaded_client_types.stream().filter((client_type) -> client_type.get_type_name().equals(client_type_name.toLowerCase())).findFirst();
         System.out.println(optional_client_type.get());
 
-        System.out.print("Nieuwe klanttype naam: ");
-        String new_client_type_name = scanner.nextLine();
-
-        System.out.print("Nieuwe klanttype korting: ");
-        final int new_client_type_discount = scanner.nextInt();
-        scanner.nextLine();
-
-        if (optional_client_type.isPresent())
-        {
-            // Reference naar object in arraylist
-            ClientType client_type = optional_client_type.get();
-
-            client_type.set_type_name(new_client_type_name);
-            client_type.set_discount(new_client_type_discount);
+        String new_client_type_name = "";
+        while (!new_client_type_name.matches("^[a-zA-Z][a-zA-Z ]*$")) {
+            System.out.print("Nieuwe klanttype naam: ");
+            new_client_type_name = scanner.nextLine();
         }
+
+        String invoer = "";
+        while (!invoer.matches("^[0-9]{1,2}$")) {
+            System.out.print("Nieuwe klanttype korting: ");
+            invoer = scanner.nextLine();
+        }
+
+        final int new_client_type_discount = Integer.parseInt(invoer);
+
+        // Reference naar object in arraylist
+        ClientType client_type = optional_client_type.get();
+
+        client_type.set_type_name(new_client_type_name);
+        client_type.set_discount(new_client_type_discount);
     }
 
     public static ArrayList<ClientType> get_all_client_types()
