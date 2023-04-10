@@ -106,12 +106,11 @@ public class BoatManager {
                     tmp_input = scanner.nextLine();
                     tmp_int_input = 0;
 
-                    try {
-                        tmp_int_input = Integer.parseInt(tmp_input);
-                    } catch (final NumberFormatException e) {
+                    if (!tmp_input.matches("^\\d+$")) {
                         System.out.print("Voer alstublieft een getal in: ");
                         continue;
                     }
+                    tmp_int_input = Integer.parseInt(tmp_input);
 
                     if (tmp_int_input < 1 || tmp_int_input > max_input)
                         System.out.print("Voer alstublieft een geldig getal in: ");
@@ -156,15 +155,23 @@ public class BoatManager {
         System.out.printf("Boot type: %s%n", loaded_boat_configurations.get(configuration_name).get_boat_type());
 
         String boat_type;
-        do {
-            System.out.print("Welke boot type is het? : ");
-            boat_type = scanner.nextLine();
-        } while (boat_type.isEmpty());
+
+        System.out.print("Wilt u het type aanpassen (j/n)? ");
+        if (scanner.nextLine().equals("n")) {
+            boat_type = loaded_boat_configurations.get(configuration_name).get_boat_type();
+        } else {
+            do {
+                System.out.print("Voer nieuw boot type in: ");
+                boat_type = scanner.nextLine();
+            } while (boat_type.isEmpty());
+        }
 
         BoatConfig new_boat_config = new BoatConfig(configuration_name, boat_type);
 
         System.out.println("\nDe huidige opties:");
         loaded_boat_configurations.get(configuration_name).print_all_options();
+
+        // TODO: Make the below code more user-friendly. The exact way to do this might need to be discussed.
         System.out.println("\nSelecteer welke u wilt behouden:");
 
         Map<String, List<String>> chosen_options = new HashMap<>();
@@ -233,10 +240,7 @@ public class BoatManager {
     
     public static boolean contains_boat_config(final String boat_config_name)
     {
-        if(loaded_boat_configurations.containsKey(boat_config_name))
-            return true;
-
-        return false;
+        return loaded_boat_configurations.containsKey(boat_config_name);
     }
 
     public static Map<String, BoatConfig> get_all_boat_configs()
