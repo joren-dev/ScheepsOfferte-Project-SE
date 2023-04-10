@@ -5,8 +5,12 @@ import java.util.Scanner;
 
 import entities.klant.ClientType;
 import managers.ClientManager;
+import utils.RequestInputUtils;
 
 public class KlantTypeMenu extends MenuBase {
+    private final int kAddKlantType = 1, kChangeKlantType = 2, kRemoveKlantType = 3, kViewKlantType = 4,
+            kNavigateToHoofdmenu = 5;
+
     private Scanner scanner;
 
     public KlantTypeMenu() {
@@ -17,18 +21,12 @@ public class KlantTypeMenu extends MenuBase {
     public void show_menu() {
         while (true) {
             System.out.println("\033[1m== Klanttypen ==\033[0m");
+
             System.out.println("Wat wilt u doen?");
             System.out.println("1. Klanttype toevoegen\n2. Klanttype wijzigen\n3. Klanttype verwijderen\n4. Klanttype lijst bekijken\n5. Terug naar hoofdmenu");
 
-            String input = "";
-            while (!input.matches("^[12345]$")) {   // TODO: make dynamic
-                System.out.print("Voer in (valide) getal (1-5): ");
-                input = scanner.nextLine();
-            }
-
-            final int choice = Integer.parseInt(input);
-
-            final int kAddKlantType = 1, kChangeKlantType = 2, kRemoveKlantType = 3, kViewKlantType = 4, kNavigateToHoofdmenu = 5;
+            final int choice = RequestInputUtils.request_data("Voer in (valide) getal (1-5): ",
+                    Integer::parseInt, num -> num >= 1 && num <= 5);
 
             switch (choice) {
                 case kAddKlantType:
