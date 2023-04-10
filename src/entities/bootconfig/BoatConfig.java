@@ -46,4 +46,13 @@ public class BoatConfig {
 
     // Defines standard categories for a configuration.
     public static Map<String, CategoryBase> categories = new HashMap<>();
+
+    public static CategoryBase get_category(final String category_name)
+    {
+        return categories.get(category_name);
+    }
 }
+
+
+
+

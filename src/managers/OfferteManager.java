@@ -48,8 +48,13 @@ public class OfferteManager {
         while (true) {
             System.out.println("Welke bootconfiguratie wilt u toevoegen aan de offerte?");
             BoatManager.print_loaded_configs(false);
-            System.out.print("Maak uw keuze: ");
+            System.out.print("Maak uw keuze (Skip voor geen): ");
             String input = scanner.nextLine();
+
+            if (input.equalsIgnoreCase("Skip")) {
+                break;
+            }
+
 
             if (BoatManager.contains_boat_config(input)) {
                 selected_boot_config = BoatManager.get_config(input);
@@ -58,32 +63,33 @@ public class OfferteManager {
 
             System.err.println("Bootconfiguratie niet gevonden.");
         }
+        // if boat config present
+        if (selected_boot_config != null) {
+            System.out.printf("Geselecteerde boot configuratie: %n%s%n%n", selected_boot_config.toString());
+        } else {
+            System.out.println("Geen boot geselecteerd.");
+        }
 
-        System.out.printf("Geselecteerde boot configuratie: %n%s%n%n", selected_boot_config.toString());
-
-        String naam = "";
-        String adres = "";
-        String email = "";
-        String telefoon = "";
         int aantal_dagen_tot_vervallen = 0;
 
         System.out.println("Wat is de naam van de klant?");
-        naam = scanner.nextLine();
+        String naam = scanner.nextLine();
         System.out.println("Klant naam: " + naam);
 
         System.out.println("Wat is het adres van de klant?");
-        adres = scanner.nextLine();
+        String adres = scanner.nextLine();
         System.out.println("Klant adres: " + adres);
 
         System.out.println("Wat is de email van de klant?");
-        email = scanner.nextLine();
+        String email = scanner.nextLine();
 
         // TODO: Use a do while/while loop to keep asking for input if they input an invalid email address
+
         final boolean email_valid = is_valid_email(email);
         System.out.println("Klant email: " + email);
 
         System.out.println("Wat is het telefoon nummer van de klant?");
-        telefoon = scanner.nextLine();
+        String telefoon = scanner.nextLine();
         System.out.println("Klant telefoon nummer: " + telefoon);
 
         System.out.println("Hoelang is de offerte geldig");
@@ -110,7 +116,7 @@ public class OfferteManager {
     }
 
     public static void deleteOfferte() {
-
+        
     }
 
     public static void showOfferte() {
