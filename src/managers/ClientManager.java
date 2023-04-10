@@ -1,12 +1,13 @@
 package managers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
 
 import entities.klant.ClientType;
 
-public class ClientManager {
+public class ClientManager implements Serializable {
 
     // Class members
     public static ArrayList<ClientType> loaded_client_types = new ArrayList<>();

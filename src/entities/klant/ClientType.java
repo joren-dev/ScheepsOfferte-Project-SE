@@ -1,6 +1,8 @@
 package entities.klant;
 
-public class ClientType {
+import java.io.Serializable;
+
+public class ClientType implements Serializable {
     private String type_name;
     private int discount;
 
