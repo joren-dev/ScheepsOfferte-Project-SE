@@ -35,6 +35,12 @@ public class OfferteManager {
             return;
         }
 
+        if(CustomerManager.get_all_client_types().isEmpty())
+        {
+            System.out.println("U heeft geen klanttypes, voeg eerst een klanttype toe.\n");
+            return;
+        }
+
         CustomerType selected_klant_type;
         while (true) {
             System.out.println("Voor welk klanttype maak je deze offerte?");

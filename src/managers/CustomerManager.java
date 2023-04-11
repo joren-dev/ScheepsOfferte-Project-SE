@@ -46,22 +46,27 @@ public class CustomerManager {
         loaded_client_types.add(new CustomerType(client_type_name.toLowerCase(), Integer.parseInt(discount)));
     }
 
-    public static void delete_client_type() {
-        Scanner scanner = new Scanner(System.in);
-
+    public static void delete_client_type()
+    {
         while (true) {
-            System.out.println("Welk klanttype wilt u verwijderen?");
-            System.out.println(Arrays.toString(loaded_client_types.stream().map(CustomerType::get_type_name).toArray()));
+            print_client_types();
 
-            System.out.print("Maak uw keuze: ");
-            final String type_name = scanner.nextLine();
+            final String type_name = RequestInputUtils.request_raw_data(
+                    "Welk klanttype wilt u verwijderen? (a-Z): ",
+                    str -> str,
+                    ValidationUtils::is_valid_full_name
+            );
 
-            for (CustomerType client_type : loaded_client_types) {
-                if (!client_type.get_type_name().equals(type_name))
-                    continue;
+            Optional<CustomerType> optionalClientType = loaded_client_types.stream()
+                    .filter(client -> client.get_type_name().equalsIgnoreCase(type_name))
+                    .findFirst();
 
-                loaded_client_types.removeIf((x) -> x.get_type_name().equals(type_name.toLowerCase()));
+            if (optionalClientType.isPresent()) {
+                loaded_client_types.remove(optionalClientType.get());
+                System.out.println("Klanttype " + type_name + " is verwijderd.");
                 return;
+            } else {
+                System.out.println("Er is geen klanttype met de naam " + type_name + ".");
             }
         }
     }
@@ -71,11 +76,10 @@ public class CustomerManager {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("Welk klanttype wilt u bewerken?");
-            System.out.println(Arrays.toString(CustomerManager.loaded_client_types.stream().map(CustomerType::get_type_name).toArray()));
+            print_client_types();
 
             final String client_type_name = RequestInputUtils.request_raw_data(
-                    "Welk klanttype wilt u bewerken?",
+                    "Welk klanttype wilt u bewerken: ",
                     str -> str,
                     ValidationUtils::is_valid_full_name
             );
@@ -94,7 +98,7 @@ public class CustomerManager {
                         "Nieuwe klanttype korting (0-100): ",
                         Integer::parseInt,
                         0,
-                        100);
+                        101); // TODO: find out why this doesnt work, floating-end-point precision maybe
 
                 CustomerType client_type = optional_client_type.get();
                 client_type.set_type_name(new_client_type_name);
@@ -135,7 +139,8 @@ public class CustomerManager {
         return null;
     }
 
-    public static void view_client_type() {
+    public static void view_client_type()
+    {
         System.out.println(Arrays.toString(CustomerManager.loaded_client_types.stream().map(CustomerType::toString).toArray()));
     }
 }

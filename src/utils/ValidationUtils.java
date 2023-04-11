@@ -10,7 +10,7 @@ public class ValidationUtils {
     }
 
     public static boolean is_valid_address(final String address) {
-        final String regex = "^[a-zA-Z]+\\s\\d+,\\s\\d{4}[a-zA-Z]{2},\\s[a-zA-Z]+$";
+        final String regex = "^[a-zA-Z]+\\s\\d+,\\s\\d{4}[a-zA-Z]{2},\\s[a-zA-Z ]+$";
         return address.matches(regex);
     }
 
