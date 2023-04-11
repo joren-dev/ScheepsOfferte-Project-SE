@@ -94,6 +94,8 @@ public class OfferteManager {
         Customer customer = new Customer(client_name, client_address, client_email, client_name, selected_klant_type);
 
         BasicOfferte offerte = new BasicOfferte(customer, selected_klant_type, selected_boot_config, offerte_date, verval_date);
+
+        // TODO: add this to the list
     }
 
     public static void edit_offerte() {
