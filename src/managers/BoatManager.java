@@ -2,6 +2,7 @@ package managers;
 
 import entities.bootconfig.*;
 import entities.bootconfig.categories.*;
+import utils.RequestInputUtils;
 
 import java.util.Scanner;
 import java.util.Map;
@@ -41,17 +42,13 @@ public class BoatManager {
 
         System.out.println("\033[1m== Boot Configuratie toevoegen ==\033[0m");
 
-        String configuration_name;
-        do {
-            System.out.print("Vul een (valide) naam in voor uw nieuwe configuratie: ");
-            configuration_name = scanner.nextLine();
-        } while (loaded_boat_configurations.containsKey(configuration_name) || configuration_name.isEmpty());
+        String configuration_name = RequestInputUtils.request_raw_data("Vul een (valide) naam in voor uw nieuwe configuratie: ",
+                input -> input.trim(),
+                input -> !input.isEmpty() && !loaded_boat_configurations.containsKey(input));
 
-        String boat_type;
-        do {
-            System.out.print("Welke boot type is het? : ");
-            boat_type = scanner.nextLine();
-        } while (boat_type.isEmpty());
+        String boat_type = RequestInputUtils.request_raw_data("Welke boot type is het? : ",
+                input -> input.trim(),
+                input -> !input.isEmpty());
 
         BoatConfig new_boat_config = new BoatConfig(configuration_name, boat_type);
         Map<String, List<String>> chosen_options = new HashMap<>();
@@ -95,41 +92,23 @@ public class BoatManager {
 
             final List<String> selected_options = new ArrayList<>();
 
-            String input_add_option = "";
+            String input_add_option;
             do {
                 final int max_input = i - 1;
-                System.out.printf("Welke %s onderdeel wil je toevoegen? (1-%s): ", category, max_input);
-
-                String tmp_input;
-                int tmp_int_input;
-                do {
-                    tmp_input = scanner.nextLine();
-                    tmp_int_input = 0;
-
-                    if (!tmp_input.matches("^\\d+$")) {
-                        System.out.print("Voer alstublieft een getal in: ");
-                        continue;
-                    }
-                    tmp_int_input = Integer.parseInt(tmp_input);
-
-                    if (tmp_int_input < 1 || tmp_int_input > max_input)
-                        System.out.print("Voer alstublieft een geldig getal in: ");
-
-                } while (!tmp_input.matches("^\\d+$") || tmp_int_input < 1 || tmp_int_input > max_input);
+                final int tmp_int_input = RequestInputUtils.request_raw_data(String.format(
+                        "Welke %s onderdeel wil je toevoegen? (1-%s): ", category, max_input),
+                        Integer::parseInt,
+                        input -> input >= 1 && input <= max_input
+                );
 
                 if (allow_skip && tmp_int_input == 1)
                     break;
 
                 selected_options.add(options.get(tmp_int_input - (allow_skip ? 2 : 1)));
 
-                boolean first_iteration = true;
-                do {
-                    System.out.print(first_iteration ? "Wil je nog een optie toevoegen? (j/n): " :
-                            "Ongeldige input, vul \"j\" of \"n\" in: ");
-
-                    input_add_option = scanner.nextLine();
-                    first_iteration = false;
-                } while (!input_add_option.equals("j") && !input_add_option.equals("n"));
+                input_add_option = RequestInputUtils.request_raw_data("Wil je nog een optie toevoegen? (j/n): ",
+                        input -> input.trim().toLowerCase(),
+                        input -> input.equals("j") || input.equals("n"));
 
             } while (input_add_option.equalsIgnoreCase("j"));
 
