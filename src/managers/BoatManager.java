@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 public class BoatManager {
     public static final String[] kEssentialCategories = {"Motor", "Veiligheid", "Behuizing"};
     public static final String[] kOptionalCategories = {"Uiterlijk", "Extras"};
@@ -43,11 +44,11 @@ public class BoatManager {
         System.out.println("\033[1m== Boot Configuratie toevoegen ==\033[0m");
 
         String configuration_name = InputValidators.request_valid_input("Vul een (valide) naam in voor uw nieuwe configuratie: ",
-                input -> input.trim(),
+                String::trim,
                 input -> !input.isEmpty() && !loaded_boat_configurations.containsKey(input));
 
         String boat_type = InputValidators.request_valid_input("Welke boot type is het? : ",
-                input -> input.trim(),
+                String::trim,
                 input -> !input.isEmpty());
 
         BoatConfig new_boat_config = new BoatConfig(configuration_name, boat_type);
@@ -137,7 +138,7 @@ public class BoatManager {
             boat_type = loaded_boat_configurations.get(configuration_name).get_boat_type();
         else
             boat_type = InputValidators.request_valid_input("Voer nieuw boot type in: ",
-                    input -> input.trim(),
+                    String::trim,
                     input -> !input.isEmpty());
 
         final BoatConfig new_boat_config = new BoatConfig(configuration_name, boat_type);
@@ -174,18 +175,16 @@ public class BoatManager {
     }
 
     public static void remove_boat_config() {
-        final Scanner scanner = new Scanner(System.in);
-
         // List boot configs
         print_loaded_configs(false);
 
         // Remove based on boat name
         String name = InputValidators.request_valid_input("Type in de (valide) naam van de configuratie: ",
-                input -> input.trim(),
+                String::trim,
                 loaded_boat_configurations::containsKey);
 
         String sure = InputValidators.request_valid_input("Weet u het zeker? (j/n): ",
-                input -> input.trim(),
+                String::trim,
                 input -> input.equals("j") || input.equals("n"));
 
         if (sure.equals("j"))
