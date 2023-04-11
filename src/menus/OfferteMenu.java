@@ -3,7 +3,7 @@ package menus;
 import java.util.Scanner;
 
 import managers.OfferteManager;
-import utils.RequestInputUtils;
+import utils.InputValidators;
 import utils.ConstantUtils.OfferteMenuOptions;
 
 public class OfferteMenu extends MenuBase {
@@ -23,7 +23,7 @@ public class OfferteMenu extends MenuBase {
             System.out.println("1. Offerte toevoegen\n2. Offerte wijzigen \n3. Offerte lijst weergeven\n4. Offerte verwijderen\n5. Terug naar hoofdmenu");
 
             final int max_option = OfferteMenuOptions.kNavigateToMainMenu.ordinal() + 1;
-            final int choice = RequestInputUtils.request_valid_choice_in_range(
+            final int choice = InputValidators.request_valid_choice_in_range(
                     "Voer een getal tussen 1 en " + max_option + " in: ",
                     Integer::parseInt,
                     1, max_option);

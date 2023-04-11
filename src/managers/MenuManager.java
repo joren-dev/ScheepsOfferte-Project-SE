@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import menus.MenuBase;
-import utils.RequestInputUtils;
+import utils.InputValidators;
 
 public class MenuManager {
     private Scanner scanner;
@@ -48,7 +48,7 @@ public class MenuManager {
                 optionNumber++;
             }
 
-            final int choice = RequestInputUtils.request_valid_choice_in_range(
+            final int choice = InputValidators.request_valid_choice_in_range(
                     "Uw keuze: ", Integer::parseInt, 1, menus.size()
             );
 

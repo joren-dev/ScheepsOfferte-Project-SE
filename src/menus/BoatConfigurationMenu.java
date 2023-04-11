@@ -3,7 +3,7 @@ package menus;
 import managers.BoatManager;
 
 import utils.ConstantUtils.BoatConfigurationMenuOptions;
-import utils.RequestInputUtils;
+import utils.InputValidators;
 import java.util.Scanner;
 
 public class BoatConfigurationMenu extends MenuBase {
@@ -24,7 +24,7 @@ public class BoatConfigurationMenu extends MenuBase {
                     "3. Boot Configuratie bekijken\n4. Boot Configuratie verwijderen\n5. Terug naar hoofdmenu");
 
             final int max_option = BoatConfigurationMenuOptions.kNavigateToMainMenu.ordinal() + 1;
-            final int choice = RequestInputUtils.request_valid_choice_in_range(
+            final int choice = InputValidators.request_valid_choice_in_range(
                     "Voer een getal tussen 1 en " + max_option + " in: ",
                     Integer::parseInt,
                     1, max_option);

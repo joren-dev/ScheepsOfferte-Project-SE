@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class RequestInputUtils {
+public class InputValidators {
     public static <T> T request_valid_input(final String prompt, final Function<String, T> parser, final Predicate<T> validator) {
         final Scanner scanner = new Scanner(System.in);
 
