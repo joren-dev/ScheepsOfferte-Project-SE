@@ -96,7 +96,7 @@ public class BoatManager {
             do {
                 final int max_input = i - 1;
                 final int tmp_int_input = RequestInputUtils.request_raw_data(String.format(
-                        "Welke %s onderdeel wil je toevoegen? (1-%s): ", category, max_input),
+                                "Welke %s onderdeel wil je toevoegen? (1-%s): ", category, max_input),
                         Integer::parseInt,
                         input -> input >= 1 && input <= max_input
                 );
@@ -125,27 +125,22 @@ public class BoatManager {
         for (final String key : loaded_boat_configurations.keySet())
             System.out.printf("- %s%n", key);
 
-        String configuration_name;
-        do {
-            System.out.print("Kies een (valide) configuratie naam die u wilt wijzigen: ");
-            configuration_name = scanner.nextLine();
-        } while (!contains_boat_config(configuration_name) || configuration_name.isEmpty());
+        String configuration_name = RequestInputUtils.request_raw_data("Kies een (valide) configuratie naam die u wilt wijzigen: ",
+                input -> input,
+                input -> !input.isEmpty() && contains_boat_config(input));
 
         System.out.printf("Boot type: %s%n", loaded_boat_configurations.get(configuration_name).get_boat_type());
+        System.out.print("Wilt u het type aanpassen (j/n)? ");
 
         String boat_type;
-
-        System.out.print("Wilt u het type aanpassen (j/n)? ");
-        if (scanner.nextLine().equals("n")) {
+        if (scanner.nextLine().equals("n"))
             boat_type = loaded_boat_configurations.get(configuration_name).get_boat_type();
-        } else {
-            do {
-                System.out.print("Voer nieuw boot type in: ");
-                boat_type = scanner.nextLine();
-            } while (boat_type.isEmpty());
-        }
+        else
+            boat_type = RequestInputUtils.request_raw_data("Voer nieuw boot type in: ",
+                    input -> input.trim(),
+                    input -> !input.isEmpty());
 
-        BoatConfig new_boat_config = new BoatConfig(configuration_name, boat_type);
+        final BoatConfig new_boat_config = new BoatConfig(configuration_name, boat_type);
 
         System.out.println("\nDe huidige opties:");
         loaded_boat_configurations.get(configuration_name).print_all_options();
@@ -185,17 +180,13 @@ public class BoatManager {
         print_loaded_configs(false);
 
         // Remove based on boat name
-        String name;
-        do {
-            System.out.println("Type in de (valide) naam van de configuratie: ");
-            name = scanner.nextLine();
-        } while (!loaded_boat_configurations.containsKey(name));
+        String name = RequestInputUtils.request_raw_data("Type in de (valide) naam van de configuratie: ",
+                input -> input.trim(),
+                loaded_boat_configurations::containsKey);
 
-        String sure;
-        do {
-            System.out.println("Weet u het zeker? (j/n): ");
-            sure = scanner.nextLine();
-        } while (!sure.equals("j") && !sure.equals("n"));
+        String sure = RequestInputUtils.request_raw_data("Weet u het zeker? (j/n): ",
+                input -> input.trim(),
+                input -> input.equals("j") || input.equals("n"));
 
         if (sure.equals("j"))
             loaded_boat_configurations.remove(name);
@@ -216,14 +207,12 @@ public class BoatManager {
         ref_boatconfig.add_category("Veiligheid", new SafetyPart(ref_options.get("Veiligheid"), 0.0));
         ref_boatconfig.add_category("Behuizing", new HousingPart(ref_options.get("Behuizing"), 0.0));
     }
-    
-    public static boolean contains_boat_config(final String boat_config_name)
-    {
+
+    public static boolean contains_boat_config(final String boat_config_name) {
         return loaded_boat_configurations.containsKey(boat_config_name);
     }
 
-    public static Map<String, BoatConfig> get_all_boat_configs()
-    {
+    public static Map<String, BoatConfig> get_all_boat_configs() {
         return loaded_boat_configurations;
 
     }

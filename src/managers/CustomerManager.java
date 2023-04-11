@@ -15,7 +15,7 @@ public class CustomerManager {
     public static ArrayList<CustomerType> loaded_client_types = new ArrayList<>();
 
     public CustomerManager() {
-        // Default client types
+        // TODO: Add default client types
         // add_client_type("Overheid klant", 4);
         // add_client_type("Zakelijke klant", 2);
         // add_client_type("Particuliere klant", 0);
@@ -24,17 +24,17 @@ public class CustomerManager {
     public static void add_client_type() {
         Scanner scanner = new Scanner(System.in);
 
-        String client_type_name = "";
-        while (!client_type_name.matches("^[a-zA-Z][a-zA-Z ]*$")) {
-            System.out.print("Vul een (valide) klanttype naam in (a-Z): ");
-            client_type_name = scanner.nextLine();
-        }
+        final String client_type_name = RequestInputUtils.request_raw_data(
+                "Vul een (valide) klanttype naam in (a-Z): ",
+                String::trim,
+                ValidationUtils::is_valid_full_name
+        );
 
-        String discount = "";
-        while (!discount.matches("^[0-9]{1,2}$")) {
-            System.out.print("Vul in een (valide) procent korting voor dit klanttype (0-100): ");
-            discount = scanner.nextLine();
-        }
+        final String discount = RequestInputUtils.request_raw_data(
+                "Vul in een (valide) procent korting voor dit klanttype (0-100): ",
+                String::trim,
+                input -> input.matches("^[0-9]{1,2}$")
+        );
 
         for (final CustomerType each : loaded_client_types) {
             if (each.get_type_name().equals(client_type_name)) {

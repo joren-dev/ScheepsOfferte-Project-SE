@@ -20,9 +20,6 @@ public class OfferteManager {
     private static int lastNumber = 10000;
 
     public OfferteManager() {
-        // Check existing offertes /saves/offertes/
-        //                                  offertenr12.txt
-        //                                  offertenr134.txt
     }
 
     public static void create_offerte() {
