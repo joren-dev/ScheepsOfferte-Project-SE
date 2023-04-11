@@ -1,34 +1,34 @@
 package entities.offerte;
 
 import entities.bootconfig.BoatConfig;
-import entities.klant.Client;
-import entities.klant.ClientType;
+import entities.klant.Customer;
+import entities.klant.CustomerType;
 
 
 public abstract class OfferteBase {
-    private Client client;
-    private ClientType client_type;
+    private Customer customer;
+    private CustomerType client_type;
     private BoatConfig config;
     private String offerte_date;
     private String expiry_date;
 
-    public OfferteBase(Client client, ClientType client_type, BoatConfig config, String offerte_date, String expiry_date)
+    public OfferteBase(Customer customer, CustomerType client_type, BoatConfig config, String offerte_date, String expiry_date)
     {
-        this.client = client;
+        this.customer = customer;
         this.client_type = client_type;
         this.config = config;
         this.offerte_date = offerte_date;
         this.expiry_date = expiry_date;
     }
 
-    public Client get_client()
+    public Customer get_client()
     {
-        return client;
+        return customer;
     }
 
-    public void set_client(Client client) {
+    public void set_client(Customer customer) {
 
-        this.client = client;
+        this.customer = customer;
     }
 
     public BoatConfig get_config()
@@ -61,12 +61,12 @@ public abstract class OfferteBase {
         this.expiry_date = expiry_date;
     }
 
-    public ClientType get_client_type()
+    public CustomerType get_client_type()
     {
         return client_type;
     }
 
-    public void set_client_type(ClientType client_type)
+    public void set_client_type(CustomerType client_type)
     {
         this.client_type = client_type;
     }

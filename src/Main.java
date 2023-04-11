@@ -1,8 +1,8 @@
 import managers.MenuManager;
 import managers.OfferteManager;
-import managers.ClientManager;
+import managers.CustomerManager;
 
-import menus.KlantTypeMenu;
+import menus.CustomerTypeMenu;
 import menus.OfferteMenu;
 import menus.BoatConfigurationMenu;
 
@@ -13,11 +13,11 @@ public class Main {
 
         // Initialize managers
         MenuManager menu_manager = new MenuManager();
-        ClientManager client_manager = new ClientManager();
+        CustomerManager client_manager = new CustomerManager();
         OfferteManager offerte_manager = new OfferteManager();
 
         // Add menu items here...
-        menu_manager.add_menu("Beheer Klanttype(s)", new KlantTypeMenu());
+        menu_manager.add_menu("Beheer Klanttype(s)", new CustomerTypeMenu());
         menu_manager.add_menu("Beheer Offerte(s)", new OfferteMenu());
         menu_manager.add_menu("Beheer Boot Configuraties", new BoatConfigurationMenu());
 
