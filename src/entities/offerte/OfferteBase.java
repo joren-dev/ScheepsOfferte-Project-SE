@@ -12,10 +12,9 @@ public abstract class OfferteBase {
     private String offerte_date;
     private String expiry_date;
 
-    public OfferteBase(Customer customer, CustomerType client_type, BoatConfig config, String offerte_date, String expiry_date)
+    public OfferteBase(Customer customer, BoatConfig config, String offerte_date, String expiry_date)
     {
         this.customer = customer;
-        this.client_type = client_type;
         this.config = config;
         this.offerte_date = offerte_date;
         this.expiry_date = expiry_date;

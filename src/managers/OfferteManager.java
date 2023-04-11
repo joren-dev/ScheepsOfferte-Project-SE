@@ -2,12 +2,15 @@ package managers;
 
 import entities.bootconfig.BoatConfig;
 import entities.bootconfig.categories.AppearancePart;
+import entities.bootconfig.categories.CategoryBase;
+import entities.bootconfig.categories.ExtrasPart;
 import entities.klant.Customer;
 import entities.klant.CustomerType;
 
 import entities.offerte.BasicOfferte;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -98,7 +101,7 @@ public class OfferteManager {
 
         Customer customer = new Customer(client_name, client_address, client_email, client_phone_number, selected_klant_type);
 
-        BasicOfferte offerte = new BasicOfferte(customer, selected_klant_type, selected_boot_config, offerte_date, verval_date);
+        BasicOfferte offerte = new BasicOfferte(customer, selected_boot_config, offerte_date, verval_date);
 
         // Add freshly created offerte to the list.
         offerte_list.put(offerte_nummer, offerte);
@@ -120,19 +123,48 @@ public class OfferteManager {
     {
 
         // List offerte options (iterate over offerte_list)
+        System.out.println("\033[1m== Offertes weergeven ==\033[0m");
+
+        for (BasicOfferte offerte: offerte_list.values()) {
+            Customer customer = offerte.get_client();
+            System.out.println("Offerte nummer: " + get_all_offerte_nummers());
+        }
 
         // Get requested instance
-        BasicOfferte temp = offerte_list.get("asdf");
-        Customer customer = temp.get_client();
-        customer.get_name();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter offerte nummer: ");
+        String offerte_nummer = scanner.nextLine();
 
-        // Print all contents required for an offerte
-        BoatConfig config = temp.get_config();
+        if (offerte_list.containsKey(offerte_nummer)) {
+            BasicOfferte temp = offerte_list.get(offerte_nummer);
+            Customer customer = temp.get_client();
 
-        AppearancePart appearancePart =  config.get_category("Uiterlijke", AppearancePart.class);
-        appearancePart.get_values();
+
+            System.out.println("\033[1m== Offerte voor: ==\\033[0m\n");
+            System.out.println("Naam: " + customer.get_name());
+            System.out.println("Type:" + customer.get_client_type());
+            System.out.println("Adres: " + customer.get_address());
+            System.out.println("Email: " + customer.get_email());
+            System.out.printf("Phone number: %s \n", customer.get_phone_number());
+
+            // Print all contents required for an offerte
+            // TODO: Fix boat config print
+            BoatConfig config = temp.get_config();
+            AppearancePart appearancePart = config.get_category("Uiterlijke", AppearancePart.class);
+            for (String value : appearancePart.get_values()) {
+                System.out.println(value);
+            }
+
+        }
     }
 
+    public static ArrayList<String> get_all_offerte_nummers() {
+        ArrayList<String> offerteNummers = new ArrayList<>();
+        for (String offerteNummer : offerte_list.keySet()) {
+            offerteNummers.add(offerteNummer);
+        }
+        return offerteNummers;
+    }
     public static String gen_offerte_nr()
     {
         lastNumber++;
