@@ -23,7 +23,7 @@ public class CustomerTypeMenu extends MenuBase {
             System.out.println("1. Klanttype toevoegen\n2. Klanttype wijzigen\n3. Klanttype verwijderen\n4. Klanttype lijst bekijken\n5. Terug naar hoofdmenu");
 
             final int max_option = ClientTypeMenuOptions.kNavigateToMainMenu.ordinal() + 1;
-            final int choice = RequestInputUtils.request_valid_choice(
+            final int choice = RequestInputUtils.request_valid_choice_in_range(
                     "Voer een getal tussen 1 en " + max_option + " in: ",
                     Integer::parseInt,
                     1, max_option);

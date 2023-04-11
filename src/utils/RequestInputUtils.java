@@ -5,7 +5,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class RequestInputUtils {
-    public static <T> T request_raw_data(final String prompt, final Function<String, T> parser, final Predicate<T> validator) {
+    public static <T> T request_valid_input(final String prompt, final Function<String, T> parser, final Predicate<T> validator) {
         final Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -26,7 +26,7 @@ public class RequestInputUtils {
         }
     }
 
-    public static <T extends Comparable<T>> T request_valid_choice(
+    public static <T extends Comparable<T>> T request_valid_choice_in_range(
             final String prompt, final Function<String, T> parser, final T min, final T max) {
 
         final Scanner scanner = new Scanner(System.in);

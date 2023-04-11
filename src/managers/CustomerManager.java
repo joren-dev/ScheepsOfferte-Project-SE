@@ -24,13 +24,13 @@ public class CustomerManager {
     public static void add_client_type() {
         Scanner scanner = new Scanner(System.in);
 
-        final String client_type_name = RequestInputUtils.request_raw_data(
+        final String client_type_name = RequestInputUtils.request_valid_input(
                 "Vul een (valide) klanttype naam in (a-Z): ",
                 String::trim,
                 ValidationUtils::is_valid_full_name
         );
 
-        final String discount = RequestInputUtils.request_raw_data(
+        final String discount = RequestInputUtils.request_valid_input(
                 "Vul in een (valide) procent korting voor dit klanttype (0-100): ",
                 String::trim,
                 input -> input.matches("^[0-9]{1,2}$")
@@ -51,7 +51,7 @@ public class CustomerManager {
         while (true) {
             print_client_types();
 
-            final String type_name = RequestInputUtils.request_raw_data(
+            final String type_name = RequestInputUtils.request_valid_input(
                     "Welk klanttype wilt u verwijderen? (a-Z): ",
                     str -> str,
                     ValidationUtils::is_valid_full_name
@@ -78,7 +78,7 @@ public class CustomerManager {
         while (true) {
             print_client_types();
 
-            final String client_type_name = RequestInputUtils.request_raw_data(
+            final String client_type_name = RequestInputUtils.request_valid_input(
                     "Welk klanttype wilt u bewerken: ",
                     str -> str,
                     ValidationUtils::is_valid_full_name
@@ -89,12 +89,12 @@ public class CustomerManager {
                     .findFirst();
 
             if (optional_client_type.isPresent()) {
-                final String new_client_type_name = RequestInputUtils.request_raw_data(
+                final String new_client_type_name = RequestInputUtils.request_valid_input(
                         "Nieuwe klanttype naam: ",
                         str -> str,
                         ValidationUtils::is_valid_full_name);
 
-                final int new_client_type_discount = RequestInputUtils.request_valid_choice(
+                final int new_client_type_discount = RequestInputUtils.request_valid_choice_in_range(
                         "Nieuwe klanttype korting (0-100): ",
                         Integer::parseInt,
                         0,

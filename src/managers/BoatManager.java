@@ -42,11 +42,11 @@ public class BoatManager {
 
         System.out.println("\033[1m== Boot Configuratie toevoegen ==\033[0m");
 
-        String configuration_name = RequestInputUtils.request_raw_data("Vul een (valide) naam in voor uw nieuwe configuratie: ",
+        String configuration_name = RequestInputUtils.request_valid_input("Vul een (valide) naam in voor uw nieuwe configuratie: ",
                 input -> input.trim(),
                 input -> !input.isEmpty() && !loaded_boat_configurations.containsKey(input));
 
-        String boat_type = RequestInputUtils.request_raw_data("Welke boot type is het? : ",
+        String boat_type = RequestInputUtils.request_valid_input("Welke boot type is het? : ",
                 input -> input.trim(),
                 input -> !input.isEmpty());
 
@@ -95,7 +95,7 @@ public class BoatManager {
             String input_add_option;
             do {
                 final int max_input = i - 1;
-                final int tmp_int_input = RequestInputUtils.request_raw_data(String.format(
+                final int tmp_int_input = RequestInputUtils.request_valid_input(String.format(
                                 "Welke %s onderdeel wil je toevoegen? (1-%s): ", category, max_input),
                         Integer::parseInt,
                         input -> input >= 1 && input <= max_input
@@ -106,7 +106,7 @@ public class BoatManager {
 
                 selected_options.add(options.get(tmp_int_input - (allow_skip ? 2 : 1)));
 
-                input_add_option = RequestInputUtils.request_raw_data("Wil je nog een optie toevoegen? (j/n): ",
+                input_add_option = RequestInputUtils.request_valid_input("Wil je nog een optie toevoegen? (j/n): ",
                         input -> input.trim().toLowerCase(),
                         input -> input.equals("j") || input.equals("n"));
 
@@ -125,7 +125,7 @@ public class BoatManager {
         for (final String key : loaded_boat_configurations.keySet())
             System.out.printf("- %s%n", key);
 
-        String configuration_name = RequestInputUtils.request_raw_data("Kies een (valide) configuratie naam die u wilt wijzigen: ",
+        String configuration_name = RequestInputUtils.request_valid_input("Kies een (valide) configuratie naam die u wilt wijzigen: ",
                 input -> input,
                 input -> !input.isEmpty() && contains_boat_config(input));
 
@@ -136,7 +136,7 @@ public class BoatManager {
         if (scanner.nextLine().equals("n"))
             boat_type = loaded_boat_configurations.get(configuration_name).get_boat_type();
         else
-            boat_type = RequestInputUtils.request_raw_data("Voer nieuw boot type in: ",
+            boat_type = RequestInputUtils.request_valid_input("Voer nieuw boot type in: ",
                     input -> input.trim(),
                     input -> !input.isEmpty());
 
@@ -180,11 +180,11 @@ public class BoatManager {
         print_loaded_configs(false);
 
         // Remove based on boat name
-        String name = RequestInputUtils.request_raw_data("Type in de (valide) naam van de configuratie: ",
+        String name = RequestInputUtils.request_valid_input("Type in de (valide) naam van de configuratie: ",
                 input -> input.trim(),
                 loaded_boat_configurations::containsKey);
 
-        String sure = RequestInputUtils.request_raw_data("Weet u het zeker? (j/n): ",
+        String sure = RequestInputUtils.request_valid_input("Weet u het zeker? (j/n): ",
                 input -> input.trim(),
                 input -> input.equals("j") || input.equals("n"));
 
