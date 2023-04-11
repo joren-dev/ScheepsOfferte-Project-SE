@@ -45,8 +45,8 @@ public class BoatConfig
         categories.put(category_name, category);
     }
 
-    public static CategoryBase get_category(final String category_name)
+    public <T extends CategoryBase> T get_category(final String category_name, Class<T> category_class)
     {
-        return categories.get(category_name);
+        return category_class.cast(categories.get(category_name));
     }
 }

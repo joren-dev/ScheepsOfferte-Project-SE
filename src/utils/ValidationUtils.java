@@ -14,6 +14,12 @@ public class ValidationUtils {
         return address.matches(regex);
     }
 
+    public static boolean is_valid_offerte_number(final String invoiceNumber)
+    {
+        final String regex = "^\\d*$";
+        return invoiceNumber.matches(regex);
+    }
+
     public static boolean is_valid_email(final String email) {
         if (email == null || email.isEmpty())
             return false;

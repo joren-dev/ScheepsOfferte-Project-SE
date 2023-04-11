@@ -1,6 +1,7 @@
 package managers;
 
 import entities.bootconfig.BoatConfig;
+import entities.bootconfig.categories.AppearancePart;
 import entities.klant.Customer;
 import entities.klant.CustomerType;
 
@@ -16,7 +17,7 @@ import utils.InputValidators;
 import utils.ValidationUtils;
 
 public class OfferteManager {
-    public static Map<String, BasicOfferte> offerteLijst = new HashMap<>();
+    public static Map<String, BasicOfferte> offerte_list = new HashMap<>();
     private static int lastNumber = 10000;
 
     public OfferteManager() {
@@ -69,6 +70,10 @@ public class OfferteManager {
             System.err.println("Bootconfiguratie niet gevonden.");
         }
 
+        final String offerte_nummer = InputValidators.request_valid_input("Geef het offerte nummer op (minimaal 1 cijfer): ",
+                String::toLowerCase,
+                ValidationUtils::is_valid_offerte_number);
+
         final String client_name = InputValidators.request_valid_input("Wat is de naam van de klant? (a-Z): ",
                 String::toLowerCase, ValidationUtils::is_valid_name);
 
@@ -91,28 +96,46 @@ public class OfferteManager {
         String verval_date = LocalDateTime.now().plusDays(days_till_expiry).toString();
         System.out.println("De vervaldatum is: " + verval_date);
 
-        Customer customer = new Customer(client_name, client_address, client_email, client_name, selected_klant_type);
+        Customer customer = new Customer(client_name, client_address, client_email, client_phone_number, selected_klant_type);
 
         BasicOfferte offerte = new BasicOfferte(customer, selected_klant_type, selected_boot_config, offerte_date, verval_date);
+
+        // Add freshly created offerte to the list.
+        offerte_list.put(offerte_nummer, offerte);
 
         // TODO: add this to the list
     }
 
-    public static void edit_offerte() {
+    public static void edit_offerte()
+    {
 
     }
 
-    public static void delete_offerte() {
+    public static void delete_offerte()
+    {
 
     }
 
-    public static void show_offerte() {
+    public static void show_offerte()
+    {
 
+        // List offerte options (iterate over offerte_list)
+
+        // Get requested instance
+        BasicOfferte temp = offerte_list.get("asdf");
+        Customer customer = temp.get_client();
+        customer.get_name();
+
+        // Print all contents required for an offerte
+        BoatConfig config = temp.get_config();
+
+        AppearancePart appearancePart =  config.get_category("Uiterlijke", AppearancePart.class);
+        appearancePart.get_values();
     }
 
-    public static String gen_offerte_nr() {
+    public static String gen_offerte_nr()
+    {
         lastNumber++;
         return "SF-%d" + lastNumber;
     }
-
 }
