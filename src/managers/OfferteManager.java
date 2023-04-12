@@ -107,17 +107,24 @@ public class OfferteManager {
     }
 
     public static void edit_offerte() {
-
     }
 
     public static void delete_offerte() {
+        System.out.println("\033[1m== Offerte verwijderen ==\033[0m");
 
+        for (String offerte_number : offerte_list.keySet())
+            System.out.println("Offerte nummer: " + offerte_number);
+
+        final String offerte_nummer = InputValidators.request_valid_input(
+                "Vul in het (valide) offerte nummer die u wilt weergeven (digits only): ",
+                Function.identity(), offerte_list::containsKey
+        );
+
+        offerte_list.remove(offerte_nummer);
     }
 
     public static void show_offerte() {
-
-        // List offerte options (iterate over offerte_list)
-        System.out.println("\033[1m== Offertes weergeven ==\033]0m");
+        System.out.println("\033[1m== Offerte weergeven ==\033[0m");
 
         for (String offerte_number : offerte_list.keySet())
             System.out.println("Offerte nummer: " + offerte_number);
