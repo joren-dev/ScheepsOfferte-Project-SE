@@ -39,8 +39,6 @@ public class BoatManager {
     }
 
     public static void add_boat_config() {
-        final Scanner scanner = new Scanner(System.in);
-
         System.out.println("\033[1m== Boot Configuratie toevoegen ==\033[0m");
 
         String configuration_name = InputValidators.request_valid_input("Vul een (valide) naam in voor uw nieuwe configuratie: ",
@@ -60,6 +58,7 @@ public class BoatManager {
             if (chosen_options.get(optional_category).isEmpty() || !chosen_options.containsKey(optional_category))
                 continue;
 
+            // Add optional categories if selected
             if (optional_category.equals("Uiterlijk"))
                 new_boat_config.add_category("Uiterlijk", new AppearancePart(chosen_options.get("Uiterlijk"), 0.0));
 
@@ -201,7 +200,7 @@ public class BoatManager {
         request_list_options(List.of(kEssentialCategories), "Essentials", ref_options, scanner, false);
         request_list_options(List.of(kOptionalCategories), "Optionals", ref_options, scanner, true);
 
-        // Add categories to config
+        // Add essential categories to config
         ref_boatconfig.add_category("Motor", new MotorPart(ref_options.get("Motor"), 0.0));
         ref_boatconfig.add_category("Veiligheid", new SafetyPart(ref_options.get("Veiligheid"), 0.0));
         ref_boatconfig.add_category("Behuizing", new HousingPart(ref_options.get("Behuizing"), 0.0));

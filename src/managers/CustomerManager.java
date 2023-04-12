@@ -104,7 +104,7 @@ public class CustomerManager {
                         "Nieuwe klanttype korting (0-100): ",
                         Integer::parseInt,
                         0,
-                        101); // TODO: find out why this doesnt work, floating-end-point precision maybe
+                        101); // TODO: Double check condition to see why this fails
 
                 CustomerType client_type = optional_client_type.get();
                 client_type.set_type_name(new_client_type_name);
