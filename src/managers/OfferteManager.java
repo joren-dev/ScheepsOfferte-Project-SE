@@ -124,7 +124,7 @@ public class OfferteManager {
     }
 
     public static void show_offerte() {
-        System.out.println("\033[1m== Offerte weergeven ==\033[0m");
+        System.out.println("\n\033[1m== Offerte weergeven ==\033[0m");
 
         for (final String offerte_number : offerte_list.keySet())
             System.out.println("Offerte nummer: " + offerte_number);
@@ -142,7 +142,7 @@ public class OfferteManager {
         final Customer customer = selected_offerte.get_customer();
 
         // Print basic offerte details
-        System.out.println("\033[1m== Offerte voor: ==\\033[0m\n");
+        System.out.println("\n\033[1m== Offerte voor ==\033[0m");
         System.out.println("Naam: " + customer.get_name());
         System.out.println("Type:" + customer.get_client_type());
         System.out.println("Adres: " + customer.get_address());
@@ -169,6 +169,8 @@ public class OfferteManager {
             CategoryBase cat = selected_boat_config.get_category(each, CategoryBase.class);
             System.out.println(cat.offerte_format_str());
         }
+
+        System.out.println();
     }
 
     public static String gen_offerte_nr() {
