@@ -72,9 +72,6 @@ public class CustomerManager {
     }
 
     public static void edit_client_type() {
-
-        Scanner scanner = new Scanner(System.in);
-
         while (true) {
             print_client_types();
 
