@@ -172,9 +172,10 @@ public class OfferteManager {
         }
 
         System.out.println("=================================================");
-        System.out.println("Sub totaal: (prijs)");
+        System.out.println("Totaal zonder milieukorting: (prijs)");
+        System.out.println("Totaal na milieukorting excl. btw: (prijs)");
         System.out.println("===================");
-        System.out.println("     Toaal: (prijs)");
+        System.out.println("     Totaal (incl. 21% btw en korting aftrek): (prijs)");
 
         System.out.println("\nDe bovenstaande prijzen zijn geldig tot." + selected_offerte.get_expiry_date());
 
