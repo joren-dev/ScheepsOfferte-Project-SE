@@ -20,11 +20,6 @@ public class BoatConfig
         this.boat_type = boat_type;
     }
 
-    public String get_boat_type()
-    {
-        return this.boat_type;
-    }
-
     public void print_all_options()
     {
         for(CategoryBase category : categories.values())
@@ -53,5 +48,25 @@ public class BoatConfig
     public <T extends CategoryBase> T get_category(final String category_name, Class<T> category_class)
     {
         return category_class.cast(categories.get(category_name));
+    }
+
+    public void set_boat_type(final String boat_type)
+    {
+        this.boat_type = boat_type;
+    }
+
+    public void set_boat_name(final String boat_name)
+    {
+        this.boat_name = boat_name;
+    }
+
+    public String get_boat_name()
+    {
+        return this.boat_name;
+    }
+
+    public String get_boat_type()
+    {
+        return this.boat_type;
     }
 }
