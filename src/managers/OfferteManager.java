@@ -78,16 +78,20 @@ public class OfferteManager {
                 days -> days > 0);
 
 
+        System.out.println("\n");
+
         Map<String, Double> category_prices = new HashMap<>();
         for (final String each : selected_boot_config.get_all_categories()) {
             final double price = InputValidators.request_valid_choice_in_range(
-                    String.format("Geef een prijs voor categorie %s (geld waarde):", each),
+                    String.format("Geef een prijs voor categorie %s (geld waarde): €", each),
                     Double::parseDouble,
                     0.0,
                     Double.MAX_VALUE);
 
             category_prices.put(each, price);
         }
+
+        System.out.println();
 
         selected_boot_config.set_prices_per_category(category_prices);
 
@@ -167,14 +171,14 @@ public class OfferteManager {
         for (final String each : valid_categories) {
             // Must be CategoryBase, as each category derives from that.
             CategoryBase cat = selected_boat_config.get_category(each, CategoryBase.class);
-            System.out.println(cat.offerte_format_str() + selected_boat_config.prices_per_category.get(each));
+            System.out.println(cat.offerte_format_str() + "€" + selected_boat_config.prices_per_category.get(each));
         }
 
         System.out.println("=================================================");
-        System.out.println("Totaal zonder milieukorting: (prijs)");
-        System.out.println("Totaal na milieukorting excl. btw: (prijs)");
+        System.out.println("Totaal zonder milieukorting: €(prijs)");
+        System.out.println("Totaal na milieukorting excl. btw: €(prijs)");
         System.out.println("===================");
-        System.out.println("     Totaal (incl. 21% btw en korting aftrek): (prijs)");
+        System.out.println("     Totaal (incl. 21% btw en korting aftrek): €(prijs)");
 
         System.out.println("\nDe bovenstaande prijzen zijn geldig tot." + selected_offerte.get_expiry_date());
 
