@@ -129,24 +129,52 @@ public class BoatManager {
                 input -> input,
                 input -> !input.isEmpty() && contains_boat_config(input));
 
-        System.out.printf("Boot type: %s%n", loaded_boat_configurations.get(configuration_name).get_boat_type());
-        System.out.print("Wilt u het type aanpassen (j/n)? ");
-
-        String boat_type;
-        if (scanner.nextLine().equals("n"))
-            boat_type = loaded_boat_configurations.get(configuration_name).get_boat_type();
-        else
-            boat_type = InputValidators.request_valid_input("Voer nieuw boot type in: ",
+        // Change boat name directly if wanted
+        System.out.printf("Boot naam: %s%n", loaded_boat_configurations.get(configuration_name).get_boat_name());
+        System.out.print("Wilt u de boot naam aanpassen? (j/n): ");
+        if (scanner.nextLine().equals("j"))
+        {
+            final String boat_name = InputValidators.request_valid_input("Voer nieuw boot naam in: ",
                     String::trim,
                     input -> !input.isEmpty());
 
-        final BoatConfig new_boat_config = new BoatConfig(configuration_name, boat_type);
+            loaded_boat_configurations.get(configuration_name).set_boat_name(boat_name);
+        }
 
-        System.out.println("\nDe huidige opties:");
+        // Change boat type directly if wanted
+        System.out.printf("Boot type: %s%n", loaded_boat_configurations.get(configuration_name).get_boat_type());
+        System.out.print("Wilt u het boot type aanpassen? (j/n): ");
+        if (scanner.nextLine().equals("j"))
+        {
+            final String boat_type = InputValidators.request_valid_input("Voer nieuw boot type in: ",
+                    String::trim,
+                    input -> !input.isEmpty());
+
+            loaded_boat_configurations.get(configuration_name).set_boat_type(boat_type);
+        }
+
+        System.out.println("De nieuwe waardes zijn:");
+        System.out.printf("Boot naam: %s%n", loaded_boat_configurations.get(configuration_name).get_boat_name());
+        System.out.printf("Boot type: %s%n", loaded_boat_configurations.get(configuration_name).get_boat_type());
+
+        System.out.println("\nDe huidige opties in de config zijn:");
         loaded_boat_configurations.get(configuration_name).print_all_options();
 
-        // TODO: Make the below code more user-friendly. The exact way to do this might need to be discussed.
-        System.out.println("\nSelecteer welke u wilt behouden:");
+        boolean behouden = InputValidators.request_valid_input(
+                "Weet u zeker dat u deze configuratie opnieuw wil instellen? (j/n): ",
+                String::trim,
+                input -> input.matches("^[jn]$")
+        ).equals("n");
+
+        // In case that's all, return and don't change anything else.
+        if (behouden)
+            return;
+
+        final BoatConfig new_boat_config = new BoatConfig(configuration_name,
+                loaded_boat_configurations.get(configuration_name).get_boat_type()
+        );
+
+        System.out.println("\nSelecteer nu de nieuwe opties:");
 
         Map<String, List<String>> chosen_options = new HashMap<>();
         request_options(chosen_options, new_boat_config);
