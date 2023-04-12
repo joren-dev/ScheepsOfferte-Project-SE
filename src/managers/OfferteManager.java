@@ -20,7 +20,6 @@ import utils.ValidationUtils;
 
 public class OfferteManager {
     public static Map<String, BasicOfferte> offerte_list = new HashMap<>();
-    private static int lastNumber = 10000;
 
     public OfferteManager() {
     }
