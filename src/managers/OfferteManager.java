@@ -112,6 +112,141 @@ public class OfferteManager {
     }
 
     public static void edit_offerte() {
+        final Scanner scanner = new Scanner(System.in);
+
+        System.out.println("\033[1m== Offerte aanpassen ==\033[0m");
+
+        for (final String key : offerte_list.keySet())
+            System.out.printf("- %s%n", key);
+
+        String offerte_nummer = InputValidators.request_valid_input("Kies een (valide) offerte die u wilt wijzigen: ",
+                input -> input,
+                input -> !input.isEmpty() && contains_offerte(input));
+
+        System.out.printf("Uw klant: %s%n", offerte_list.get(offerte_nummer).get_customer().get_name());
+        System.out.print("Wilt u de klant aanpassen? (j/n) ");
+
+        Customer customer;
+        if (scanner.nextLine().equals("n")) {
+            customer = offerte_list.get(offerte_nummer).get_customer();
+        } else {
+            System.out.printf("Uw klant naam is: %s%n", offerte_list.get(offerte_nummer).get_customer().get_name());
+            System.out.print("Wilt u de klant naam aanpassen? (j/n) ");
+
+            String client_name;
+            if (scanner.nextLine().equals("n")) {
+                client_name = offerte_list.get(offerte_nummer).get_customer().get_name();
+            } else {
+                client_name = InputValidators.request_valid_input("Wat is de naam van de klant? (a-Z): ",
+                        String::toLowerCase, ValidationUtils::is_valid_full_name);
+            }
+
+            System.out.printf("Uw klant adres is: %s%n", offerte_list.get(offerte_nummer).get_customer().get_address());
+            System.out.print("Wilt u het klant adres aanpassen? (j/n) ");
+
+            String client_address;
+            if (scanner.nextLine().equals("n")) {
+                client_address = offerte_list.get(offerte_nummer).get_customer().get_address();
+            } else {
+                client_address = InputValidators.request_valid_input("Wat is het adres van de klant? (Straat 23, postcode, stad/dorp): ",
+                        String::toLowerCase, ValidationUtils::is_valid_address);
+            }
+
+            System.out.printf("Uw klant email is: %s%n", offerte_list.get(offerte_nummer).get_customer().get_email());
+            System.out.print("Wilt u de klant email aanpassen? (j/n) ");
+
+            String client_email;
+            if (scanner.nextLine().equals("n")) {
+                client_email = offerte_list.get(offerte_nummer).get_customer().get_email();
+            } else {
+                client_email = InputValidators.request_valid_input("Wat is de email van de klant? (example@email.com): ",
+                        String::toLowerCase, ValidationUtils::is_valid_email);
+            }
+
+            System.out.printf("Uw klant telefoon nummer is: %s%n", offerte_list.get(offerte_nummer).get_customer().get_phone_number());
+            System.out.print("Wilt u het klant telefoon nummer aanpassen? (j/n) ");
+
+            String client_phone_number;
+            if (scanner.nextLine().equals("n")) {
+                client_phone_number = offerte_list.get(offerte_nummer).get_customer().get_phone_number();
+            } else {
+                client_phone_number = InputValidators.request_valid_input("Wat is het telefoonnummer van de klant? (tussen 8-10 digits): ",
+                        Function.identity(), ValidationUtils::is_valid_phone_number);
+            }
+
+            CustomerManager.print_client_types();
+
+            System.out.printf("Uw klant type is: %s%n", offerte_list.get(offerte_nummer).get_customer().get_client_type().get_type_name());
+            System.out.print("Wilt u het klant type aanpassen? (j/n) ");
+
+            CustomerType client_type;
+            if (scanner.nextLine().equals("n")) {
+                client_type = offerte_list.get(offerte_nummer).get_customer().get_client_type();
+            } else {
+                CustomerManager.print_client_types();
+
+                final String client_type_choice = InputValidators.request_valid_input(
+                        "Selecteer een klant type: ",
+                        Function.identity(),
+                        CustomerManager::contains_client_type);
+
+                client_type = CustomerManager.get_client_type(client_type_choice);
+            }
+
+            customer = new Customer(client_name, client_address, client_email, client_phone_number, client_type);
+        }
+
+        System.out.printf("Uw offerte datum: %s%n", offerte_list.get(offerte_nummer).get_offerte_date());
+        System.out.print("Wilt u de offerte datum aanpassen? (j/n) ");
+
+        String offerte_date;
+        if (scanner.nextLine().equals("n")) {
+            offerte_date = offerte_list.get(offerte_nummer).get_offerte_date();
+        } else {
+            final int days_till_start = InputValidators.request_valid_input("Wanneer begint de offerte (dagen, 0 is vandaag): ",
+                    Integer::parseInt,
+                    days -> days >= 0);
+
+            // Calculate start date
+            offerte_date = LocalDateTime.now().plusDays(days_till_start).toString();
+        }
+
+        System.out.printf("Uw offerte datum: %s%n", offerte_list.get(offerte_nummer).get_expiry_date());
+        System.out.print("Wilt u de offerte datum aanpassen? (j/n) ");
+
+        String offerte_expiry;
+        if (scanner.nextLine().equals("n")) {
+            offerte_expiry = offerte_list.get(offerte_nummer).get_expiry_date();
+        } else {
+            final int days_till_expiry = InputValidators.request_valid_input("Hoelang is de offerte geldig (dagen): ",
+                    Integer::parseInt,
+                    days -> days > 0);
+
+            // Calculate expiry date
+            offerte_expiry = LocalDateTime.now().plusDays(days_till_expiry).toString();
+        }
+
+        BoatConfig boat_config = offerte_list.get(offerte_nummer).get_config();
+        final BasicOfferte new_offerte = new BasicOfferte(customer, boat_config, offerte_date, offerte_expiry);
+
+        System.out.printf("Uw offerte nummer: %s%n", offerte_nummer);
+        System.out.print("Wilt u het offerte nummer aanpassen? (j/n) ");
+
+        // Replace old offerte with the newly created offerte.
+        if (scanner.nextLine().equals("n")) {
+            offerte_list.replace(offerte_nummer, new_offerte);
+        } else {
+            // remove old offerte
+            offerte_list.remove(offerte_nummer);
+
+            // make a new offerte nummer
+            offerte_nummer = InputValidators.request_valid_input("Geef het offerte nummer op (minimaal 1 cijfer): ",
+                    Function.identity(),
+                    ValidationUtils::is_valid_offerte_number);
+
+            // insert the new offerte with the new number
+            offerte_list.put(offerte_nummer, new_offerte);
+        }
     }
 
     public static void delete_offerte() {
@@ -190,5 +325,9 @@ public class OfferteManager {
         System.out.println("Iban: NL83INGB0845370391");
 
         System.out.println("\n");
+    }
+
+    private static boolean contains_offerte(final String offerte_nummer) {
+        return offerte_list.containsKey(offerte_nummer);
     }
 }
