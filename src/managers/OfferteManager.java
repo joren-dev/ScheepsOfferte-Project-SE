@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Function;
 
+import entities.offerte.OfferteBase;
 import utils.InputValidators;
 import utils.ValidationUtils;
 
@@ -141,14 +142,19 @@ public class OfferteManager {
         // Pull out the customer connected to offerte
         final Customer customer = selected_offerte.get_customer();
 
+
         // Print basic offerte details
         System.out.println("\n\033[1m== Offerte voor ==\033[0m");
-        System.out.println("Naam: " + customer.get_name());
-        System.out.println("Type:" + customer.get_client_type());
-        System.out.println("Adres: " + customer.get_address());
-        System.out.println("Email: " + customer.get_email());
-        System.out.printf("Phone number: %s \n", customer.get_phone_number());
+        System.out.println("| T.a.v " + customer.get_name());
+        System.out.printf("| %s",customer.get_address());
+        System.out.println("\n| Email: " + customer.get_email());
+        System.out.printf("| Phone number: %s ", customer.get_phone_number());
 
+        System.out.println("\n\033[1mOfferte nummer: \033[0m " + offerte_nummer );
+        System.out.println("Geachte " + customer.get_name() + ",");
+        System.out.println("Hartelijk dank voor uw interesse in onze diensten/producten. Wij zijn verheugd om u een offerte aan te bieden voor uw boot configuratie.");
+
+        System.out.println("=================================================");
         // Grab boat config connected to offerte
         final BoatConfig selected_boat_config = selected_offerte.get_config();
 
@@ -169,8 +175,21 @@ public class OfferteManager {
             CategoryBase cat = selected_boat_config.get_category(each, CategoryBase.class);
             System.out.println(cat.offerte_format_str());
         }
+        System.out.println("=================================================");
+        System.out.println("Sub totaal: (prijs)");
+        System.out.println("===================");
+        System.out.println("     Toaal: (prijs)");
 
-        System.out.println();
+        System.out.println("\nDe bovenstaande prijzen zijn geldig tot." + selected_offerte.get_expiry_date());
+
+        System.out.println("\nWij hopen u zo goed mogelijk geinformeerd te hebben en kijken uit naar de samenwerking met u.");
+        System.out.println("\nMet vriendelijke groet,");
+        System.out.println("ShipFlex Bv.");
+        System.out.println("079-19040126");
+        System.out.println("Kvk: 08234771 ");
+        System.out.println("Iban: NL83INGB0845370391");
+
+        System.out.println("\n");
     }
 
     public static String gen_offerte_nr() {

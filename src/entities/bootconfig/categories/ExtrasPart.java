@@ -55,6 +55,6 @@ public class ExtrasPart extends CategoryBase
     @Override
     public String toString()
     {
-        return String.format("Extras: %s %.2f", this.values, this.price);
+        return String.format("Extras | %s | %.2f", this.values, this.price);
     }
 }
