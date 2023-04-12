@@ -130,9 +130,12 @@ public class BoatManager {
                 input -> !input.isEmpty() && contains_boat_config(input));
 
         // Change boat name directly if wanted
-        System.out.printf("Boot naam: %s%n", loaded_boat_configurations.get(configuration_name).get_boat_name());
-        System.out.print("Wilt u de boot naam aanpassen? (j/n): ");
-        if (scanner.nextLine().equals("j"))
+        System.out.printf("Huidige boot naam: %s%n", loaded_boat_configurations.get(configuration_name).get_boat_name());
+        final String choice_boat_name = InputValidators.request_valid_input("Wilt u het boot naam aanpassen? (j/n): ",
+                String::trim, s -> s.equalsIgnoreCase("j") || s.equalsIgnoreCase("n")
+        );
+
+        if (choice_boat_name.equals("j"))
         {
             final String boat_name = InputValidators.request_valid_input("Voer nieuw boot naam in: ",
                     String::trim,
@@ -142,9 +145,11 @@ public class BoatManager {
         }
 
         // Change boat type directly if wanted
-        System.out.printf("Boot type: %s%n", loaded_boat_configurations.get(configuration_name).get_boat_type());
-        System.out.print("Wilt u het boot type aanpassen? (j/n): ");
-        if (scanner.nextLine().equals("j"))
+        System.out.printf("Huidige boot type: %s%n", loaded_boat_configurations.get(configuration_name).get_boat_type());
+        final String choice_boat_type = InputValidators.request_valid_input("Wilt u het boot type aanpassen? (j/n): ",
+                String::trim, s -> s.equalsIgnoreCase("j") || s.equalsIgnoreCase("n")
+        );
+        if (choice_boat_type.equals("j"))
         {
             final String boat_type = InputValidators.request_valid_input("Voer nieuw boot type in: ",
                     String::trim,
