@@ -39,36 +39,23 @@ public class OfferteManager {
             return;
         }
 
-        CustomerType selected_klant_type;
-        while (true) {
-            System.out.println("Voor welk klanttype maak je deze offerte?");
-            CustomerManager.print_client_types();
 
-            System.out.print("Maak uw keuze: ");
-            String input = scanner.nextLine();
+        CustomerManager.print_client_types();
+        final String customer_type_choice = InputValidators.request_valid_input(
+                "Voor welk klanttype maak je deze offerte: ",
+                Function.identity(),
+                CustomerManager::contains_client_type);
 
-            if (CustomerManager.contains_client_type(input)) {
-                selected_klant_type = CustomerManager.get_client_type(input);
-                break;
-            }
+        final CustomerType selected_klant_type = CustomerManager.get_client_type(customer_type_choice);
 
-            System.err.println("Klanttype niet gevonden");
-        }
+        BoatManager.print_loaded_configs(false);
+        final String boot_config_choice = InputValidators.request_valid_input(
+                "Welke bootconfiguratie wilt u toevoegen aan de offerte: ",
+                Function.identity(),
+                BoatManager::contains_boat_config);
 
-        BoatConfig selected_boot_config;
-        while (true) {
-            System.out.println("Welke bootconfiguratie wilt u toevoegen aan de offerte?");
-            BoatManager.print_loaded_configs(false);
-            System.out.print("Maak uw keuze: ");
-            String input = scanner.nextLine();
+        final BoatConfig selected_boot_config = BoatManager.get_config(boot_config_choice);
 
-            if (BoatManager.contains_boat_config(input)) {
-                selected_boot_config = BoatManager.get_config(input);
-                break;
-            }
-
-            System.err.println("Bootconfiguratie niet gevonden.");
-        }
 
         final String offerte_nummer = InputValidators.request_valid_input("Geef het offerte nummer op (minimaal 1 cijfer): ",
                 Function.identity(),

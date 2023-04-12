@@ -13,7 +13,7 @@ public class InputValidators {
             final String input = scanner.nextLine();
 
             try {
-                T value = parser.apply(input);
+                final T value = parser.apply(input);
 
                 if (validator.test(value))
                     return value;

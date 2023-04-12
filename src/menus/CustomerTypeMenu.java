@@ -42,7 +42,7 @@ public class CustomerTypeMenu extends MenuBase {
                     CustomerManager.delete_client_type();
                     break;
                 case kViewClientType:
-                    CustomerManager.view_client_type();
+                    CustomerManager.print_client_types();
                     break;
                 case kNavigateToMainMenu:
                     return;

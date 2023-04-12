@@ -47,6 +47,11 @@ public class CustomerManager {
     public static void delete_client_type()
     {
         while (true) {
+            if (loaded_client_types.isEmpty()) {
+                System.out.println("U heeft geen bestaande klanttypes.\n");
+                return;
+            }
+
             print_client_types();
 
             final String type_name = InputValidators.request_valid_input(
@@ -71,6 +76,12 @@ public class CustomerManager {
 
     public static void edit_client_type() {
         while (true) {
+
+            if (loaded_client_types.isEmpty()) {
+                System.out.println("U heeft geen klanttypes, voeg eerst een klanttype toe.\n");
+                return;
+            }
+
             print_client_types();
 
             final String client_type_name = InputValidators.request_valid_input(
@@ -120,6 +131,9 @@ public class CustomerManager {
     }
 
     public static void print_client_types() {
+        if (loaded_client_types.isEmpty())
+            System.out.println("Er zijn geen klanttypes beschikbaar\n");
+
         for (final CustomerType client_type : loaded_client_types)
             System.out.println("- " + client_type.get_type_name());
     }
@@ -132,11 +146,6 @@ public class CustomerManager {
         }
 
         return null;
-    }
-
-    public static void view_client_type()
-    {
-        System.out.println(Arrays.toString(CustomerManager.loaded_client_types.stream().map(CustomerType::toString).toArray()));
     }
 }
 
