@@ -22,8 +22,6 @@ public class CustomerManager {
     }
 
     public static void add_client_type() {
-        Scanner scanner = new Scanner(System.in);
-
         final String client_type_name = InputValidators.request_valid_input(
                 "Vul een (valide) klanttype naam in (a-Z): ",
                 String::trim,

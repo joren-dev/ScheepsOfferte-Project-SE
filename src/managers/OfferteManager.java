@@ -76,7 +76,7 @@ public class OfferteManager {
                 ValidationUtils::is_valid_offerte_number);
 
         final String client_name = InputValidators.request_valid_input("Wat is de naam van de klant? (a-Z): ",
-                String::toLowerCase, ValidationUtils::is_valid_name);
+                String::toLowerCase, ValidationUtils::is_valid_full_name);
 
         final String client_address = InputValidators.request_valid_input("Wat is het adres van de klant? (Straat 23, postcode, stad/dorp): ",
                 String::toLowerCase, ValidationUtils::is_valid_address);
