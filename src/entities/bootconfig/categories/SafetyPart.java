@@ -55,6 +55,6 @@ public class SafetyPart extends CategoryBase {
     @Override
     public String toString()
     {
-        return String.format("Veiligheid | %s | %.2f", this.values, this.price);
+        return String.format("Veiligheid | %s | ", this.values);
     }
 }

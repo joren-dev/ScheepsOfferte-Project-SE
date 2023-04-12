@@ -37,6 +37,6 @@ public abstract class CategoryBase {
 
     public String offerte_format_str()
     {
-        return String.format("Uiterlijk | %s | %.2f", this.values, this.price);
+        return String.format("Uiterlijk | %s | ", this.values);
     }
 }

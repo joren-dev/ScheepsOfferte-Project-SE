@@ -50,6 +50,6 @@ public class HousingPart extends CategoryBase
 
     @Override
     public String toString() {
-        return String.format("Behuizing | %s | %.2f", this.values, this.price);
+        return String.format("Behuizing | %s | ", this.values);
     }
 }

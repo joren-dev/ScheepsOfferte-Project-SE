@@ -13,6 +13,7 @@ public class BoatConfig
 
     // Defines standard categories for a configuration.
     public static Map<String, CategoryBase> categories = new HashMap<>();
+    public Map<String, Double> prices_per_category =  new HashMap<>();
 
     public BoatConfig(String boat_name, String boat_type)
     {
@@ -68,5 +69,10 @@ public class BoatConfig
     public String get_boat_type()
     {
         return this.boat_type;
+    }
+
+    public void set_prices_per_category(final Map<String, Double> prices)
+    {
+        this.prices_per_category = prices;
     }
 }

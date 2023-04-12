@@ -77,6 +77,20 @@ public class OfferteManager {
                 Integer::parseInt,
                 days -> days > 0);
 
+
+        Map<String, Double> category_prices = new HashMap<>();
+        for (final String each : selected_boot_config.get_all_categories()) {
+            final double price = InputValidators.request_valid_choice_in_range(
+                    String.format("Geef een prijs voor categorie %s (geld waarde):", each),
+                    Double::parseDouble,
+                    0.0,
+                    Double.MAX_VALUE);
+
+            category_prices.put(each, price);
+        }
+
+        selected_boot_config.set_prices_per_category(category_prices);
+
         // Calculate expiry date
         final String offerte_date = LocalDateTime.now().toString();
         final String verval_date = LocalDateTime.now().plusDays(days_till_expiry).toString();
@@ -132,7 +146,7 @@ public class OfferteManager {
         // Print basic offerte details
         System.out.println("\n\033[1m== Offerte voor ==\033[0m");
         System.out.println("| T.a.v " + customer.get_name());
-        System.out.printf("| %s",customer.get_address());
+        System.out.printf("| %s", customer.get_address());
         System.out.println("\n| Email: " + customer.get_email());
         System.out.printf("| Phone number: %s \n\n", customer.get_phone_number());
 
@@ -141,7 +155,7 @@ public class OfferteManager {
         System.out.println("Hartelijk dank voor uw interesse in onze diensten/producten. Wij zijn verheugd om u een offerte aan te bieden voor uw boot configuratie.");
 
 
-        System.out.println("\n\033[1mOfferte nummer: \033[0m " + offerte_nummer );
+        System.out.println("\n\033[1mOfferte nummer: \033[0m " + offerte_nummer);
         System.out.println("=================================================");
         // Grab boat config connected to offerte
         final BoatConfig selected_boat_config = selected_offerte.get_config();
@@ -150,11 +164,10 @@ public class OfferteManager {
         final ArrayList<String> valid_categories = selected_boat_config.get_all_categories();
 
         // Calls each valid category and prints its contents
-        for(final String each : valid_categories)
-        {
+        for (final String each : valid_categories) {
             // Must be CategoryBase, as each category derives from that.
             CategoryBase cat = selected_boat_config.get_category(each, CategoryBase.class);
-            System.out.println(cat.offerte_format_str());
+            System.out.println(cat.offerte_format_str() + selected_boat_config.prices_per_category.get(each));
         }
 
         System.out.println("=================================================");
