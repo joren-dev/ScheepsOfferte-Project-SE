@@ -148,25 +148,20 @@ public class OfferteManager {
         System.out.println("| T.a.v " + customer.get_name());
         System.out.printf("| %s",customer.get_address());
         System.out.println("\n| Email: " + customer.get_email());
-        System.out.printf("| Phone number: %s ", customer.get_phone_number());
+        System.out.printf("| Phone number: %s \n\n", customer.get_phone_number());
 
-        System.out.println("\n\033[1mOfferte nummer: \033[0m " + offerte_nummer );
+
         System.out.println("Geachte " + customer.get_name() + ",");
         System.out.println("Hartelijk dank voor uw interesse in onze diensten/producten. Wij zijn verheugd om u een offerte aan te bieden voor uw boot configuratie.");
 
+
+        System.out.println("\n\033[1mOfferte nummer: \033[0m " + offerte_nummer );
         System.out.println("=================================================");
         // Grab boat config connected to offerte
         final BoatConfig selected_boat_config = selected_offerte.get_config();
 
         // Filter out the categories that weren't instantiated with the boat config
         final ArrayList<String> valid_categories = selected_boat_config.get_all_categories();
-
-        // Example: How to do it individually
-        // if(valid_categories.contains("Uiterlijk"))
-        // {
-        //     AppearancePart appearance = config.get_category("Uiterlijk", AppearancePart.class);
-        //     appearance.toString();
-        // }
 
         // Calls each valid category and prints its contents
         for(final String each : valid_categories)
@@ -175,6 +170,7 @@ public class OfferteManager {
             CategoryBase cat = selected_boat_config.get_category(each, CategoryBase.class);
             System.out.println(cat.offerte_format_str());
         }
+
         System.out.println("=================================================");
         System.out.println("Sub totaal: (prijs)");
         System.out.println("===================");
