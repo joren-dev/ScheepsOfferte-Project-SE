@@ -1,7 +1,8 @@
-# SheepsOfferte-Project-SE - Creates and manages invoices for www.42.nl
-For a detailed guide on how to use this program from a user's perspective please take a look at our [User Guide](https://github.com/joren-dev/ScheepsOfferte-Project-SE/tree/main/docs/user%20guide). 
+# SheepsOfferte-Project-SE
+Creates and manages invoices for www.42.nl
 
-If you'd like to get a good gist of the code structure, please refer to our UML Diagram that can be found right below.
+
+For a detailed guide on how to use this program from a user's perspective please take a look at our [User Guide](https://github.com/joren-dev/ScheepsOfferte-Project-SE/tree/main/docs/user%20guide). If you'd like to get a good gist of the code structure, please refer to our UML Diagram that can be found right below.
 
 ![UML class diagram example](https://raw.githubusercontent.com/joren-dev/ScheepsOfferte-Project-SE/main/docs/uml%20diagram/example_diagram_temp.jpg)
 
