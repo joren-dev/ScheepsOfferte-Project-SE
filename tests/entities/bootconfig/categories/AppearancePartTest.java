@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AppearancePartTest {
 
+    // Test om te controleren of de get_price methode de goede String returned
     @Test
     void testGetPrice() {
         // Arrange
@@ -20,6 +21,7 @@ class AppearancePartTest {
         assertEquals("20.0", result);
     }
 
+    // Test om te kijken of de values die we krijgen geldig zijn en goed worden retourneert
     @Test
     void testGetValues() {
         // Arrange
@@ -59,6 +61,7 @@ class AppearancePartTest {
     void testAdd() {
     }
 
+    // Test om te kijken of dat de appearance list goed retourneerd
     @Test
     void testIsEmpty() {
         // Arrange

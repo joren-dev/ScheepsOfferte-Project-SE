@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerTypeTest {
 
+    // Test om te kijken of het type naam van de klanttype goed in de klanttype wordt gezet
     @Test
     void testGetTypeName() {
         // Arrange
@@ -19,6 +20,7 @@ class CustomerTypeTest {
         assertEquals("CEO", result);
     }
 
+    // Test om te kijken of de aanpassing van de klanttype naam goed wordt aangepast
     @Test
     void testSetTypeName() {
         // Arrange
@@ -31,6 +33,7 @@ class CustomerTypeTest {
         assertEquals("Sales", customerType.get_type_name());
     }
 
+    // Test om te kijken of de korting die we hebben ingevuld goed wordt meegekregen
     @Test
     void testGetDiscount() {
         // Arrange
@@ -43,6 +46,7 @@ class CustomerTypeTest {
         assertEquals(60, result);
     }
 
+    // Test om te kijken of de korting die we aanpassen goed wordt aangepast
     @Test
     void testSetDiscount() {
         // Arrange
@@ -55,6 +59,7 @@ class CustomerTypeTest {
         assertEquals(20, customerType.get_discount());
     }
 
+    // Test om te kijken of de aanpassing van klanttype naar string-type goed wordt omgezet.
     @Test
     void testToString() {
         // Arrange

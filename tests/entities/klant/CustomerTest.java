@@ -1,6 +1,5 @@
 package entities.klant;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,6 +20,7 @@ class CustomerTest {
         assertEquals("Rico", result);
     }
 
+    // Test om te kijken of de name methode van de Customer klasse de naam goed instelt, en daarna kijken of hij hem goed aanpast.
     @Test
     void testSetName() {
         // Arrange
@@ -35,6 +35,7 @@ class CustomerTest {
 
     }
 
+    // Test om te kijken of het bedrijf wat wij invoeren in klant ook een correcte get output terug geeft.
     @Test
     void testGetCompany() {
         // Arrange
@@ -48,6 +49,7 @@ class CustomerTest {
         assertEquals("Google", result);
     }
 
+    // Test om te kijken of de Company die we eerst hebben erin gezet goed wordt aangepast en doorgezet.
     @Test
     void testSetCompany() {
         // Arrange
@@ -61,6 +63,7 @@ class CustomerTest {
         assertEquals("Apple", customer.get_company());
     }
 
+    // Test om te kijken of het adress wat wij als klant meegeven goed wordt verwerkt.
     @Test
     void testGetAddress() {
         // Arrange
@@ -74,6 +77,7 @@ class CustomerTest {
         assertEquals("Den Haag", result);
     }
 
+    // Test om te kijken of de klant die we eerst van klant hebben goed wordt veranderd.
     @Test
     void testSetAddress() {
         // Arrange
@@ -88,6 +92,7 @@ class CustomerTest {
 
     }
 
+    // Test om te kijken of de email die we krijgen van de klant goed wordt afgelezen
     @Test
     void testGetEmail() {
         // Arrange
@@ -101,6 +106,7 @@ class CustomerTest {
         assertEquals("Rico@outlook.com", result);
     }
 
+    // Test om te kijken of we de verandering van een email goed aanpassen
     @Test
     void testSetEmail() {
         // Arrange
@@ -114,6 +120,7 @@ class CustomerTest {
         assertEquals("Rico@apple.com", customer.get_email());
     }
 
+    // Test om te kijken of we de telefoonnummer die we krijgen van de klant goed meenemen.
     @Test
     void testGetPhoneNumber() {
         // Arrange
@@ -127,6 +134,7 @@ class CustomerTest {
         assertEquals("0612121212", result);
     }
 
+    // Test om te kijken of we de telefoonnummer die we veranderd hebben goed wordt aangepast
     @Test
     void testSetPhoneNumber() {
         // Arrange
@@ -140,6 +148,7 @@ class CustomerTest {
         assertEquals("0676543210", customer.get_phone_number());
     }
 
+    // Test om te kijken of klanttype goed wordt meegekregen
     @Test
     void testGetClientType() {
         // Arrange
@@ -153,6 +162,7 @@ class CustomerTest {
         assertEquals(customerType, result);
     }
 
+    // Test om te kijken of de klanttype die we hebben aangepast goed wordt meegenomen
     @Test
     void testSetClientType() {
         // Arrange
@@ -167,6 +177,7 @@ class CustomerTest {
         assertEquals(newType, customer.get_client_type());
     }
 
+    // Test om te kijken of de korting die we hebben ingevuld goed erin wordt gezet
     @Test
     void testGetClientDiscount() {
         // Arrange
