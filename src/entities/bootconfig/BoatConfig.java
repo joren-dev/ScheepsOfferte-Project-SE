@@ -1,5 +1,6 @@
 package entities.bootconfig;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +29,10 @@ public class BoatConfig
     {
         for(CategoryBase category : categories.values())
             category.print_options();
+    }
+
+    public ArrayList<String> get_all_categories() {
+        return new ArrayList<>(categories.keySet());
     }
 
     public String toString()

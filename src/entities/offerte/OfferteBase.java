@@ -20,7 +20,7 @@ public abstract class OfferteBase {
         this.expiry_date = expiry_date;
     }
 
-    public Customer get_client()
+    public Customer get_customer()
     {
         return customer;
     }

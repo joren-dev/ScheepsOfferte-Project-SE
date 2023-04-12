@@ -6,12 +6,9 @@ import java.util.List;
 
 public class AppearancePart extends CategoryBase
 {
-    double price;
-
     public AppearancePart(final List<String> options, final double price)
     {
-        this.values = options;
-        this.price = price;
+        super(options, price);
     }
 
     @Override

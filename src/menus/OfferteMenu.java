@@ -17,7 +17,7 @@ public class OfferteMenu extends MenuBase {
     @Override
     public void show_menu() {
         while (true) {
-            System.out.println("\033[1m== Weergeven Offerte ==\033[0m");
+            System.out.print("\033[1m== Weergeven Offerte ==\033[0m\n");
 
             System.out.println("Wat wilt u doen?");
             System.out.println("1. Offerte toevoegen\n2. Offerte wijzigen \n3. Offerte lijst weergeven\n4. Offerte verwijderen\n5. Terug naar hoofdmenu");

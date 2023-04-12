@@ -6,6 +6,13 @@ import java.util.List;
 
 public abstract class CategoryBase {
     public List<String> values;
+    double price;
+
+    public CategoryBase(final List<String> options, final double price)
+    {
+        this.values = options;
+        this.price = price;
+    }
 
     public abstract String get_price();
 
@@ -27,4 +34,9 @@ public abstract class CategoryBase {
     public abstract boolean isEmpty();
 
     public abstract String toString();
+
+    public String offerte_format_str()
+    {
+        return String.format("Uiterlijk | %s | %.2f", this.values, this.price);
+    }
 }

@@ -1,9 +1,7 @@
 package managers;
 
 import entities.bootconfig.BoatConfig;
-import entities.bootconfig.categories.AppearancePart;
 import entities.bootconfig.categories.CategoryBase;
-import entities.bootconfig.categories.ExtrasPart;
 import entities.klant.Customer;
 import entities.klant.CustomerType;
 
@@ -36,8 +34,7 @@ public class OfferteManager {
             return;
         }
 
-        if(CustomerManager.get_all_client_types().isEmpty())
-        {
+        if (CustomerManager.get_all_client_types().isEmpty()) {
             System.out.println("U heeft geen klanttypes, voeg eerst een klanttype toe.\n");
             return;
         }
@@ -74,7 +71,7 @@ public class OfferteManager {
         }
 
         final String offerte_nummer = InputValidators.request_valid_input("Geef het offerte nummer op (minimaal 1 cijfer): ",
-                String::toLowerCase,
+                Function.identity(),
                 ValidationUtils::is_valid_offerte_number);
 
         final String client_name = InputValidators.request_valid_input("Wat is de naam van de klant? (a-Z): ",
@@ -84,7 +81,7 @@ public class OfferteManager {
                 String::toLowerCase, ValidationUtils::is_valid_address);
 
         final String client_email = InputValidators.request_valid_input("Wat is de email van de klant? (example@email.com): ",
-                Function.identity(), ValidationUtils::is_valid_email);
+                String::toLowerCase, ValidationUtils::is_valid_email);
 
         final String client_phone_number = InputValidators.request_valid_input("Wat is het telefoonnummer van de klant? (tussen 8-10 digits): ",
                 Function.identity(), ValidationUtils::is_valid_phone_number);
@@ -93,80 +90,81 @@ public class OfferteManager {
                 Integer::parseInt,
                 days -> days > 0);
 
-
         // Calculate expiry date
-        String offerte_date = LocalDateTime.now().toString();
-        String verval_date = LocalDateTime.now().plusDays(days_till_expiry).toString();
-        System.out.println("De vervaldatum is: " + verval_date);
+        final String offerte_date = LocalDateTime.now().toString();
+        final String verval_date = LocalDateTime.now().plusDays(days_till_expiry).toString();
 
-        Customer customer = new Customer(client_name, client_address, client_email, client_phone_number, selected_klant_type);
+        final Customer customer = new Customer(client_name, client_address, client_email,
+                client_phone_number, selected_klant_type
+        );
 
-        BasicOfferte offerte = new BasicOfferte(customer, selected_boot_config, offerte_date, verval_date);
+        final BasicOfferte offerte = new BasicOfferte(customer, selected_boot_config,
+                offerte_date, verval_date
+        );
 
         // Add freshly created offerte to the list.
         offerte_list.put(offerte_nummer, offerte);
-
-        // TODO: add this to the list
     }
 
-    public static void edit_offerte()
-    {
+    public static void edit_offerte() {
 
     }
 
-    public static void delete_offerte()
-    {
+    public static void delete_offerte() {
 
     }
 
-    public static void show_offerte()
-    {
+    public static void show_offerte() {
 
         // List offerte options (iterate over offerte_list)
-        System.out.println("\033[1m== Offertes weergeven ==\033[0m");
+        System.out.println("\033[1m== Offertes weergeven ==\033]0m");
 
-        for (BasicOfferte offerte: offerte_list.values()) {
-            Customer customer = offerte.get_client();
-            System.out.println("Offerte nummer: " + get_all_offerte_nummers());
-        }
+        for (String offerte_number : offerte_list.keySet())
+            System.out.println("Offerte nummer: " + offerte_number);
 
         // Get requested instance
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter offerte nummer: ");
-        String offerte_nummer = scanner.nextLine();
+        final String offerte_nummer = InputValidators.request_valid_input(
+                "Vul in het (valide) offerte nummer die u wilt weergeven (digits only): ",
+                Function.identity(), offerte_list::containsKey
+        );
 
-        if (offerte_list.containsKey(offerte_nummer)) {
-            BasicOfferte temp = offerte_list.get(offerte_nummer);
-            Customer customer = temp.get_client();
+        // Grab the right offerte by number
+        final BasicOfferte selected_offerte = offerte_list.get(offerte_nummer);
 
+        // Pull out the customer connected to offerte
+        final Customer customer = selected_offerte.get_customer();
 
-            System.out.println("\033[1m== Offerte voor: ==\\033[0m\n");
-            System.out.println("Naam: " + customer.get_name());
-            System.out.println("Type:" + customer.get_client_type());
-            System.out.println("Adres: " + customer.get_address());
-            System.out.println("Email: " + customer.get_email());
-            System.out.printf("Phone number: %s \n", customer.get_phone_number());
+        // Print basic offerte details
+        System.out.println("\033[1m== Offerte voor: ==\\033[0m\n");
+        System.out.println("Naam: " + customer.get_name());
+        System.out.println("Type:" + customer.get_client_type());
+        System.out.println("Adres: " + customer.get_address());
+        System.out.println("Email: " + customer.get_email());
+        System.out.printf("Phone number: %s \n", customer.get_phone_number());
 
-            // Print all contents required for an offerte
-            // TODO: Fix boat config print
-            BoatConfig config = temp.get_config();
-            AppearancePart appearancePart = config.get_category("Uiterlijke", AppearancePart.class);
-            for (String value : appearancePart.get_values()) {
-                System.out.println(value);
-            }
+        // Grab boat config connected to offerte
+        BoatConfig selected_boat_config = selected_offerte.get_config();
 
+        // Filter out the categories that weren't instantiated with the boat config
+        ArrayList<String> valid_categories = selected_boat_config.get_all_categories();
+
+        // Example: How to do it individually
+        // if(valid_categories.contains("Uiterlijk"))
+        // {
+        //     AppearancePart appearance = config.get_category("Uiterlijk", AppearancePart.class);
+        //     appearance.toString();
+        // }
+
+        // Calls each valid category and prints its contents
+        for(final String each : valid_categories)
+        {
+            // Must be CategoryBase, as each category derives from that.
+            CategoryBase cat = selected_boat_config.get_category(each, CategoryBase.class);
+            System.out.println(cat.offerte_format_str());
         }
     }
 
-    public static ArrayList<String> get_all_offerte_nummers() {
-        ArrayList<String> offerteNummers = new ArrayList<>();
-        for (String offerteNummer : offerte_list.keySet()) {
-            offerteNummers.add(offerteNummer);
-        }
-        return offerteNummers;
-    }
-    public static String gen_offerte_nr()
-    {
+    public static String gen_offerte_nr() {
         lastNumber++;
         return "SF-%d" + lastNumber;
     }
