@@ -46,6 +46,6 @@ public class MotorPart extends CategoryBase {
 
     @Override
     public String toString() {
-        return String.format("Motor | %s | %.2f", this.values, this.price);
+        return String.format("Motor | %s | ", this.values);
     }
 }

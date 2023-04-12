@@ -7,7 +7,6 @@ import entities.klant.CustomerType;
 
 public abstract class OfferteBase {
     private Customer customer;
-    private CustomerType client_type;
     private BoatConfig config;
     private String offerte_date;
     private String expiry_date;
@@ -58,15 +57,5 @@ public abstract class OfferteBase {
     public void set_expiry_date(String expiry_date)
     {
         this.expiry_date = expiry_date;
-    }
-
-    public CustomerType get_client_type()
-    {
-        return client_type;
-    }
-
-    public void set_client_type(CustomerType client_type)
-    {
-        this.client_type = client_type;
     }
 }

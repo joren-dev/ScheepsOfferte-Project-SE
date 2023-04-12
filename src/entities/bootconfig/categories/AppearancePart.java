@@ -56,6 +56,6 @@ public class AppearancePart extends CategoryBase
     @Override
     public String toString()
     {
-        return String.format("Uiterlijk | %s | %.2f", this.values, this.price);
+        return String.format("Uiterlijk | %s | ", this.values);
     }
 }
