@@ -145,23 +145,30 @@ public class BoatManager {
         System.out.println("\nDe huidige opties:");
         loaded_boat_configurations.get(configuration_name).print_all_options();
 
-        // TODO: Make the below code more user-friendly. The exact way to do this might need to be discussed.
-        System.out.println("\nSelecteer welke u wilt behouden:");
+        boolean behouden = InputValidators.request_valid_input(
+                "Wilt u deze opties behouden (j/n)?",
+                String::trim,
+                input -> input.matches("^[jn]$")
+        ).equals("j");
 
-        Map<String, List<String>> chosen_options = new HashMap<>();
-        request_options(chosen_options, new_boat_config);
+        if (!behouden) {
+            System.out.println("\nSelecteer welke u wilt behouden:");
 
-        for (final String optional_category : kOptionalCategories) {
-            if (chosen_options.containsKey(optional_category)) {
-                switch (optional_category) {
-                    case "Uiterlijk":
-                        new_boat_config.add_category("Uiterlijk", new AppearancePart(chosen_options.get("Uiterlijk"), 0.0));
-                        break;
-                    case "Extras":
-                        new_boat_config.add_category("Extras", new ExtrasPart(chosen_options.get("Extras"), 0.0));
-                        break;
-                    default:
-                        throw new RuntimeException("Make sure to keep this up-to-date!");
+            Map<String, List<String>> chosen_options = new HashMap<>();
+            request_options(chosen_options, new_boat_config);
+
+            for (final String optional_category : kOptionalCategories) {
+                if (chosen_options.containsKey(optional_category)) {
+                    switch (optional_category) {
+                        case "Uiterlijk":
+                            new_boat_config.add_category("Uiterlijk", new AppearancePart(chosen_options.get("Uiterlijk"), 0.0));
+                            break;
+                        case "Extras":
+                            new_boat_config.add_category("Extras", new ExtrasPart(chosen_options.get("Extras"), 0.0));
+                            break;
+                        default:
+                            throw new RuntimeException("Make sure to keep this up-to-date!");
+                    }
                 }
             }
         }
