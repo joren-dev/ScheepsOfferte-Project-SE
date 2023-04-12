@@ -191,9 +191,4 @@ public class OfferteManager {
 
         System.out.println("\n");
     }
-
-    public static String gen_offerte_nr() {
-        lastNumber++;
-        return "SF-%d" + lastNumber;
-    }
 }
