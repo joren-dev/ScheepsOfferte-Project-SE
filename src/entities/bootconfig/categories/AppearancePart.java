@@ -6,12 +6,9 @@ import java.util.List;
 
 public class AppearancePart extends CategoryBase
 {
-    double price;
-
     public AppearancePart(final List<String> options, final double price)
     {
-        this.values = options;
-        this.price = price;
+        super(options, price);
     }
 
     @Override
@@ -59,6 +56,6 @@ public class AppearancePart extends CategoryBase
     @Override
     public String toString()
     {
-        return String.format("Uiterlijk: %s %.2f", this.values, this.price);
+        return String.format("Uiterlijk | %s | %.2f", this.values, this.price);
     }
 }

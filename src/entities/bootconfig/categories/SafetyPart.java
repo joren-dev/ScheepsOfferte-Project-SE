@@ -5,12 +5,9 @@ import java.util.List;
 
 
 public class SafetyPart extends CategoryBase {
-    double price;
-
-    public SafetyPart(final List<String> safety_list, final double price)
+    public SafetyPart(final List<String> options, final double price)
     {
-        this.values = safety_list;
-        this.price = price;
+        super(options, price);
     }
 
     @Override
@@ -58,6 +55,6 @@ public class SafetyPart extends CategoryBase {
     @Override
     public String toString()
     {
-        return String.format("Veiligheid: %s %.2f", this.values, this.price);
+        return String.format("Veiligheid | %s | %.2f", this.values, this.price);
     }
 }

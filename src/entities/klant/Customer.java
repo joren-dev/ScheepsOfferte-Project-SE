@@ -1,5 +1,6 @@
 package entities.klant;
 
+
 public class Customer {
 
     public int discount;
@@ -81,4 +82,6 @@ public class Customer {
     public int get_client_discount() {
         return type.get_discount();
     }
+
+
 }

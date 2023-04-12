@@ -1,5 +1,6 @@
 package entities.bootconfig;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +31,10 @@ public class BoatConfig
             category.print_options();
     }
 
+    public ArrayList<String> get_all_categories() {
+        return new ArrayList<>(categories.keySet());
+    }
+
     public String toString()
     {
         final StringBuilder formatted_options = new StringBuilder();
@@ -45,8 +50,8 @@ public class BoatConfig
         categories.put(category_name, category);
     }
 
-    public static CategoryBase get_category(final String category_name)
+    public <T extends CategoryBase> T get_category(final String category_name, Class<T> category_class)
     {
-        return categories.get(category_name);
+        return category_class.cast(categories.get(category_name));
     }
 }

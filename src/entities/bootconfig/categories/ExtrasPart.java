@@ -5,12 +5,9 @@ import java.util.List;
 
 public class ExtrasPart extends CategoryBase
 {
-    double price;
-
-    public ExtrasPart(final List<String> extra_list, final double price)
+    public ExtrasPart(final List<String> options, final double price)
     {
-        this.values = extra_list;
-        this.price = price;
+        super(options, price);
     }
 
     @Override
@@ -58,6 +55,6 @@ public class ExtrasPart extends CategoryBase
     @Override
     public String toString()
     {
-        return String.format("Extras: %s %.2f", this.values, this.price);
+        return String.format("Extras | %s | %.2f", this.values, this.price);
     }
 }

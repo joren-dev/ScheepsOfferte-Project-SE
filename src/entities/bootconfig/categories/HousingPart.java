@@ -5,11 +5,9 @@ import java.util.List;
 
 public class HousingPart extends CategoryBase
 {
-    double price;
-    public HousingPart(final List<String> housing, final double price)
+    public HousingPart(final List<String> options, final double price)
     {
-        this.values = housing;
-        this.price = price;
+        super(options, price);
     }
 
     @Override
@@ -31,32 +29,27 @@ public class HousingPart extends CategoryBase
     }
 
     @Override
-    public void remove(final String option)
-    {
+    public void remove(final String option) {
         this.values.remove(option);
     }
 
     @Override
-    public boolean contains(final String category_option)
-    {
+    public boolean contains(final String category_option) {
         return this.values.contains(category_option);
     }
 
     @Override
-    public void add(final String chosen_option)
-    {
+    public void add(final String chosen_option) {
         this.values.add(chosen_option);
     }
 
     @Override
-    public boolean isEmpty()
-    {
+    public boolean isEmpty() {
         return this.values.isEmpty();
     }
 
     @Override
-    public String toString()
-    {
-        return String.format("Behuizing: %s %.2f", this.values, this.price);
+    public String toString() {
+        return String.format("Behuizing | %s | %.2f", this.values, this.price);
     }
 }
