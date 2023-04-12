@@ -126,7 +126,7 @@ public class OfferteManager {
     public static void show_offerte() {
         System.out.println("\033[1m== Offerte weergeven ==\033[0m");
 
-        for (String offerte_number : offerte_list.keySet())
+        for (final String offerte_number : offerte_list.keySet())
             System.out.println("Offerte nummer: " + offerte_number);
 
         // Get requested instance
@@ -150,10 +150,10 @@ public class OfferteManager {
         System.out.printf("Phone number: %s \n", customer.get_phone_number());
 
         // Grab boat config connected to offerte
-        BoatConfig selected_boat_config = selected_offerte.get_config();
+        final BoatConfig selected_boat_config = selected_offerte.get_config();
 
         // Filter out the categories that weren't instantiated with the boat config
-        ArrayList<String> valid_categories = selected_boat_config.get_all_categories();
+        final ArrayList<String> valid_categories = selected_boat_config.get_all_categories();
 
         // Example: How to do it individually
         // if(valid_categories.contains("Uiterlijk"))
