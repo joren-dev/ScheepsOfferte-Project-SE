@@ -237,7 +237,7 @@ public class OfferteManager {
             offerte_list.replace(offerte_nummer, new_offerte);
         } else {
             // remove old offerte
-            offerte_list.remove(offerte_nummer);
+//            offerte_list.remove(offerte_nummer);
 
             // make a new offerte nummer
             offerte_nummer = InputValidators.request_valid_input("Geef het offerte nummer op (minimaal 1 cijfer): ",
