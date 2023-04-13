@@ -1,6 +1,5 @@
 package entities.klant;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,7 +8,7 @@ class CustomerTypeTest {
 
     // Test om te kijken of het type naam van de klanttype goed in de klanttype wordt gezet
     @Test
-    void testGetTypeName() {
+    void testGetTypeName_ShouldReturnTypeName_WhenCalled() {
         // Arrange
         CustomerType customerType = new CustomerType("CEO", 60);
 
@@ -20,9 +19,9 @@ class CustomerTypeTest {
         assertEquals("CEO", result);
     }
 
-    // Test om te kijken of de aanpassing van de klanttype naam goed wordt aangepast
+    // Test om te kijken 9f de haaj goed gezet wordt
     @Test
-    void testSetTypeName() {
+    void testSetTypeName_ShouldSetTypeName_WhenCalled() {
         // Arrange
         CustomerType customerType = new CustomerType("CEO", 60);
 
@@ -33,9 +32,9 @@ class CustomerTypeTest {
         assertEquals("Sales", customerType.get_type_name());
     }
 
-    // Test om te kijken of de korting die we hebben ingevuld goed wordt meegekregen
+    // Test om te kijken of de korting goed wordt meegekregen
     @Test
-    void testGetDiscount() {
+    void testGetDiscount_ShouldReturnDiscount_WhenCalled() {
         // Arrange
         CustomerType customerType = new CustomerType("CEO", 60);
 
@@ -46,9 +45,9 @@ class CustomerTypeTest {
         assertEquals(60, result);
     }
 
-    // Test om te kijken of de korting die we aanpassen goed wordt aangepast
+    // Test om te kijken of de korting wordt gezet
     @Test
-    void testSetDiscount() {
+    void testSetDiscount_ShouldSetDiscount_WhenCalled() {
         // Arrange
         CustomerType customerType = new CustomerType("CEO", 60);
 
@@ -59,9 +58,9 @@ class CustomerTypeTest {
         assertEquals(20, customerType.get_discount());
     }
 
-    // Test om te kijken of de aanpassing van klanttype naar string-type goed wordt omgezet.
+    // Test om te kijken of de Klantenttype goed wordt gezet
     @Test
-    void testToString() {
+    void testToString_ShouldConvertCustomerTypeToString_WhenCalled() {
         // Arrange
         CustomerType customerType = new CustomerType("CEO", 60);
 
@@ -71,4 +70,5 @@ class CustomerTypeTest {
         // Assert
         assertEquals("Huidige waardes: naam=CEO korting=60", result);
     }
+
 }

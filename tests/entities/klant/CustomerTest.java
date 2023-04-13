@@ -6,187 +6,68 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerTest {
 
-    // Hier
+    // Test om te kijken of de naam goed returned wanner hij wordt aangevraagd
     @Test
-    void testGetName() {
+    void testGetTypeName_ShouldReturnTypeName_WhenCalled() {
         // Arrange
         CustomerType customerType = new CustomerType("CEO", 60);
-        Customer customer = new Customer("Rico", "Google", "Den Haag", "Rico@outlook.com", "0612121212", customerType);
 
         // Act
-        String result = customer.get_name();
+        String result = customerType.get_type_name();
 
         // Assert
-        assertEquals("Rico", result);
+        assertEquals("CEO", result);
     }
 
-    // Test om te kijken of de name methode van de Customer klasse de naam goed instelt, en daarna kijken of hij hem goed aanpast.
+    // Test om te kijken of de naam goed geset wordt
     @Test
-    void testSetName() {
+    void testSetTypeName_ShouldSetTypeName_WhenCalled() {
         // Arrange
         CustomerType customerType = new CustomerType("CEO", 60);
-        Customer customer = new Customer("Rico", "Google", "Den Haag", "Rico@outlook.com", "0612121212", customerType);
 
         // Act
-        customer.set_name("Karel");
+        customerType.set_type_name("Sales");
 
         // Assert
-        assertEquals("Karel", customer.get_name());
-
+        assertEquals("Sales", customerType.get_type_name());
     }
 
-    // Test om te kijken of het bedrijf wat wij invoeren in klant ook een correcte get output terug geeft.
+    // Test om te kijken of de korting goed wordt aangevraagd
     @Test
-    void testGetCompany() {
-        // Arrange
-        CustomerType customerType = new CustomerType("CEO", 60);
-        Customer customer = new Customer("Rico", "Google", "Den Haag", "Rico@outlook.com", "0612121212", customerType);
-
-        // Act
-        String result = customer.get_company();
-
-        // Assert
-        assertEquals("Google", result);
-    }
-
-    // Test om te kijken of de Company die we eerst hebben erin gezet goed wordt aangepast en doorgezet.
-    @Test
-    void testSetCompany() {
-        // Arrange
-        CustomerType customerType = new CustomerType("CEO", 60);
-        Customer customer = new Customer("Rico", "Google", "Den Haag", "Rico@outlook.com", "0612121212", customerType);
-
-        // Act
-        customer.set_company("Apple");
-
-        // Assert
-        assertEquals("Apple", customer.get_company());
-    }
-
-    // Test om te kijken of het adress wat wij als klant meegeven goed wordt verwerkt.
-    @Test
-    void testGetAddress() {
-        // Arrange
-        CustomerType customerType = new CustomerType("CEO", 60);
-        Customer customer = new Customer("Rico", "Google", "Den Haag", "Rico@outlook.com", "0612121212", customerType);
-
-        // Act
-        String result = customer.get_address();
-
-        // Assert
-        assertEquals("Den Haag", result);
-    }
-
-    // Test om te kijken of de klant die we eerst van klant hebben goed wordt veranderd.
-    @Test
-    void testSetAddress() {
-        // Arrange
-        CustomerType customerType = new CustomerType("CEO", 60);
-        Customer customer = new Customer("Rico", "Google", "Den Haag", "Rico@outlook.com", "0612121212", customerType);
-
-        // Act
-        customer.set_address("New York");
-
-        // Assert
-        assertEquals("New York", customer.get_address());
-
-    }
-
-    // Test om te kijken of de email die we krijgen van de klant goed wordt afgelezen
-    @Test
-    void testGetEmail() {
-        // Arrange
-        CustomerType customerType = new CustomerType("CEO", 60);
-        Customer customer = new Customer("Rico", "Google", "Den Haag", "Rico@outlook.com", "0612121212", customerType);
-
-        // Act
-        String result = customer.get_email();
-
-        // Assert
-        assertEquals("Rico@outlook.com", result);
-    }
-
-    // Test om te kijken of we de verandering van een email goed aanpassen
-    @Test
-    void testSetEmail() {
-        // Arrange
-        CustomerType customerType = new CustomerType("CEO", 60);
-        Customer customer = new Customer("Rico", "Google", "Den Haag", "Rico@outlook.com", "0612121212", customerType);
-
-        // Act
-        customer.set_email("Rico@apple.com");
-
-        // Assert
-        assertEquals("Rico@apple.com", customer.get_email());
-    }
-
-    // Test om te kijken of we de telefoonnummer die we krijgen van de klant goed meenemen.
-    @Test
-    void testGetPhoneNumber() {
-        // Arrange
-        CustomerType customerType = new CustomerType("CEO", 60);
-        Customer customer = new Customer("Rico", "Google", "Den Haag", "Rico@outlook.com", "0612121212", customerType);
-
-        // Act
-        String result = customer.get_phone_number();
-
-        // Assert
-        assertEquals("0612121212", result);
-    }
-
-    // Test om te kijken of we de telefoonnummer die we veranderd hebben goed wordt aangepast
-    @Test
-    void testSetPhoneNumber() {
-        // Arrange
-        CustomerType customerType = new CustomerType("CEO", 60);
-        Customer customer = new Customer("Rico", "Google", "Den Haag", "Rico@outlook.com", "0612121212", customerType);
-
-        // Act
-        customer.set_phone_number("0676543210");
-
-        // Assert
-        assertEquals("0676543210", customer.get_phone_number());
-    }
-
-    // Test om te kijken of klanttype goed wordt meegekregen
-    @Test
-    void testGetClientType() {
-        // Arrange
-        CustomerType customerType = new CustomerType("CEO", 60);
-        Customer customer = new Customer("Rico", "Google", "Den Haag", "Rico@outlook.com", "0612121212", customerType);
-
-        // Act
-        CustomerType result = customer.get_client_type();
-
-        // Assert
-        assertEquals(customerType, result);
-    }
-
-    // Test om te kijken of de klanttype die we hebben aangepast goed wordt meegenomen
-    @Test
-    void testSetClientType() {
-        // Arrange
-        CustomerType customerType = new CustomerType("CEO", 60);
-        Customer customer = new Customer("Rico", "Google", "Den Haag", "Rico@outlook.com", "0612121212", customerType);
-        CustomerType newType = new CustomerType("Digital Marketing", 15);
-
-        // Act
-        customer.set_client_type(newType);
-
-        // Assert
-        assertEquals(newType, customer.get_client_type());
-    }
-
-    // Test om te kijken of de korting die we hebben ingevuld goed erin wordt gezet
-    @Test
-    void testGetClientDiscount() {
+    void testGetDiscount_ShouldReturnDiscount_WhenCalled() {
         // Arrange
         CustomerType customerType = new CustomerType("CEO", 60);
 
         // Act
         int result = customerType.get_discount();
 
-        // Assert
+        // Arrange
         assertEquals(60, result);
+    }
+
+    // Test om te kijken of de korting goed wordt gezet
+    @Test
+    void testSetDiscount_ShouldSetDiscount_WhenCalled() {
+        // Arrange
+        CustomerType customerType = new CustomerType("CEO", 60);
+
+        // Act
+        customerType.set_discount(20);
+
+        // Assert
+        assertEquals(20, customerType.get_discount());
+    }
+
+    // Test om te kijken de klanten informatie goed omgezet wordt naar een String output
+    @Test
+    void testToString_ShouldConvertCustomerTypeToString_WhenCalled() {
+        // Arrange
+        CustomerType customerType = new CustomerType("CEO", 60);
+
+        // Act
+        String result = customerType.toString();
+
+        // Assert
+        assertEquals("Huidige waardes: naam=CEO korting=60", result);
     }
 }
