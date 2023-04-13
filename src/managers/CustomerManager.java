@@ -14,11 +14,11 @@ public class CustomerManager {
     // Class members
     public static ArrayList<CustomerType> loaded_client_types = new ArrayList<>();
 
-    public CustomerManager() {
-        // TODO: Add default client types
-        // add_client_type("Overheid klant", 4);
-        // add_client_type("Zakelijke klant", 2);
-        // add_client_type("Particuliere klant", 0);
+    public CustomerManager()
+    {
+        loaded_client_types.add(new CustomerType("Overheid klant", 12));
+        loaded_client_types.add(new CustomerType("Zakelijke klant", 10));
+        loaded_client_types.add(new CustomerType("Particuliere klant", 0));
     }
 
     public static void add_client_type() {

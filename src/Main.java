@@ -13,8 +13,8 @@ public class Main {
 
         // Initialize managers
         MenuManager menu_manager = new MenuManager();
-        CustomerManager client_manager = new CustomerManager();
         OfferteManager offerte_manager = new OfferteManager();
+        CustomerManager customer_manager = new CustomerManager();
 
         // Add menu items here...
         menu_manager.add_menu("Beheer Klanttype(s)", new CustomerTypeMenu());
