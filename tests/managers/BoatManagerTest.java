@@ -3,39 +3,25 @@ package managers;
 import entities.bootconfig.BoatConfig;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class BoatManagerTest {
-
-    @Test
-    void testPrintLoadedConfigs_ShouldPrintLoadedConfigs_WhenCalled() {
-    }
-
-    @Test
-    void testAddBoatConfig_ShouldAddBoatConfig_WhenCalled() {
-    }
-
-    @Test
-    void testChangeBoatConfig_ShouldChangeBoatConfig_WhenCalled() {
-    }
-
-    @Test
-    void testRemoveBoatConfig_ShouldRemoveBoatConfig_WhenCalled() {
-    }
-
     // Test om te kijken of de boot configuratie goed wordt meegekregen
     @Test
-    void testContainsBoatConfig_ShouldReturnTrueIfBoatConfigExists_WhenCalled() {
+    void test_contains_boat_config_should_return_true_if_boat_config_exists_when_called() {
         // Arrange
         BoatConfig config = new BoatConfig("Speedboat", "Speedboat");
         BoatManager.loaded_boat_configurations.put("Speedboat", config);
 
         // Act
-        boolean result1 = BoatManager.contains_boat_config("Speedboat");
-        boolean result2 = BoatManager.contains_boat_config("Niet bestaande configuratie");
+        final boolean result1 = BoatManager.contains_boat_config("Speedboat");
+        final boolean result2 = BoatManager.contains_boat_config("Niet bestaande configuratie");
 
         // Assert
         assertTrue(result1);
@@ -44,7 +30,7 @@ class BoatManagerTest {
 
     // Test om te kijken of alle boot configuraties worden neergezet
     @Test
-    void testGetAllBoatConfigs_ShouldReturnAllBoatConfigs_WhenCalled() {
+    void test_get_all_boat_configs_should_return_all_boat_configs_when_called() {
         // Arrange
         BoatManager.loaded_boat_configurations = new HashMap<>();
         BoatConfig speedboat = new BoatConfig("Speedboat", "Speedboat");
@@ -67,7 +53,7 @@ class BoatManagerTest {
 
     // Test om te kijken of de config die we willen opvragen goed wordt opgevraagd
     @Test
-    void testGetConfig_ShouldReturnNullIfBoatConfigNotFound_WhenCalled() {
+    void test_get_config_should_return_null_if_boat_config_not_found_when_called() {
         // Arrange
         BoatManager boatmanager = new BoatManager();
 
