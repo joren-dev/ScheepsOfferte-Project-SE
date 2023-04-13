@@ -33,13 +33,14 @@ public class CustomerManager {
             return;
         }
 
-        final String discount = InputValidators.request_valid_input(
+        final int discount = InputValidators.request_valid_choice_in_range(
                 "Vul in een (valide) procent korting voor dit klanttype (0-100): ",
-                String::trim,
-                input -> input.matches("^[0-9]{1,2}$")
+                Integer::parseInt,
+                0,
+                100
         );
 
-        loaded_client_types.add(new CustomerType(client_type_name.toLowerCase(), Integer.parseInt(discount)));
+        loaded_client_types.add(new CustomerType(client_type_name.toLowerCase(), discount));
     }
 
     public static void delete_client_type()
@@ -102,7 +103,7 @@ public class CustomerManager {
                         "Nieuwe klanttype korting (0-100): ",
                         Integer::parseInt,
                         0,
-                        101); // TODO: Double check condition to see why this fails
+                        100);
 
                 CustomerType client_type = optional_client_type.get();
                 client_type.set_type_name(new_client_type_name);
