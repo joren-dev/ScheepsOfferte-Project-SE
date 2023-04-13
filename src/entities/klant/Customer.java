@@ -17,7 +17,6 @@ public class Customer {
         this.email = email;
         this.phone_number = phone_number;
         this.customer_type = customer_type;
-
     }
 
     public Customer(final String name, final String address, final String email, final String phone_number,

@@ -24,19 +24,9 @@ public abstract class OfferteBase {
         return customer;
     }
 
-    public void set_client(Customer customer) {
-
-        this.customer = customer;
-    }
-
     public BoatConfig get_config()
     {
         return config;
-    }
-
-    public void set_config(BoatConfig config)
-    {
-        this.config = config;
     }
 
     public String get_offerte_date()

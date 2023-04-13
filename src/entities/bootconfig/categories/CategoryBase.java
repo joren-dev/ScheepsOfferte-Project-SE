@@ -14,16 +14,10 @@ public abstract class CategoryBase {
         this.price = price;
     }
 
-    public abstract String get_price();
-
     public void print_options()
     {
         System.out.println(this.values);
     }
-
-    public abstract ArrayList<String> get_values();
-
-    public abstract int get_option_amount();
 
     public abstract void remove(final String option);
 

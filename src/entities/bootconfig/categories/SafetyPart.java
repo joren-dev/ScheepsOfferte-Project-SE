@@ -11,24 +11,6 @@ public class SafetyPart extends CategoryBase {
     }
 
     @Override
-    public String get_price()
-    {
-        return String.valueOf(this.price);
-    }
-
-    @Override
-    public ArrayList<String> get_values()
-    {
-        return (ArrayList<String>) this.values;
-    }
-
-    @Override
-    public int get_option_amount()
-    {
-        return this.values.size();
-    }
-
-    @Override
     public void remove(String option)
     {
         this.values.remove(option);
