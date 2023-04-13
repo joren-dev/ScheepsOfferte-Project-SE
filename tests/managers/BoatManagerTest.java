@@ -39,9 +39,9 @@ class BoatManagerTest {
         BoatManager.loaded_boat_configurations.put("Yacht", yacht);
 
         // Act
-        Map<String, BoatConfig> result = BoatManager.get_all_boat_configs();
+        final Map<String, BoatConfig> result = BoatManager.get_all_boat_configs();
 
-        Map<String, BoatConfig> expected = new HashMap<>();
+        final Map<String, BoatConfig> expected = new HashMap<>();
         expected.put("Speedboat", speedboat);
         expected.put("Yacht", yacht);
 
@@ -55,10 +55,10 @@ class BoatManagerTest {
     @Test
     void test_get_config_should_return_null_if_boat_config_not_found_when_called() {
         // Arrange
-        BoatManager boatmanager = new BoatManager();
+        final BoatManager boatmanager = new BoatManager();
 
         // Act
-        BoatConfig result = boatmanager.get_config("non existent");
+        final BoatConfig result = boatmanager.get_config("non existent");
 
         // Assert
         assertEquals(null, result);

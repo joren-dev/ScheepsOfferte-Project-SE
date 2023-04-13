@@ -10,7 +10,7 @@ class CustomerTest {
     @Test
     void test_get_type_name_should_return_type_name_when_called() {
         // Arrange
-        CustomerType customerType = new CustomerType("CEO", 60);
+        final CustomerType customerType = new CustomerType("CEO", 60);
 
         // Act
         final String result = customerType.get_type_name();
@@ -23,7 +23,7 @@ class CustomerTest {
     @Test
     void test_set_type_name_should_set_type_name_when_called() {
         // Arrange
-        CustomerType customerType = new CustomerType("CEO", 60);
+        final CustomerType customerType = new CustomerType("CEO", 60);
 
         // Act
         customerType.set_type_name("Sales");
@@ -36,7 +36,7 @@ class CustomerTest {
     @Test
     void test_get_discount_should_return_discount_when_called() {
         // Arrange
-        CustomerType customerType = new CustomerType("CEO", 60);
+        final CustomerType customerType = new CustomerType("CEO", 60);
 
         // Act
         final int result = customerType.get_discount();
@@ -49,7 +49,7 @@ class CustomerTest {
     @Test
     void test_set_discount_should_set_discount_when_called() {
         // Arrange
-        CustomerType customerType = new CustomerType("CEO", 60);
+        final CustomerType customerType = new CustomerType("CEO", 60);
 
         // Act
         customerType.set_discount(20);
@@ -62,7 +62,7 @@ class CustomerTest {
     @Test
     void test_to_string_should_convert_customer_type_to_string_when_called() {
         // Arrange
-        CustomerType customerType = new CustomerType("CEO", 60);
+        final CustomerType customerType = new CustomerType("CEO", 60);
 
         // Act
         final String result = customerType.toString();

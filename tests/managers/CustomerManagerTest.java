@@ -13,8 +13,8 @@ class CustomerManagerTest {
     @Test
     void get_all_client_types_test_should_return_correct_list_of_types_when_called() {
         // Arrange
-        ArrayList<CustomerType> client_types_list = new ArrayList<>();
-        CustomerManager customerManager = new CustomerManager();
+        final ArrayList<CustomerType> client_types_list = new ArrayList<>();
+        final CustomerManager customerManager = new CustomerManager();
 
         // Act
         final ArrayList<CustomerType> result = customerManager.get_all_client_types();
@@ -27,22 +27,13 @@ class CustomerManagerTest {
     @Test
     void test_get_all_client_types_should_return_correct_list_of_types_when_called() {
         // Arrange
-        ArrayList<CustomerType> expected = new ArrayList<>();
-        CustomerManager customerManager = new CustomerManager();
+        final ArrayList<CustomerType> expected = new ArrayList<>();
+        final CustomerManager customerManager = new CustomerManager();
 
         // Act
         final ArrayList<CustomerType> result = customerManager.get_all_client_types();
 
         // Assert
         assertIterableEquals(expected, result);
-    }
-
-    // Define a custom subclass of CustomerManager for testing purposes
-    static class TestCustomerManager extends CustomerManager {
-        TestCustomerManager() {
-            // Set the loaded_client_types field directly
-            loaded_client_types = new ArrayList<>();
-            loaded_client_types.add(new CustomerType("SomeClientType",20));
-        }
     }
 }

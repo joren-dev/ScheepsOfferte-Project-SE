@@ -15,7 +15,7 @@ class AppearancePartTest {
         @Test
         void test_get_price_returns_correct_str() {
             // Arrange
-            AppearancePart appearancePart = new AppearancePart(List.of("Biologische verf"), 20.0);
+            final AppearancePart appearancePart = new AppearancePart(List.of("Biologische verf"), 20.0);
 
             // Act
             final String result = appearancePart.get_price();
@@ -28,7 +28,7 @@ class AppearancePartTest {
         @Test
         void test_getValues_returns_valid_and_correct_list() {
             // Arrange
-            AppearancePart appearancePart = new AppearancePart(List.of("Biologische verf"), 20.0);
+            final AppearancePart appearancePart = new AppearancePart(List.of("Biologische verf"), 20.0);
 
             // Act
             final ArrayList<String> result = appearancePart.get_values();
@@ -41,7 +41,7 @@ class AppearancePartTest {
         @Test
         void test_contains_returns_correct_containing() {
             // Arrange
-            AppearancePart appearancePart = new AppearancePart(List.of("Biologische verf"), 20.0);
+            final AppearancePart appearancePart = new AppearancePart(List.of("Biologische verf"), 20.0);
 
             // Act
             final boolean first = appearancePart.contains("Uiterlijk");
@@ -56,8 +56,8 @@ class AppearancePartTest {
         @Test
         void test_is_empty_returns_correct_value() {
             // Arrange
-            AppearancePart appearancePart1 = new AppearancePart(List.of("Biologische verf"), 20.0);
-            AppearancePart appearancePart2 = new AppearancePart(List.of(), 0.0);
+            final AppearancePart appearancePart1 = new AppearancePart(List.of("Biologische verf"), 20.0);
+            final AppearancePart appearancePart2 = new AppearancePart(List.of(), 0.0);
 
             // Act
             final boolean result1 = appearancePart1.isEmpty();
