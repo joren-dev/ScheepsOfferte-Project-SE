@@ -8,10 +8,8 @@ import entities.klant.CustomerType;
 import entities.offerte.BasicOfferte;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.function.Function;
 
 import entities.offerte.OfferteBase;
@@ -96,8 +94,9 @@ public class OfferteManager {
         selected_boot_config.set_prices_per_category(category_prices);
 
         // Calculate expiry date
-        final String offerte_date = LocalDateTime.now().toString();
-        final String verval_date = LocalDateTime.now().plusDays(days_till_expiry).toString();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM, yyyy", Locale.forLanguageTag("nl-NL"));
+        final String offerte_date = LocalDateTime.now().format(formatter);
+        final String verval_date = LocalDateTime.now().plusDays(days_till_expiry).format(formatter);
 
         final Customer customer = new Customer(client_name, client_address, client_email,
                 client_phone_number, selected_klant_type
@@ -117,19 +116,31 @@ public class OfferteManager {
     public static void delete_offerte() {
         System.out.println("\033[1m== Offerte verwijderen ==\033[0m");
 
+        if (offerte_list.isEmpty()) {
+            System.out.println("U heeft geen offertes om te verwijderen.\n");
+            return;
+        }
+
         for (String offerte_number : offerte_list.keySet())
             System.out.println("Offerte nummer: " + offerte_number);
 
         final String offerte_nummer = InputValidators.request_valid_input(
-                "Vul in het (valide) offerte nummer die u wilt weergeven (digits only): ",
+                "Vul in het (valide) offerte nummer die u wilt verwijderen (digits only): ",
                 Function.identity(), offerte_list::containsKey
         );
 
         offerte_list.remove(offerte_nummer);
+
+        System.out.println("Offerte " + offerte_nummer + " succesvol verwijderd.");
     }
 
     public static void show_offerte() {
         System.out.println("\n\033[1m== Offerte weergeven ==\033[0m");
+
+        if (offerte_list.isEmpty()) {
+            System.out.println("U heeft geen offertes om weer te geven.\n");
+            return;
+        }
 
         for (final String offerte_number : offerte_list.keySet())
             System.out.println("Offerte nummer: " + offerte_number);
@@ -146,43 +157,60 @@ public class OfferteManager {
         // Pull out the customer connected to offerte
         final Customer customer = selected_offerte.get_customer();
 
+        // Grab boat config connected to offerte
+        final BoatConfig selected_boat_config = selected_offerte.get_config();
 
         // Print basic offerte details
-        System.out.println("\n\033[1m== Offerte voor ==\033[0m");
+        System.out.println("\n\033[1m== Offerte voor " + selected_boat_config.get_boat_name() + " ==\033[0m");
         System.out.println("| T.a.v " + customer.get_name());
         System.out.printf("| %s", customer.get_address());
         System.out.println("\n| Email: " + customer.get_email());
+        System.out.println("| Offerte datum: " + selected_offerte.get_offerte_date());
+        System.out.println("| Offerte verval datum: " + selected_offerte.get_expiry_date());
         System.out.printf("| Phone number: %s \n\n", customer.get_phone_number());
 
 
         System.out.println("Geachte " + customer.get_name() + ",");
-        System.out.println("Hartelijk dank voor uw interesse in onze diensten/producten. Wij zijn verheugd om u een offerte aan te bieden voor uw boot configuratie.");
+        System.out.println("Hartelijk dank voor uw interesse in onze dienst(en)/product(en). Wij zijn verheugd om u een offerte aan te bieden voor uw boot configuratie.");
 
 
         System.out.println("\n\033[1mOfferte nummer: \033[0m " + offerte_nummer);
+        System.out.println("\n\033[1mBoot type: \033[0m " + selected_boat_config.get_boat_type());
         System.out.println("=================================================");
-        // Grab boat config connected to offerte
-        final BoatConfig selected_boat_config = selected_offerte.get_config();
+
 
         // Filter out the categories that weren't instantiated with the boat config
         final ArrayList<String> valid_categories = selected_boat_config.get_all_categories();
 
         // Calls each valid category and prints its contents
+        double gross_total_price = 0.0;
         for (final String each : valid_categories) {
             // Must be CategoryBase, as each category derives from that.
             CategoryBase cat = selected_boat_config.get_category(each, CategoryBase.class);
             System.out.println(cat.offerte_format_str() + "€" + selected_boat_config.prices_per_category.get(each));
+
+            gross_total_price += selected_boat_config.prices_per_category.get(each);
         }
 
+        // After environment discount (10%)
+        double after_environ_discount = gross_total_price * (1 - 0.1);
+
+        // After environment and customer discount
+        double customer_discount = customer.get_client_discount() / 100.0; // Convert percentage to decimal
+        double after_environ_and_customer_discount = after_environ_discount * (1 - customer_discount);
+
+        // Total price (including VAT)
+        double total_price = after_environ_and_customer_discount * 1.21;
+
+
         System.out.println("=================================================");
-        System.out.println("Totaal zonder milieukorting: €(prijs)");
-        System.out.println("Totaal na milieukorting excl. btw: €(prijs)");
+        System.out.println("Totaal zonder kortingen: €" + String.format("%.2f", gross_total_price));
+        System.out.println("Totaal na milieukorting (10%) excl. btw: €" + String.format("%.2f", after_environ_discount));
+        System.out.println("Totaal na milieukorting en klant korting (a.i.) excl. btw: €" + String.format("%.2f", after_environ_and_customer_discount));
         System.out.println("===================");
-        System.out.println("     Totaal (incl. 21% btw en korting aftrek): €(prijs)");
+        System.out.println("     Totaal (incl. 21% btw en korting aftrek): €" + String.format("%.2f", total_price));
 
-        System.out.println("\nDe bovenstaande prijzen zijn geldig tot." + selected_offerte.get_expiry_date());
-
-        System.out.println("\nWij hopen u zo goed mogelijk geinformeerd te hebben en kijken uit naar de samenwerking met u.");
+        System.out.println("\n\nWij hopen u zo goed mogelijk geïnformeerd te hebben en kijken uit naar de samenwerking met u.");
         System.out.println("\nMet vriendelijke groet,");
         System.out.println("ShipFlex Bv.");
         System.out.println("079-19040126");

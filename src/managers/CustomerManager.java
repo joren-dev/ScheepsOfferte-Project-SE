@@ -28,18 +28,16 @@ public class CustomerManager {
                 ValidationUtils::is_valid_full_name
         );
 
+        if (loaded_client_types.stream().anyMatch(c -> c.get_type_name().equals(client_type_name))) {
+            System.out.println("Deze klanttype bestaat al.");
+            return;
+        }
+
         final String discount = InputValidators.request_valid_input(
                 "Vul in een (valide) procent korting voor dit klanttype (0-100): ",
                 String::trim,
                 input -> input.matches("^[0-9]{1,2}$")
         );
-
-        for (final CustomerType each : loaded_client_types) {
-            if (each.get_type_name().equals(client_type_name)) {
-                System.out.println("Deze klanttype bestaat al.");
-                return;
-            }
-        }
 
         loaded_client_types.add(new CustomerType(client_type_name.toLowerCase(), Integer.parseInt(discount)));
     }

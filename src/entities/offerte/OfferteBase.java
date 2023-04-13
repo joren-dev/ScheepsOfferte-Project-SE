@@ -44,18 +44,8 @@ public abstract class OfferteBase {
         return offerte_date;
     }
 
-    public void set_offerte_date(String offerte_date)
-    {
-        this.offerte_date = offerte_date;
-    }
-
     public String get_expiry_date()
     {
         return expiry_date;
-    }
-
-    public void set_expiry_date(String expiry_date)
-    {
-        this.expiry_date = expiry_date;
     }
 }
