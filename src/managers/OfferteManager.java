@@ -7,6 +7,7 @@ import entities.klant.CustomerType;
 
 import entities.offerte.BasicOfferte;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -15,6 +16,9 @@ import java.util.function.Function;
 import entities.offerte.OfferteBase;
 import utils.InputValidators;
 import utils.ValidationUtils;
+
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class OfferteManager {
     public static Map<String, BasicOfferte> offerte_list = new HashMap<>();
@@ -218,5 +222,43 @@ public class OfferteManager {
         System.out.println("Iban: NL83INGB0845370391");
 
         System.out.println("\n");
+
+        String input_add_option = InputValidators.request_valid_input("Wil je de offerte exporteren? (j/n): ",
+                input -> input.trim().toLowerCase(),
+                input -> input.equals("j") || input.equals("n"));
+
+        if (input_add_option.equals("j"))
+            export_offerte(selected_offerte, offerte_nummer);
+
+    }
+
+    static void export_offerte(final OfferteBase offerte, final String offerte_number) {
+        final String currentDir = System.getProperty("user.dir");
+        final File dir = new File(currentDir + "/saves/offertes");
+
+        System.out.println("Current directory is: " + dir);
+
+        // check if directory already exists
+        if (!dir.exists()) {
+            try {
+                // create directory if it does not exist
+                dir.mkdirs();
+                System.out.println("Directories created.");
+            } catch (Exception e) {
+                System.err.println("Error creating directories: " + e.getMessage());
+            }
+        }
+
+        try {
+            FileWriter writer = new FileWriter(dir + "/" + offerte_number + ".txt");
+            writer.write("Hello, world!");
+            writer.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file.");
+            e.printStackTrace();
+        }
     }
 }
+
+
