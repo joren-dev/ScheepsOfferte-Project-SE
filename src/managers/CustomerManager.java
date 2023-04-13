@@ -60,7 +60,7 @@ public class CustomerManager {
             );
 
             Optional<CustomerType> optionalClientType = loaded_client_types.stream()
-                    .filter(client -> client.get_type_name().equalsIgnoreCase(type_name))
+                    .filter(client -> client.get_type_name().equals(type_name))
                     .findFirst();
 
             if (optionalClientType.isPresent()) {
@@ -90,7 +90,7 @@ public class CustomerManager {
             );
 
             Optional<CustomerType> optional_client_type = CustomerManager.loaded_client_types.stream()
-                    .filter(client_type -> client_type.get_type_name().equalsIgnoreCase(client_type_name))
+                    .filter(client_type -> client_type.get_type_name().equals(client_type_name))
                     .findFirst();
 
             if (optional_client_type.isPresent()) {
