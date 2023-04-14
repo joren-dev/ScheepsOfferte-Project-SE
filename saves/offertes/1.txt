@@ -1,1 +1,30 @@
-Hello, world!
+
+[1m== Offerte voor a ==[0m
+| T.a.v a
+| aa 11, 1111aa, d a
+| Email: n@g.nl
+| Offerte datum: 14 april, 2023
+| Offerte verval datum: 24 april, 2023
+| Phone number: 010011010
+
+Geachte a,
+Hartelijk dank voor uw interesse in onze dienst(en)/product(en). Wij zijn verheugd om u een offerte aan te bieden voor uw boot configuratie.
+
+[1mOfferte nummer: [0m 1
+[1mBoot type: [0m a
+=================================================
+=================================================
+Totaal zonder kortingen: €3,00
+Totaal na milieukorting (10%) excl. btw: €2,70
+Totaal na milieukorting en klant korting (a.i.) excl. btw: €2,38
+===================
+     Totaal (incl. 21% btw en korting aftrek): €2,87
+
+Wij hopen u zo goed mogelijk geïnformeerd te hebben en kijken uit naar de samenwerking met u.
+
+Met vriendelijke groet,
+ShipFlex Bv.
+079-19040126
+Kvk: 08234771
+Iban: NL83INGB0845370391
+

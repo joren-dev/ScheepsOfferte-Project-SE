@@ -226,18 +226,45 @@ public class OfferteManager {
         String input_add_option = InputValidators.request_valid_input("Wil je de offerte exporteren? (j/n): ",
                 input -> input.trim().toLowerCase(),
                 input -> input.equals("j") || input.equals("n"));
+        String export_offerte_test = "";
 
         if (input_add_option.equals("j"))
-            export_offerte(selected_offerte, offerte_nummer);
-
+            export_offerte_test = "\n\033== Offerte voor " + selected_boat_config.get_boat_name() + " ==\033\n"
+                    + "| T.a.v " + customer.get_name() + "\n"
+                    + "| " + customer.get_address() + "\n"
+                    + "| Email: " + customer.get_email() + "\n"
+                    + "| Offerte datum: " + selected_offerte.get_offerte_date() + "\n"
+                    + "| Offerte verval datum: " + selected_offerte.get_expiry_date() + "\n"
+                    + "| Phone number: " + customer.get_phone_number() + "\n\n"
+                    + "Geachte " + customer.get_name() + ",\n"
+                    + "Hartelijk dank voor uw interesse in onze dienst(en)/product(en). Wij zijn verheugd om u een offerte aan te bieden voor uw boot configuratie.\n\n"
+                    + "\033Offerte nummer: \033 " + offerte_nummer + "\n"
+                    + "\033Boot type: \033 " + selected_boat_config.get_boat_type() + "\n"
+                    + "=================================================\n"
+                    + "=================================================\n"
+                    + "Totaal zonder kortingen: €" + String.format("%.2f", gross_total_price) + "\n"
+                    + "Totaal na milieukorting (10%) excl. btw: €" + String.format("%.2f", after_environ_discount) + "\n"
+                    + "Totaal na milieukorting en klant korting (a.i.) excl. btw: €" + String.format("%.2f", after_environ_and_customer_discount) + "\n"
+                    + "===================\n"
+                    + "     Totaal (incl. 21% btw en korting aftrek): €" + String.format("%.2f", total_price) + "\n\n"
+                    + "Wij hopen u zo goed mogelijk geïnformeerd te hebben en kijken uit naar de samenwerking met u.\n"
+                    + "\nMet vriendelijke groet,\n"
+                    + "ShipFlex Bv.\n"
+                    + "079-19040126\n"
+                    + "Kvk: 08234771\n"
+                    + "Iban: NL83INGB0845370391\n\n";
+            export_offerte(selected_offerte, offerte_nummer, export_offerte_test);
     }
 
-    static void export_offerte(final OfferteBase offerte, final String offerte_number) {
+
+    static void export_offerte(final OfferteBase offerte, final String offerte_number, final String export_offerte_test) {
         final String currentDir = System.getProperty("user.dir");
         final File dir = new File(currentDir + "/saves/offertes");
 
         System.out.println("Current directory is: " + dir);
-
+        String rawString = "\nThis is a " +
+                "\nmulti-line " +
+                "raw string";
         // check if directory already exists
         if (!dir.exists()) {
             try {
@@ -251,7 +278,7 @@ public class OfferteManager {
 
         try {
             FileWriter writer = new FileWriter(dir + "/" + offerte_number + ".txt");
-            writer.write("Hello, world!");
+            writer.write(export_offerte_test);
             writer.close();
             System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
