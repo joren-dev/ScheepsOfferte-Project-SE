@@ -116,93 +116,30 @@ public class OfferteManager {
 
         System.out.println("\033[1m== Offerte aanpassen ==\033[0m");
 
+        // Print all the offertes on the screen
         for (final String key : offerte_list.keySet())
             System.out.printf("- %s%n", key);
 
+        // Pick the offerte you want to change
         String offerte_nummer = InputValidators.request_valid_input("Kies een (valide) offerte die u wilt wijzigen: ",
                 input -> input,
                 input -> !input.isEmpty() && contains_offerte(input));
 
-        System.out.printf("Uw klant: %s%n", offerte_list.get(offerte_nummer).get_customer().get_name());
-        System.out.print("Wilt u de klant aanpassen? (j/n) ");
+        // Moved the selected offerte to its own variable so we dont have to call the get function every time
+        BasicOfferte old_offerte = offerte_list.get(offerte_nummer);
+        BoatConfig boat_config = old_offerte.get_config();
 
-        Customer customer;
-        if (scanner.nextLine().equals("n")) {
-            customer = offerte_list.get(offerte_nummer).get_customer();
-        } else {
-            System.out.printf("Uw klant naam is: %s%n", offerte_list.get(offerte_nummer).get_customer().get_name());
-            System.out.print("Wilt u de klant naam aanpassen? (j/n) ");
+        // Split the code to edit the customer to a separate function for readability
+        Customer customer = edit_customer(scanner, old_offerte);
 
-            String client_name;
-            if (scanner.nextLine().equals("n")) {
-                client_name = offerte_list.get(offerte_nummer).get_customer().get_name();
-            } else {
-                client_name = InputValidators.request_valid_input("Wat is de naam van de klant? (a-Z): ",
-                        String::toLowerCase, ValidationUtils::is_valid_full_name);
-            }
-
-            System.out.printf("Uw klant adres is: %s%n", offerte_list.get(offerte_nummer).get_customer().get_address());
-            System.out.print("Wilt u het klant adres aanpassen? (j/n) ");
-
-            String client_address;
-            if (scanner.nextLine().equals("n")) {
-                client_address = offerte_list.get(offerte_nummer).get_customer().get_address();
-            } else {
-                client_address = InputValidators.request_valid_input("Wat is het adres van de klant? (Straat 23, postcode, stad/dorp): ",
-                        String::toLowerCase, ValidationUtils::is_valid_address);
-            }
-
-            System.out.printf("Uw klant email is: %s%n", offerte_list.get(offerte_nummer).get_customer().get_email());
-            System.out.print("Wilt u de klant email aanpassen? (j/n) ");
-
-            String client_email;
-            if (scanner.nextLine().equals("n")) {
-                client_email = offerte_list.get(offerte_nummer).get_customer().get_email();
-            } else {
-                client_email = InputValidators.request_valid_input("Wat is de email van de klant? (example@email.com): ",
-                        String::toLowerCase, ValidationUtils::is_valid_email);
-            }
-
-            System.out.printf("Uw klant telefoon nummer is: %s%n", offerte_list.get(offerte_nummer).get_customer().get_phone_number());
-            System.out.print("Wilt u het klant telefoon nummer aanpassen? (j/n) ");
-
-            String client_phone_number;
-            if (scanner.nextLine().equals("n")) {
-                client_phone_number = offerte_list.get(offerte_nummer).get_customer().get_phone_number();
-            } else {
-                client_phone_number = InputValidators.request_valid_input("Wat is het telefoonnummer van de klant? (tussen 8-10 digits): ",
-                        Function.identity(), ValidationUtils::is_valid_phone_number);
-            }
-
-            CustomerManager.print_client_types();
-
-            System.out.printf("Uw klant type is: %s%n", offerte_list.get(offerte_nummer).get_customer().get_client_type().get_type_name());
-            System.out.print("Wilt u het klant type aanpassen? (j/n) ");
-
-            CustomerType client_type;
-            if (scanner.nextLine().equals("n")) {
-                client_type = offerte_list.get(offerte_nummer).get_customer().get_client_type();
-            } else {
-                CustomerManager.print_client_types();
-
-                final String client_type_choice = InputValidators.request_valid_input(
-                        "Selecteer een klant type: ",
-                        Function.identity(),
-                        CustomerManager::contains_client_type);
-
-                client_type = CustomerManager.get_client_type(client_type_choice);
-            }
-
-            customer = new Customer(client_name, client_address, client_email, client_phone_number, client_type);
-        }
-
-        System.out.printf("Uw offerte datum: %s%n", offerte_list.get(offerte_nummer).get_offerte_date());
+        // Get the offerte date from the old offerte, reuse it in the prompt and use it as the new date if the
+        // user does not wish to edit the value
+        String offerte_date = old_offerte.get_offerte_date();
+        System.out.printf("Uw offerte datum: %s%n", offerte_date);
         System.out.print("Wilt u de offerte datum aanpassen? (j/n) ");
 
-        String offerte_date;
-        if (scanner.nextLine().equals("n")) {
-            offerte_date = offerte_list.get(offerte_nummer).get_offerte_date();
-        } else {
+        // Reversed the check, so I could remove the else from the if statement
+        if (scanner.nextLine().equals("j")) {
             final int days_till_start = InputValidators.request_valid_input("Wanneer begint de offerte (dagen, 0 is vandaag): ",
                     Integer::parseInt,
                     days -> days >= 0);
@@ -211,13 +148,12 @@ public class OfferteManager {
             offerte_date = LocalDateTime.now().plusDays(days_till_start).toString();
         }
 
-        System.out.printf("Uw offerte datum: %s%n", offerte_list.get(offerte_nummer).get_expiry_date());
-        System.out.print("Wilt u de offerte datum aanpassen? (j/n) ");
+        String offerte_expiry = old_offerte.get_expiry_date();
+        System.out.printf("Uw offerte datum: %s%n", offerte_expiry);
+        System.out.print("Wilt u de offerte verval datum aanpassen? (j/n) ");
 
-        String offerte_expiry;
-        if (scanner.nextLine().equals("n")) {
-            offerte_expiry = offerte_list.get(offerte_nummer).get_expiry_date();
-        } else {
+        // Reversed the check, so I could remove the else from the if statement
+        if (scanner.nextLine().equals("j")) {
             final int days_till_expiry = InputValidators.request_valid_input("Hoelang is de offerte geldig (dagen): ",
                     Integer::parseInt,
                     days -> days > 0);
@@ -226,27 +162,21 @@ public class OfferteManager {
             offerte_expiry = LocalDateTime.now().plusDays(days_till_expiry).toString();
         }
 
-        BoatConfig boat_config = offerte_list.get(offerte_nummer).get_config();
+        // Create the new offerte based on the new input and remove old offerte from the list
         final BasicOfferte new_offerte = new BasicOfferte(customer, boat_config, offerte_date, offerte_expiry);
+        offerte_list.remove(offerte_nummer);
 
         System.out.printf("Uw offerte nummer: %s%n", offerte_nummer);
         System.out.print("Wilt u het offerte nummer aanpassen? (j/n) ");
 
-        // Replace old offerte with the newly created offerte.
-        if (scanner.nextLine().equals("n")) {
-            offerte_list.replace(offerte_nummer, new_offerte);
-        } else {
-            // remove old offerte
-//            offerte_list.remove(offerte_nummer);
-
-            // make a new offerte nummer
+        if (scanner.nextLine().equals("j")) {
             offerte_nummer = InputValidators.request_valid_input("Geef het offerte nummer op (minimaal 1 cijfer): ",
                     Function.identity(),
                     ValidationUtils::is_valid_offerte_number);
-
-            // insert the new offerte with the new number
-            offerte_list.put(offerte_nummer, new_offerte);
         }
+
+        // Update the old offerte in the list to the new one
+        offerte_list.put(offerte_nummer, new_offerte);
     }
 
     public static void delete_offerte() {
@@ -329,5 +259,76 @@ public class OfferteManager {
 
     private static boolean contains_offerte(final String offerte_nummer) {
         return offerte_list.containsKey(offerte_nummer);
+    }
+
+    private static Customer edit_customer(Scanner scanner, BasicOfferte old_offerte) {
+        Customer customer = old_offerte.get_customer();
+
+        System.out.printf("Uw klant: %s%n", customer.get_name());
+        System.out.print("Wilt u de klant aanpassen? (j/n) ");
+
+        if (scanner.nextLine().equals("j")) {
+            String customer_name = customer.get_name();
+
+            System.out.printf("Uw klant naam is: %s%n", customer_name);
+            System.out.print("Wilt u de klant naam aanpassen? (j/n) ");
+
+            if (scanner.nextLine().equals("j")) {
+                customer_name = InputValidators.request_valid_input("Wat is de naam van de klant? (a-Z): ",
+                        String::toLowerCase, ValidationUtils::is_valid_full_name);
+            }
+
+            String customer_address = customer.get_address();
+
+            System.out.printf("Uw klant adres is: %s%n", customer_address);
+            System.out.print("Wilt u het klant adres aanpassen? (j/n) ");
+
+            if (scanner.nextLine().equals("j")) {
+                customer_address = InputValidators.request_valid_input("Wat is het adres van de klant? (Straat 23, postcode, stad/dorp): ",
+                        String::toLowerCase, ValidationUtils::is_valid_address);
+            }
+
+            String customer_email = customer.get_email();
+
+            System.out.printf("Uw klant email is: %s%n", customer_email);
+            System.out.print("Wilt u de klant email aanpassen? (j/n) ");
+
+            if (scanner.nextLine().equals("j")) {
+                customer_email = InputValidators.request_valid_input("Wat is de email van de klant? (example@email.com): ",
+                        String::toLowerCase, ValidationUtils::is_valid_email);
+            }
+
+            String customer_phone_number = customer.get_phone_number();
+
+            System.out.printf("Uw klant telefoon nummer is: %s%n", customer_phone_number);
+            System.out.print("Wilt u het klant telefoon nummer aanpassen? (j/n) ");
+
+            if (scanner.nextLine().equals("j")) {
+                customer_phone_number = InputValidators.request_valid_input("Wat is het telefoonnummer van de klant? (tussen 8-10 digits): ",
+                        Function.identity(), ValidationUtils::is_valid_phone_number);
+            }
+
+            CustomerManager.print_client_types();
+
+            CustomerType customer_type = customer.get_client_type();
+
+            System.out.printf("Uw klant type is: %s%n", customer_type.get_type_name());
+            System.out.print("Wilt u het klant type aanpassen? (j/n) ");
+
+            if (scanner.nextLine().equals("j")) {
+                CustomerManager.print_client_types();
+
+                final String customer_type_choice = InputValidators.request_valid_input(
+                        "Selecteer een klant type: ",
+                        Function.identity(),
+                        CustomerManager::contains_client_type);
+
+                customer_type = CustomerManager.get_client_type(customer_type_choice);
+            }
+
+            customer = new Customer(customer_name, customer_address, customer_email, customer_phone_number, customer_type);
+        }
+
+        return customer;
     }
 }
