@@ -175,7 +175,7 @@ public class OfferteManager {
                     ValidationUtils::is_valid_offerte_number);
         }
 
-        // Update the old offerte in the list to the new one
+        // Add the new offerte to the list
         offerte_list.put(offerte_nummer, new_offerte);
     }
 
